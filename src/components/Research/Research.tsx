@@ -7,7 +7,7 @@ import SubTitle from "../Title/SubTitle";
 const PublishedPapre = () => {
   const Paper = ({ title, author, paper }: { title: string; author: any; paper: string }) => {
     return (
-      <div className="mb-8">
+      <div className="mx-8 mb-12">
         <h4>{title}</h4>
         <div>{author}</div>
         <div>{paper}</div>
@@ -17,8 +17,7 @@ const PublishedPapre = () => {
   return (
     <Fade duration={1000} delay={600} className="flex justify-center">
       <SubTitle title="Published paper" />
-
-      <div className="w-1/2">
+      <div className="md:w-1/2 2xl:w-1/3">
         <Paper
           title="Auto Content Moderation in C2C e-Commerce"
           author={
@@ -99,10 +98,16 @@ const PublishedPapre = () => {
 
 const Research = () => {
   return (
-    <>
-      <section id="publish" className="bg-slate-300 text-black items-center mx-auto ">
-        <Title title="RESEARCH" />
-        {/* 
+    <section id="publish" className="bg-slate-300 text-black mx-auto">
+      <svg className="bg-slate-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path
+          fill="#111827"
+          fill-opacity="1"
+          d="M0,160L30,181.3C60,203,120,245,180,261.3C240,277,300,267,360,218.7C420,171,480,85,540,48C600,11,660,21,720,74.7C780,128,840,224,900,261.3C960,299,1020,277,1080,240C1140,203,1200,149,1260,133.3C1320,117,1380,139,1410,149.3L1440,160L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"
+        ></path>
+      </svg>
+      <Title title="RESEARCH" />
+      {/* 
                 <Fade duration={1000} delay={600}>
                     <div className="mx-24">
                         <div className="mb-4">
@@ -132,18 +137,8 @@ const Research = () => {
                         </div>
                     </div>
                 </Fade> */}
-
-        <br />
-        <br />
-        <PublishedPapre />
-      </section>
-      <svg className="bg-gray-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="#CBD5E1"
-          d="M0,32L48,80C96,128,192,224,288,224C384,224,480,128,576,112C672,96,768,160,864,154.7C960,149,1056,75,1152,90.7C1248,107,1344,213,1392,266.7L1440,320L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-        ></path>
-      </svg>
-    </>
+      <PublishedPapre />
+    </section>
   );
 };
 

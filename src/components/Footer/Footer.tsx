@@ -1,24 +1,14 @@
-import React, { useContext } from "react";
-import { Container } from "react-bootstrap";
-import { Link } from "react-scroll";
+import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer navbar-static-bottom">
-      <Container>
-        <span className="back-to-top">
-          <Link to="hello" smooth duration={1000}>
-            <i className="fa fa-angle-up fa-2x" aria-hidden="true" />
-          </Link>
-        </span>
-        <hr />
-        <p className="footer__text">
-          © {new Date().getFullYear()} - Developed by{" "}
-          <a href="https://github.com/mzk622" target="_blank" rel="noopener noreferrer">
-            Mizuki Sango
-          </a>
-        </p>
-      </Container>
+    <footer className="bg-gray-900 text-white md:flex md:justify-center pt-12 pb-8">
+      <div className="md:w-1/2 mx-4">
+        Copyright © {new Date().getFullYear()} - Developed by{" "}
+        <a href="https://github.com/mzk622" target="_blank">
+          Mizuki Sango
+        </a>
+      </div>
     </footer>
   );
 };
