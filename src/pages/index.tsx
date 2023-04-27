@@ -1,6 +1,6 @@
-import * as React from "react";
+import React from "react";
 
-import type { HeadFC, PageProps } from "gatsby";
+import type { PageProps } from "gatsby";
 import App from "../components/App";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -24,5 +24,3 @@ const IndexPage: React.FC<PageProps> = () => {
 };
 
 export default IndexPage;
-
-// export const Head: HeadFC = () => <title>Portfolio</title>
