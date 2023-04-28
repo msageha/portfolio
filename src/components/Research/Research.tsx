@@ -7,7 +7,7 @@ import SubTitle from "../Title/SubTitle";
 const PublishedPapre = () => {
   const Paper = ({ title, author, paper }: { title: string; author: any; paper: string }) => {
     return (
-      <div className="mx-8 mb-12">
+      <div className="mb-12">
         <h4>{title}</h4>
         <div>{author}</div>
         <div>{paper}</div>
@@ -15,8 +15,8 @@ const PublishedPapre = () => {
     );
   };
   return (
-    <Fade duration={1000} delay={600} className="flex justify-center">
-      <SubTitle title="Published paper" />
+    <Fade duration={1000} delay={600} className="mx-8 flex justify-center">
+      <SubTitle title="執筆論文" />
       <div className="md:w-1/2 2xl:w-1/3">
         <Paper
           title="Auto Content Moderation in C2C e-Commerce"
@@ -49,8 +49,7 @@ const PublishedPapre = () => {
           paper="The 32nd Pacific Asia Conference on Language(PACLIC 32)"
         />
         <Paper
-          title="スマートスピーカーにおける文章読み上げの課題とその解決
-                    "
+          title="スマートスピーカーにおける文章読み上げの課題とその解決"
           author={
             <>
               <span className="underline">珊瑚 彩主紀</span>
@@ -106,7 +105,49 @@ const Research = () => {
           d="M0,160L30,181.3C60,203,120,245,180,261.3C240,277,300,267,360,218.7C420,171,480,85,540,48C600,11,660,21,720,74.7C780,128,840,224,900,261.3C960,299,1020,277,1080,240C1140,203,1200,149,1260,133.3C1320,117,1380,139,1410,149.3L1440,160L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"
         ></path>
       </svg>
-      <Title title="RESEARCH" />
+      <Title title="成果" />
+      <Fade duration={1000} delay={600} className="mx-8 flex justify-center">
+        <SubTitle title="特許" />
+        <div className="md:w-1/2 2xl:w-1/3">
+          <div className="mb-12">
+            <a
+              className="text-black no-underline hover:underline"
+              href="https://patents.google.com/patent/JP2021189670A"
+            >
+              <h4>プログラム、情報処理方法、及び情報処理装置</h4>
+              <div>株式会社メルカリ</div>
+              <div>
+                新井 康平, 本間 和尊, 東原 秀亮, 櫻木 善将,{" "}
+                <span className="underline">珊瑚 彩主紀</span>, 紫藤 佑介
+              </div>
+            </a>
+          </div>
+          <div className="mb-12">
+            <a
+              className="text-black no-underline hover:underline"
+              href="https://patents.google.com/patent/JP2021092890A"
+            >
+              <h4>端末装置、データ共有方法及びプログラム</h4>
+              <div>株式会社メルカリ</div>
+              <div>
+                <span className="underline">珊瑚 彩主紀</span>
+              </div>
+            </a>
+          </div>
+          <div className="mb-12">
+            <a
+              className="text-black no-underline hover:underline"
+              href="https://patents.google.com/patent/JP2020009249A"
+            >
+              <h4>情報処理方法、情報処理装置、及びプログラム</h4>
+              <div>LINE株式会社</div>
+              <div>
+                佐藤 敏紀, <span className="underline">珊瑚 彩主紀</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </Fade>
       {/* 
                 <Fade duration={1000} delay={600}>
                     <div className="mx-24">
