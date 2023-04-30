@@ -17,7 +17,7 @@ const PublishedPapre = () => {
   return (
     <Fade duration={1000} delay={600} className="mx-8 flex justify-center">
       <SubTitle title="執筆論文" />
-      <div className="md:w-1/2 2xl:w-1/3">
+      <div className="md:w-1/2 2xl:w-1/3 text-sm md:text-base lg:text-xl">
         <Paper
           title="Auto Content Moderation in C2C e-Commerce"
           author={
@@ -108,7 +108,7 @@ const Research = () => {
       <Title title="成果" />
       <Fade duration={1000} delay={600} className="mx-8 flex justify-center">
         <SubTitle title="特許" />
-        <div className="md:w-1/2 2xl:w-1/3">
+        <div className="md:w-1/2 2xl:w-1/3 text-sm md:text-base lg:text-xl">
           <div className="mb-12">
             <a
               className="text-black no-underline hover:underline"

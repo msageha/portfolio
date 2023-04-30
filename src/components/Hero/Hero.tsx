@@ -18,7 +18,7 @@ const Hero = () => {
         </Fade>
 
         <Fade duration={1000} delay={1000}>
-          <Link to="about" smooth duration={100}>
+          <Link to="about" smooth duration={600}>
             <button className="text-blue-400 text-xl md:text-3xl lg:text-4xl hover:text-primary-600 focus:text-primary-600 focus:outline-none">
               {"About me..."}
             </button>

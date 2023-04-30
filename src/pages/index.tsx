@@ -1,8 +1,6 @@
 import React from "react";
-
 import type { PageProps } from "gatsby";
 import App from "../components/App";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 export function Head() {
   return (
