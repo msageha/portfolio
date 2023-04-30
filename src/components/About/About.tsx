@@ -15,7 +15,7 @@ const About = () => {
       </svg>
       <Title title="ABOUT ME" />
       <Fade duration={1000} delay={600} className="mx-8">
-        <div className="text-black flex flex-col md:flex-row md:justify-evenly md:items-center">
+        <div className="text-black flex flex-column md:flex-row md:justify-evenly md:items-center">
           <div className="md:w-1/3">
             <StaticImage
               src="../../images/profile.jpg"
@@ -25,54 +25,52 @@ const About = () => {
             <div className="text-sm md:text-base lg:text-xl">※台湾 九份で撮影したもの</div>
           </div>
           <div className="my-6 md:w-1/3 text-sm md:text-base lg:text-xl">
-            <div className="flex flex-column">
-              <div className="flex my-2">
-                <span className="w-1/4 font-semibold">氏名</span>
-                <span className="w-3/4">珊瑚 彩主紀 (さんご みずき)</span>
-              </div>
-              <div className="flex my-2">
-                <span className="w-1/4 font-semibold">生年月日</span>
-                <span className="w-3/4">1994年 6月 22日</span>
-              </div>
-              <div className="flex my-2">
-                <span className="w-1/4 font-semibold">mail</span>
-                <span className="w-3/4">
-                  <a
-                    className="text-black no-underline hover:underline"
-                    href={`mailto:msageha+info -at- gmail.com`}
-                  >
-                    msageha+info -at- gmail.com
-                  </a>
-                </span>
-              </div>
-              <div className="flex my-2">
-                <span className="w-1/4 font-semibold">趣味、嗜好</span>
-                <span className="w-3/4">
-                  旅行、特に海外旅行が好き。
-                  <br />
-                  フランス ブルゴーニュ地方のワインが好き。
-                </span>
-              </div>
-              <div className="flex my-2">
-                <span className="w-1/4 font-semibold">
-                  技術スタック
-                  <br />
-                  (業務経験)
-                </span>
-                <span className="w-3/4">
-                  言語: Python, Golang, Typescript
-                  <br />
-                  データベース: MySQL, PostgreSQL, BigQuery, Redis, Elasticsearch
-                  <br />
-                  クラウド: AWS, GCP
-                  <br />
-                  コンテナ: Docker, Kubernetes
-                  <br />
-                  分散処理: Apache Beam, Apache Spark
-                  <br />
-                  その他: Apache Airflow, Terraform, Git, CircleCI
-                </span>
-              </div>
+            <div className="flex my-2">
+              <span className="w-1/4 font-semibold">氏名</span>
+              <span className="w-3/4">珊瑚 彩主紀 (さんご みずき)</span>
+            </div>
+            <div className="flex my-2">
+              <span className="w-1/4 font-semibold">生年月日</span>
+              <span className="w-3/4">1994年 6月 22日</span>
+            </div>
+            <div className="flex my-2">
+              <span className="w-1/4 font-semibold">mail</span>
+              <span className="w-3/4">
+                <a
+                  className="text-black no-underline hover:underline"
+                  href={`mailto:msageha+info -at- gmail.com`}
+                >
+                  msageha+info -at- gmail.com
+                </a>
+              </span>
+            </div>
+            <div className="flex my-2">
+              <span className="w-1/4 font-semibold">趣味、嗜好</span>
+              <span className="w-3/4">
+                旅行、特に海外旅行が好き。
+                <br />
+                フランス ブルゴーニュ地方のワインが好き。
+              </span>
+            </div>
+            <div className="flex my-2">
+              <span className="w-1/4 font-semibold">
+                技術スタック
+                <br />
+                (業務経験)
+              </span>
+              <span className="w-3/4">
+                言語: Python, Golang, Typescript
+                <br />
+                データベース: MySQL, PostgreSQL, BigQuery, Redis, Elasticsearch
+                <br />
+                クラウド: AWS, GCP
+                <br />
+                コンテナ: Docker, Kubernetes
+                <br />
+                分散処理: Apache Beam, Apache Spark
+                <br />
+                その他: Apache Airflow, Terraform, Git, CircleCI
+              </span>
             </div>
           </div>
         </div>
