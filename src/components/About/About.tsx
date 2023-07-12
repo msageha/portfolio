@@ -15,7 +15,7 @@ const About = () => {
       </svg>
       <Title title="ABOUT ME" />
       <Fade duration={1000} delay={600} className="mx-8">
-        <div className="text-black flex flex-column md:flex-row md:justify-evenly md:items-center">
+        <div className="text-black md:flex md:flex-row md:justify-evenly md:items-center">
           <div className="md:w-1/3">
             <StaticImage
               src="../../images/profile.jpg"
@@ -24,7 +24,7 @@ const About = () => {
             />
             <div className="text-sm md:text-base lg:text-xl">※台湾 九份で撮影したもの</div>
           </div>
-          <div className="my-6 md:w-1/3 text-sm md:text-base lg:text-xl">
+          <div className="mt-6 md:w-1/3 text-sm md:text-base lg:text-xl">
             <div className="flex my-2">
               <span className="w-1/4 font-semibold">氏名</span>
               <span className="w-3/4">珊瑚 彩主紀 (さんご みずき)</span>
@@ -52,7 +52,7 @@ const About = () => {
                 フランス ブルゴーニュ地方のワインが好き。
               </span>
             </div>
-            <div className="flex my-2">
+            <div className="flex mt-2">
               <span className="w-1/4 font-semibold">
                 技術スタック
                 <br />
