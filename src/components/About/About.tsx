@@ -18,7 +18,8 @@ const About = () => {
         <div className="text-black md:flex md:flex-row md:justify-evenly md:items-center">
           <div className="md:w-1/3">
             <StaticImage
-              src="../../images/profile.jpg"
+              src="https://github.com/mzk622/portfolio/blob/main/src/images/profile.jpg"
+              // src="../../images/profile.jpg"
               alt="profile picture"
               className="rounded-lg"
             />
