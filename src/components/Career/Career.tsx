@@ -22,6 +22,10 @@ const Career = () => {
         <SubTitle title="経歴" />
         <div className="md:w-1/2 2xl:w-1/3">
           <div className="flex my-2">
+            <div className="w-2/5 font-semibold">2023 / 11 - 現在</div>
+            <div className="w-3/5">株式会社Dope 代表取締役</div>
+          </div>
+          <div className="flex my-2">
             <div className="w-2/5 font-semibold">2021 / 5 - 現在</div>
             <div className="w-3/5">JarvisML.inc</div>
           </div>
