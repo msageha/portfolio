@@ -10,10 +10,8 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
-    `gatsby-plugin-emotion`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-image`,
-    `gatsby-plugin-postcss`,
     `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-source-filesystem`,
