@@ -1,9 +1,21 @@
 import React from "react";
 import { Fade } from "react-awesome-reveal";
 import Title from "../Title/Title";
-import { StaticImage } from "gatsby-plugin-image";
+import { IGatsbyImageData, GatsbyImage } from "gatsby-plugin-image";
+import { graphql, useStaticQuery } from "gatsby";
 
 const About = () => {
+  const data = useStaticQuery(graphql`
+    query SiteMetaData {
+      file(relativePath: { eq: "profile.jpg" }) {
+        childImageSharp {
+          gatsbyImageData
+        }
+      }
+    }
+  `);
+  const image = data.file.childImageSharp.gatsbyImageData;
+
   return (
     <section id="about" className="bg-slate-300">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -17,12 +29,8 @@ const About = () => {
       <Fade duration={1000} delay={600} className="mx-8">
         <div className="text-black md:flex md:flex-row md:justify-evenly md:items-center">
           <div className="md:w-1/3">
-            <StaticImage
-              // src="https://github.com/mzk622/portfolio/blob/main/src/images/profile.jpg?raw=true"
-              src="../../images/profile.jpg"
-              alt="profile picture"
-              className="rounded-lg"
-            />
+            <GatsbyImage image={image} alt="profile picture" className="rounded-lg" />
+
             <div className="text-sm md:text-base lg:text-xl">※台湾 九份で撮影したもの</div>
           </div>
           <div className="mt-6 md:w-1/3 text-sm md:text-base lg:text-xl">
