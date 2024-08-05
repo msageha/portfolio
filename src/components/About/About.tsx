@@ -29,7 +29,12 @@ const About = () => {
       <Fade duration={1000} delay={600} className="mx-8">
         <div className="text-black md:flex md:flex-row md:justify-evenly md:items-center">
           <div className="md:w-1/3">
-            <GatsbyImage image={image} alt="profile picture" className="rounded-lg" />
+            <img
+              src="https://raw.githubusercontent.com/msageha/portfolio/main/src/images/profile.jpg"
+              alt="profile picture"
+              className="rounded-lg"
+            />
+            {/* <GatsbyImage image={image} alt="profile picture" className="rounded-lg" /> */}
 
             <div className="text-sm md:text-base lg:text-xl">※台湾 九份で撮影したもの</div>
           </div>
