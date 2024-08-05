@@ -5,7 +5,7 @@ import Title from "../Title/Title";
 
 const Github = () => {
   return (
-    <a href="https://github.com/mzk622" target="_blank">
+    <a href="https://github.com/msageha" target="_blank">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="64"
