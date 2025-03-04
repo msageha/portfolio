@@ -29,7 +29,7 @@ const About: React.FC = () => {
       <Fade duration={1000} delay={600} className="mx-8">
         <div className="text-black md:flex md:flex-row md:justify-evenly md:items-center">
           <div className="md:w-1/3">
-          <GatsbyImage
+            <GatsbyImage
               image={image}
               alt="Profile picture of Mizuki Sango in Tokyo, Japan"
               className="rounded-lg"
