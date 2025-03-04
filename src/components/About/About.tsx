@@ -34,7 +34,6 @@ const About: React.FC = () => {
               alt="Profile picture of Mizuki Sango in Tokyo, Japan"
               className="rounded-lg"
             />
-
             <div className="text-sm md:text-base lg:text-xl">※台湾 九份で撮影したもの</div>
           </div>
           <div className="mt-6 md:w-1/3 text-sm md:text-base lg:text-xl">
