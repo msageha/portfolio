@@ -3,7 +3,6 @@ import Hero from "./Hero/Hero";
 import About from "./About/About";
 import Career from "./Career/Career";
 import Research from "./Research/Research";
-import Projects from "./Projects/Projects";
 import SNS from "./SNS/SNS";
 import Footer from "./Footer/Footer";
 
@@ -14,7 +13,6 @@ function App() {
       <About />
       <Career />
       <Research />
-      {/* <Projects /> */}
       <SNS />
       <Footer />
     </>

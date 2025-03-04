@@ -1,19 +1,25 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Fade } from "react-awesome-reveal";
-import { Container, Row, Col } from "react-bootstrap";
 import Title from "../Title/Title";
 import SubTitle from "../Title/SubTitle";
 
+interface PaperProps {
+  title: string;
+  author: React.ReactNode;
+  paper: string;
+}
+
+const Paper: React.FC<PaperProps> = ({ title, author, paper }) => {
+  return (
+    <div className="mb-12">
+      <h4>{title}</h4>
+      <div>{author}</div>
+      <div>{paper}</div>
+    </div>
+  );
+};
+
 const PublishedPapre = () => {
-  const Paper = ({ title, author, paper }: { title: string; author: any; paper: string }) => {
-    return (
-      <div className="mb-12">
-        <h4>{title}</h4>
-        <div>{author}</div>
-        <div>{paper}</div>
-      </div>
-    );
-  };
   return (
     <Fade duration={1000} delay={600} className="mx-8 flex justify-center">
       <SubTitle title="執筆論文" />
@@ -101,7 +107,7 @@ const Research = () => {
       <svg className="bg-slate-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path
           fill="#111827"
-          fill-opacity="1"
+          fillOpacity="1"
           d="M0,160L30,181.3C60,203,120,245,180,261.3C240,277,300,267,360,218.7C420,171,480,85,540,48C600,11,660,21,720,74.7C780,128,840,224,900,261.3C960,299,1020,277,1080,240C1140,203,1200,149,1260,133.3C1320,117,1380,139,1410,149.3L1440,160L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"
         ></path>
       </svg>
@@ -148,36 +154,6 @@ const Research = () => {
           </div>
         </div>
       </Fade>
-      {/* 
-                <Fade duration={1000} delay={600}>
-                    <div className="mx-24">
-                        <div className="mb-4">
-                            {
-                                "2013年4月、東北大学工学部入学。2017年3月卒業。卒業研究は、篠原、吉仲研究室にて、ミスマッチを許容した順序保存照合問題（Order-preserving pattern matching）の高速化。"
-                            }
-                        </div>
-                        <div className="mb-4">
-                            {
-                                "同年4月、東京工業大学情報理工学院、徳永研究室入学。自然言語処理、その中でも特に述語項構造解析、及び、分野依存、分野適応の研究。2019年3月修士課程終了。"
-                            }
-                        </div>
-                        <div className="mb-4">
-                            {
-                                "同年4月、東京工業大学情報理工学院、徳永研究室 博士課程進学。自然言語処理、その中でも特に述語項構造解析、及び、分野依存、分野適応の研究に従事。2023年3月、一身上の都合により、博士課程を中退。"
-                            }
-                        </div>
-                        <div className="mb-4">
-                            {
-                                "その後、仕事ではe-Commerce向けの不正出品やアンチマネーロンダリングといった不正検知を行うための機械学習モデルの開発に従事。"
-                            }
-                        </div>
-                        <div className="mb-4">
-                            {
-                                "現在は、同じくe-Commerceにおける売上・需要予測モデルや、Personalized-Ranking、リコメンデーションモデルの開発。"
-                            }
-                        </div>
-                    </div>
-                </Fade> */}
       <PublishedPapre />
     </section>
   );

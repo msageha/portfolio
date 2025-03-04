@@ -1,8 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Fade } from "react-awesome-reveal";
-import { Container, Row, Col } from "react-bootstrap";
-import Title from "../Title/Title";
-import { StaticImage } from "gatsby-plugin-image";
 
 const Project = ({
   id,
@@ -17,54 +14,39 @@ const Project = ({
   url: string;
   image: string;
 }) => {
-  const [isDesktop, setIsDesktop] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    if (window.innerWidth > 769) {
-      setIsDesktop(true);
-      setIsMobile(false);
-    } else {
-      setIsMobile(true);
-      setIsDesktop(false);
-    }
-  }, []);
-
   return (
-    <Row key={id}>
-      <Col lg={4} sm={12}>
+    <div key={id} className="flex flex-col md:flex-row items-center mb-12">
+      <div className="md:w-1/2 md:pr-8">
         <Fade duration={1000} delay={500}>
-          <div className="project-wrapper__text">
-            <h3 className="project-wrapper__text-title">{title}</h3>
-            <div>
-              <p>{info}</p>
-            </div>
+          <div>
+            <h3 className="text-xl md:text-2xl font-bold mb-4">{title}</h3>
+            <p className="mb-6">{info}</p>
             <a
               target="_blank"
               rel="noopener noreferrer"
-              className="cta-btn cta-btn--hero"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               href={url || "#!"}
             >
               See Live
             </a>
           </div>
         </Fade>
-      </Col>
-      <Col lg={8} sm={12}>
+      </div>
+      <div className="md:w-1/2 mt-6 md:mt-0">
         <Fade duration={1000} delay={1000}>
-          <div className="project-wrapper__image">
+          <div>
             <a
               href={url || "#!"}
               target="_blank"
               aria-label="Project Link"
               rel="noopener noreferrer"
             >
-              {/* <StaticImage src={image} alt="project image"  /> */}
+              <img src={image} alt="project" className="rounded-lg shadow-lg" />
             </a>
           </div>
         </Fade>
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 };
 

@@ -12,7 +12,7 @@ const Career = () => {
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
         <path
           fill="#CBD5E1"
-          fill-opacity="1"
+          fillOpacity="1"
           d="M0,192L30,202.7C60,213,120,235,180,245.3C240,256,300,256,360,256C420,256,480,256,540,224C600,192,660,128,720,128C780,128,840,192,900,208C960,224,1020,192,1080,202.7C1140,213,1200,267,1260,266.7C1320,267,1380,213,1410,186.7L1440,160L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"
         ></path>
       </svg>
@@ -23,11 +23,25 @@ const Career = () => {
         <div className="md:w-1/2 2xl:w-1/3">
           <div className="flex my-2">
             <div className="w-2/5 font-semibold">2023 / 11 - 現在</div>
-            <div className="w-3/5">株式会社Dope 代表取締役</div>
+            <a
+              href="https://aidaptive.com/about/"
+              target="_blank"
+              aria-label="JarvisML Inc."
+              className="w-3/5 no-underline hover:underline"
+            >
+              <div>株式会社Dope 代表取締役</div>
+            </a>
           </div>
           <div className="flex my-2">
             <div className="w-2/5 font-semibold">2021 / 5 - 現在</div>
-            <div className="w-3/5">JarvisML.inc</div>
+            <a
+              href="https://dope-inc.com/"
+              target="_blank"
+              aria-label="JarvisML Inc."
+              className="w-3/5 no-underline hover:underline"
+            >
+              <div>JarvisML Inc.</div>
+            </a>
           </div>
           <div className="flex my-2">
             <span className="w-2/5 font-semibold">2020 / 6 - 2021 / 4</span>
@@ -56,6 +70,10 @@ const Career = () => {
       <Fade duration={1000} delay={600} className="md:flex md:justify-center">
         <SubTitle title="インターン / 業務委託 / その他" />
         <div className="md:w-1/2 2xl:w-1/3">
+          <div className="flex my-2">
+            <span className="w-2/5 font-semibold">2024 / 5 - 現在</span>
+            <span className="w-3/5">株式会社テクノフェイス 業務委託</span>
+          </div>
           <div className="flex my-2">
             <span className="w-2/5 font-semibold">2021 / 5 - 現在</span>
             <span className="w-3/5">株式会社アイモバイル 業務委託</span>
