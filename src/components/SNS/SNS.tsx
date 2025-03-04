@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Fade } from "react-awesome-reveal";
-import { Container } from "react-bootstrap";
 import Title from "../Title/Title";
 
 const Github = () => {
