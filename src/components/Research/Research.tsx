@@ -1,19 +1,25 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Fade } from "react-awesome-reveal";
-import { Container, Row, Col } from "react-bootstrap";
 import Title from "../Title/Title";
 import SubTitle from "../Title/SubTitle";
 
+interface PaperProps {
+  title: string;
+  author: React.ReactNode;
+  paper: string;
+}
+
+const Paper: React.FC<PaperProps> = ({ title, author, paper }) => {
+  return (
+    <div className="mb-12">
+      <h4>{title}</h4>
+      <div>{author}</div>
+      <div>{paper}</div>
+    </div>
+  );
+};
+
 const PublishedPapre = () => {
-  const Paper = ({ title, author, paper }: { title: string; author: any; paper: string }) => {
-    return (
-      <div className="mb-12">
-        <h4>{title}</h4>
-        <div>{author}</div>
-        <div>{paper}</div>
-      </div>
-    );
-  };
   return (
     <Fade duration={1000} delay={600} className="mx-8 flex justify-center">
       <SubTitle title="執筆論文" />
@@ -148,36 +154,6 @@ const Research = () => {
           </div>
         </div>
       </Fade>
-      {/* 
-                <Fade duration={1000} delay={600}>
-                    <div className="mx-24">
-                        <div className="mb-4">
-                            {
-                                "2013年4月、東北大学工学部入学。2017年3月卒業。卒業研究は、篠原、吉仲研究室にて、ミスマッチを許容した順序保存照合問題（Order-preserving pattern matching）の高速化。"
-                            }
-                        </div>
-                        <div className="mb-4">
-                            {
-                                "同年4月、東京工業大学情報理工学院、徳永研究室入学。自然言語処理、その中でも特に述語項構造解析、及び、分野依存、分野適応の研究。2019年3月修士課程終了。"
-                            }
-                        </div>
-                        <div className="mb-4">
-                            {
-                                "同年4月、東京工業大学情報理工学院、徳永研究室 博士課程進学。自然言語処理、その中でも特に述語項構造解析、及び、分野依存、分野適応の研究に従事。2023年3月、一身上の都合により、博士課程を中退。"
-                            }
-                        </div>
-                        <div className="mb-4">
-                            {
-                                "その後、仕事ではe-Commerce向けの不正出品やアンチマネーロンダリングといった不正検知を行うための機械学習モデルの開発に従事。"
-                            }
-                        </div>
-                        <div className="mb-4">
-                            {
-                                "現在は、同じくe-Commerceにおける売上・需要予測モデルや、Personalized-Ranking、リコメンデーションモデルの開発。"
-                            }
-                        </div>
-                    </div>
-                </Fade> */}
       <PublishedPapre />
     </section>
   );

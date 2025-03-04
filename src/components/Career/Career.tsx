@@ -23,11 +23,25 @@ const Career = () => {
         <div className="md:w-1/2 2xl:w-1/3">
           <div className="flex my-2">
             <div className="w-2/5 font-semibold">2023 / 11 - 現在</div>
-            <div className="w-3/5">株式会社Dope 代表取締役</div>
+            <a
+              href="https://aidaptive.com/about/"
+              target="_blank"
+              aria-label="JarvisML Inc."
+              className="w-3/5 no-underline hover:underline"
+            >
+              <div>株式会社Dope 代表取締役</div>
+            </a>
           </div>
           <div className="flex my-2">
             <div className="w-2/5 font-semibold">2021 / 5 - 現在</div>
-            <div className="w-3/5">JarvisML.inc</div>
+            <a
+              href="https://dope-inc.com/"
+              target="_blank"
+              aria-label="JarvisML Inc."
+              className="w-3/5 no-underline hover:underline"
+            >
+              <div>JarvisML Inc.</div>
+            </a>
           </div>
           <div className="flex my-2">
             <span className="w-2/5 font-semibold">2020 / 6 - 2021 / 4</span>
@@ -56,6 +70,10 @@ const Career = () => {
       <Fade duration={1000} delay={600} className="md:flex md:justify-center">
         <SubTitle title="インターン / 業務委託 / その他" />
         <div className="md:w-1/2 2xl:w-1/3">
+          <div className="flex my-2">
+            <span className="w-2/5 font-semibold">2024 / 5 - 現在</span>
+            <span className="w-3/5">株式会社テクノフェイス 業務委託</span>
+          </div>
           <div className="flex my-2">
             <span className="w-2/5 font-semibold">2021 / 5 - 現在</span>
             <span className="w-3/5">株式会社アイモバイル 業務委託</span>

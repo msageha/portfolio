@@ -14,19 +14,6 @@ const Project = ({
   url: string;
   image: string;
 }) => {
-  const [isDesktop, setIsDesktop] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    if (window.innerWidth > 769) {
-      setIsDesktop(true);
-      setIsMobile(false);
-    } else {
-      setIsMobile(true);
-      setIsDesktop(false);
-    }
-  }, []);
-
   return (
     <div key={id} className="flex flex-col md:flex-row items-center mb-12">
       <div className="md:w-1/2 md:pr-8">
