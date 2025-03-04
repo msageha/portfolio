@@ -40,6 +40,9 @@
     "gh-pages": "^5.0.0",
     "prettier": "^2.8.8",
     "tailwindcss": "^3.2.7",
-    "typescript": "^5.4.5"
+    "typescript": "^5.8.2"
+  },
+  "resolutions": {
+    "graphql": "15.5.0"
   }
 }
