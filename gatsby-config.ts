@@ -13,6 +13,19 @@ const config: GatsbyConfig = {
     `gatsby-plugin-sharp`,
     `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Mizuki Sango Portfolio`,
+        short_name: `Portfolio`,
+        start_url: `/`,
+        background_color: `#111827`,
+        theme_color: `#111827`,
+        display: `minimal-ui`,
+        icon: `src/images/icon.png`,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -25,6 +38,14 @@ const config: GatsbyConfig = {
       options: {
         name: `pages`,
         path: `${__dirname}/src/pages/`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-typescript`,
+      options: {
+        isTSX: true,
+        jsxPragma: `jsx`,
+        allExtensions: true,
       },
     },
   ],
