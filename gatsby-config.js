@@ -11,6 +11,7 @@ module.exports = {
     `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sitemap`,
+    `gatsby-plugin-typescript`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
