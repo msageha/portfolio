@@ -47,5 +47,5 @@ module.exports = {
       },
     },
   ],
-  pathPrefix: "/portfolio",
+  pathPrefix: "",
 };
