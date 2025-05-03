@@ -7,11 +7,14 @@ interface WaveProps {
 
 const Wave: React.FC<WaveProps> = ({ bgColor, waveRGB }) => {
   return (
-    <div className="relative w-screen h-[20vh]">
-      <div className="absolute w-screen top-0 -z-10" style={{ background: `rgb(${waveRGB})` }}>
-        <div className={bgColor}>
+    <div className="relative w-full overflow-hidden" style={{ height: "15vh", minHeight: "100px" }}>
+      <div
+        className="absolute w-full h-full top-0 left-0"
+        style={{ background: `rgb(${waveRGB})` }}
+      >
+        <div className={`${bgColor} w-full h-full`}>
           <svg
-            className="waves relative"
+            className="w-full h-full"
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
             viewBox="0 24 150 28"
