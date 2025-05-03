@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-scroll";
 import { Fade } from "react-awesome-reveal";
 
-const Hero = () => {
+const Hero: React.FC = () => {
   return (
     <section id="hero" className="bg-gray-900 h-screen">
       <div className="absolute inset-0 flex items-center text-center justify-center flex-col mx-10">
