@@ -19,7 +19,7 @@
     "format:fix": "prettier --write ./src"
   },
   "dependencies": {
-    "gatsby": "^5.14.6",
+    "gatsby": "^5.15.0",
     "gatsby-plugin-image": "^3.14.0",
     "gatsby-plugin-manifest": "^5.14.0",
     "gatsby-plugin-sharp": "^5.14.0",
