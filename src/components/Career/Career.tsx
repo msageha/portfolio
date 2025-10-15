@@ -25,7 +25,7 @@ const Career = () => {
             </a>
           </div>
           <div className="flex my-2">
-            <div className="w-2/5 font-semibold">2023 / 11 - 現在</div>
+            <div className="w-2/5 font-semibold">2025 / 8 - 現在</div>
             <a
               href="https://dope-inc.com/"
               target="_blank"
