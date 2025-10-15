@@ -36,7 +36,7 @@ const Career = () => {
             </a>
           </div>
           <div className="flex my-2">
-            <div className="w-2/5 font-semibold">2021 / 5 - 現在</div>
+            <div className="w-2/5 font-semibold">2021 / 5 - 2025 / 7</div>
             <a
               href="https://aidaptive.com/about/"
               target="_blank"
