@@ -16,9 +16,20 @@ const Career = () => {
           <div className="flex my-2">
             <div className="w-2/5 font-semibold">2023 / 11 - 現在</div>
             <a
-              href="https://aidaptive.com/about/"
+              href="https://sakana.ai/"
               target="_blank"
-              aria-label="JarvisML Inc."
+              aria-label="SakanaAI Inc."
+              className="w-3/5 no-underline hover:underline"
+            >
+              <div>Sakana AI株式会社</div>
+            </a>
+          </div>
+          <div className="flex my-2">
+            <div className="w-2/5 font-semibold">2023 / 11 - 現在</div>
+            <a
+              href="https://dope-inc.com/"
+              target="_blank"
+              aria-label="Dope Inc."
               className="w-3/5 no-underline hover:underline"
             >
               <div>株式会社Dope 代表取締役</div>
@@ -27,7 +38,7 @@ const Career = () => {
           <div className="flex my-2">
             <div className="w-2/5 font-semibold">2021 / 5 - 現在</div>
             <a
-              href="https://dope-inc.com/"
+              href="https://aidaptive.com/about/"
               target="_blank"
               aria-label="JarvisML Inc."
               className="w-3/5 no-underline hover:underline"
