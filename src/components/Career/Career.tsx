@@ -14,7 +14,7 @@ const Career = () => {
         <SubTitle title="経歴" />
         <div className="md:w-1/2 2xl:w-1/3">
           <div className="flex my-2">
-            <div className="w-2/5 font-semibold">2023 / 11 - 現在</div>
+            <div className="w-2/5 font-semibold">2025 / 8 - 現在</div>
             <a
               href="https://sakana.ai/"
               target="_blank"
@@ -25,7 +25,7 @@ const Career = () => {
             </a>
           </div>
           <div className="flex my-2">
-            <div className="w-2/5 font-semibold">2025 / 8 - 現在</div>
+            <div className="w-2/5 font-semibold">2023 / 11 - 現在</div>
             <a
               href="https://dope-inc.com/"
               target="_blank"
@@ -78,7 +78,7 @@ const Career = () => {
             <span className="w-3/5">株式会社テクノフェイス 業務委託</span>
           </div>
           <div className="flex my-2">
-            <span className="w-2/5 font-semibold">2021 / 5 - 現在</span>
+            <span className="w-2/5 font-semibold">2021 / 5 - 2025 / 9</span>
             <span className="w-3/5">株式会社アイモバイル 業務委託</span>
           </div>
           <div className="flex my-2">
