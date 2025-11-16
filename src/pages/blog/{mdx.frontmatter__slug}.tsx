@@ -1,9 +1,11 @@
 import React from 'react';
 import { graphql, Link, PageProps } from 'gatsby';
 import { Fade } from 'react-awesome-reveal';
+import { MDXProvider } from '@mdx-js/react';
 import Footer from '../../components/Footer/Footer';
 import Wave from '../../components/Wave/wave';
 import Header from '../../components/Header/Header';
+import { mdxComponents } from '../../components/BudouX/MDXComponents';
 
 interface BlogPostData {
   mdx: {
@@ -65,7 +67,9 @@ const BlogPost: React.FC<PageProps<BlogPostData>> = ({ data, children }) => {
 
           <Fade duration={1000} delay={700}>
             <div className="prose prose-invert prose-lg max-w-none">
-              <div className="mdx-content">{children}</div>
+              <MDXProvider components={mdxComponents}>
+                <div className="mdx-content">{children}</div>
+              </MDXProvider>
             </div>
           </Fade>
 
