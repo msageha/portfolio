@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { graphql, Link, PageProps } from 'gatsby';
-import { useFlexSearch } from 'react-use-flexsearch';
 import { Fade } from 'react-awesome-reveal';
 import Footer from '../components/Footer/Footer';
 import Wave from '../components/Wave/wave';
@@ -22,40 +21,18 @@ interface BlogPageData {
   allMdx: {
     nodes: BlogPost[];
   };
-  localSearchBlog: {
-    index: string;
-    store: Record<string, any>;
-  };
 }
 
 const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
-  const [query, setQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
   const allPosts = data.allMdx.nodes;
-  const { index, store } = data.localSearchBlog;
-
-  const searchResults = useFlexSearch(query, index, store);
-
-  const displayPosts = query
-    ? searchResults.map((result: any) => ({
-        id: result.id,
-        frontmatter: {
-          title: result.title,
-          date: result.date,
-          slug: result.slug,
-          tags: result.tags || [],
-          description: result.description,
-        },
-        excerpt: result.excerpt,
-      }))
-    : allPosts;
 
   const filteredPosts = selectedTag
-    ? displayPosts.filter((post) =>
+    ? allPosts.filter((post) =>
         post.frontmatter.tags?.includes(selectedTag)
       )
-    : displayPosts;
+    : allPosts;
 
   const allTags = Array.from(
     new Set(allPosts.flatMap((post) => post.frontmatter.tags || []))
@@ -80,18 +57,6 @@ const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
           </Fade>
 
           <Fade duration={1000} delay={600}>
-            <div className="mb-8">
-              <input
-                type="text"
-                placeholder="記事を検索..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-blue-500 focus:outline-none transition-colors"
-              />
-            </div>
-          </Fade>
-
-          <Fade duration={1000} delay={800}>
             <div className="mb-12">
               <div className="flex flex-wrap gap-2 justify-center">
                 <button
@@ -190,10 +155,6 @@ export const query = graphql`
         }
         excerpt(pruneLength: 200)
       }
-    }
-    localSearchBlog {
-      index
-      store
     }
   }
 `;

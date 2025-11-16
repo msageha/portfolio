@@ -60,45 +60,6 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-local-search`,
-      options: {
-        name: `blog`,
-        engine: `flexsearch`,
-        query: `
-          {
-            allMdx(sort: {frontmatter: {date: DESC}}) {
-              nodes {
-                id
-                frontmatter {
-                  title
-                  date
-                  tags
-                  description
-                  slug
-                }
-                excerpt
-                body
-              }
-            }
-          }
-        `,
-        ref: `id`,
-        index: [`title`, `body`, `tags`],
-        store: [`id`, `slug`, `title`, `date`, `tags`, `description`, `excerpt`],
-        normalizer: ({ data }) =>
-          data.allMdx.nodes.map(node => ({
-            id: node.id,
-            slug: node.frontmatter.slug,
-            title: node.frontmatter.title,
-            date: node.frontmatter.date,
-            tags: node.frontmatter.tags,
-            description: node.frontmatter.description,
-            excerpt: node.excerpt,
-            body: node.body,
-          })),
-      },
-    },
-    {
       resolve: `gatsby-plugin-typescript`,
       options: {
         isTSX: true,
