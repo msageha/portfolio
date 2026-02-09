@@ -11,10 +11,7 @@ export function Head() {
       <html lang="ja" />
       <meta property="og:locale" content="ja_JP" />
       <meta property="og:site_name" content="mizuki msageha mzk Portfolio" />
-      <meta
-        name="description"
-        content="mizuki's Portfolio | 珊瑚 彩主紀のポートフォリオページ"
-      />
+      <meta name="description" content="mizuki's Portfolio | 珊瑚 彩主紀のポートフォリオページ" />
       <meta
         property="og:description"
         content="mizuki's Portfolio | 珊瑚 彩主紀のポートフォリオページ"

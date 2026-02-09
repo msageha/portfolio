@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { navigate } from 'gatsby';
+import React, { useState, useEffect, useRef } from "react";
+import { navigate } from "gatsby";
 
 // Pagefind type definitions
 interface PagefindSearchResult {
@@ -27,8 +27,8 @@ interface SearchProps {
   onQueryChange?: (query: string) => void;
 }
 
-const Search: React.FC<SearchProps> = ({ className = '', onQueryChange }) => {
-  const [query, setQuery] = useState('');
+const Search: React.FC<SearchProps> = ({ className = "", onQueryChange }) => {
+  const [query, setQuery] = useState("");
   const [results, setResults] = useState<PagefindResultData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -44,12 +44,12 @@ const Search: React.FC<SearchProps> = ({ className = '', onQueryChange }) => {
     const loadPagefind = async () => {
       try {
         // @ts-ignore - Pagefind is loaded dynamically
-        const pagefindModule = await import('/pagefind/pagefind.js');
+        const pagefindModule = await import("/pagefind/pagefind.js");
         await pagefindModule.init();
         setPagefind(pagefindModule);
       } catch (err) {
-        console.error('Failed to load Pagefind:', err);
-        setError('検索機能はビルド後に利用できます');
+        console.error("Failed to load Pagefind:", err);
+        setError("検索機能はビルド後に利用できます");
       }
     };
 
@@ -69,23 +69,23 @@ const Search: React.FC<SearchProps> = ({ className = '', onQueryChange }) => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Handle ESC key to clear search
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setQuery('');
+      if (event.key === "Escape") {
+        setQuery("");
         setResults([]);
         setShowResults(false);
         inputRef.current?.blur();
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   // Debounced search
@@ -111,11 +111,11 @@ const Search: React.FC<SearchProps> = ({ className = '', onQueryChange }) => {
       try {
         const searchResults = await pagefind.search(query);
         const resultsData = await Promise.all(
-          searchResults.results.slice(0, 10).map((result) => result.data())
+          searchResults.results.slice(0, 10).map((result) => result.data()),
         );
         setResults(resultsData);
       } catch (err) {
-        console.error('Search error:', err);
+        console.error("Search error:", err);
         setResults([]);
       } finally {
         setIsLoading(false);
@@ -131,7 +131,7 @@ const Search: React.FC<SearchProps> = ({ className = '', onQueryChange }) => {
 
   const handleResultClick = (url: string) => {
     setShowResults(false);
-    setQuery('');
+    setQuery("");
     navigate(url);
   };
 
@@ -142,7 +142,7 @@ const Search: React.FC<SearchProps> = ({ className = '', onQueryChange }) => {
         dangerouslySetInnerHTML={{
           __html: excerpt.replace(
             /<mark>/g,
-            '<mark class="bg-pink-500/30 text-pink-200 px-1 rounded">'
+            '<mark class="bg-pink-500/30 text-pink-200 px-1 rounded">',
           ),
         }}
       />
@@ -173,9 +173,7 @@ const Search: React.FC<SearchProps> = ({ className = '', onQueryChange }) => {
         </div>
       </div>
 
-      <p className="text-gray-500 text-xs mt-2 ml-1">
-        キーワードをスペースで区切って検索できます
-      </p>
+      <p className="text-gray-500 text-xs mt-2 ml-1">キーワードをスペースで区切って検索できます</p>
 
       {error && (
         <div className="mt-2 p-3 bg-gray-800 border border-gray-700 rounded-lg text-gray-400 text-sm">
@@ -206,9 +204,7 @@ const Search: React.FC<SearchProps> = ({ className = '', onQueryChange }) => {
                     onClick={() => handleResultClick(result.url)}
                     className="w-full text-left px-4 py-3 hover:bg-gray-700 transition-colors focus:outline-none focus:bg-gray-700"
                   >
-                    <h3 className="text-white font-semibold mb-1 text-base">
-                      {result.meta.title}
-                    </h3>
+                    <h3 className="text-white font-semibold mb-1 text-base">{result.meta.title}</h3>
                     <p className="text-gray-300 text-sm line-clamp-2">
                       {highlightExcerpt(result.excerpt)}
                     </p>

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { loadDefaultJapaneseParser } from 'budoux';
+import React, { useEffect, useRef } from "react";
+import { loadDefaultJapaneseParser } from "budoux";
 
 interface BudouXTextProps {
   children: React.ReactNode;
@@ -9,8 +9,8 @@ interface BudouXTextProps {
 
 const BudouXText: React.FC<BudouXTextProps> = ({
   children,
-  className = '',
-  as: Component = 'span'
+  className = "",
+  as: Component = "span",
 }) => {
   const elementRef = useRef<HTMLElement>(null);
 
@@ -31,7 +31,7 @@ const BudouXText: React.FC<BudouXTextProps> = ({
             result.forEach((chunk, index) => {
               fragment.appendChild(document.createTextNode(chunk));
               if (index < result.length - 1) {
-                const wbr = document.createElement('wbr');
+                const wbr = document.createElement("wbr");
                 fragment.appendChild(wbr);
               }
             });
@@ -51,11 +51,7 @@ const BudouXText: React.FC<BudouXTextProps> = ({
     applyBudouX();
   }, [children]);
 
-  return React.createElement(
-    Component,
-    { ref: elementRef, className },
-    children
-  );
+  return React.createElement(Component, { ref: elementRef, className }, children);
 };
 
 export default BudouXText;

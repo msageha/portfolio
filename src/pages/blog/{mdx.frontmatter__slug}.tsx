@@ -1,11 +1,11 @@
-import React from 'react';
-import { graphql, Link, PageProps } from 'gatsby';
-import { Fade } from 'react-awesome-reveal';
-import { MDXProvider } from '@mdx-js/react';
-import Footer from '../../components/Footer/Footer';
-import Wave from '../../components/Wave/wave';
-import Header from '../../components/Header/Header';
-import { mdxComponents } from '../../components/BudouX/MDXComponents';
+import React from "react";
+import { graphql, Link, PageProps } from "gatsby";
+import { Fade } from "react-awesome-reveal";
+import { MDXProvider } from "@mdx-js/react";
+import Footer from "../../components/Footer/Footer";
+import Wave from "../../components/Wave/wave";
+import Header from "../../components/Header/Header";
+import { mdxComponents } from "../../components/BudouX/MDXComponents";
 
 interface BlogPostData {
   mdx: {
@@ -43,10 +43,10 @@ const BlogPost: React.FC<PageProps<BlogPostData>> = ({ data, children }) => {
               </h1>
               <div className="flex flex-wrap gap-4 items-center text-gray-400">
                 <time>
-                  {new Date(frontmatter.date).toLocaleDateString('ja-JP', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
+                  {new Date(frontmatter.date).toLocaleDateString("ja-JP", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
                   })}
                 </time>
                 {frontmatter.tags && (
@@ -199,13 +199,13 @@ export function Head({ data }: PageProps<BlogPostData>) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": frontmatter.title,
-    "datePublished": frontmatter.date,
-    "author": {
+    headline: frontmatter.title,
+    datePublished: frontmatter.date,
+    author: {
       "@type": "Person",
-      "name": "Mizuki Sango"
+      name: "Mizuki Sango",
     },
-    "description": frontmatter.description
+    description: frontmatter.description,
   };
 
   return (
@@ -217,9 +217,7 @@ export function Head({ data }: PageProps<BlogPostData>) {
       <meta property="og:type" content="article" />
       <meta property="article:published_time" content={frontmatter.date} />
       <link rel="canonical" href={`https://msageha.net/blog/${frontmatter.slug}/`} />
-      <script type="application/ld+json">
-        {JSON.stringify(jsonLd)}
-      </script>
+      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
     </>
   );
 }

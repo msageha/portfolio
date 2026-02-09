@@ -13,16 +13,10 @@ const Header: React.FC = () => {
             Mizuki Sango
           </Link>
           <div className="flex gap-6">
-            <Link
-              to="/"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
+            <Link to="/" className="text-gray-300 hover:text-white transition-colors">
               Home
             </Link>
-            <Link
-              to="/blog"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
+            <Link to="/blog" className="text-gray-300 hover:text-white transition-colors">
               Blog
             </Link>
           </div>

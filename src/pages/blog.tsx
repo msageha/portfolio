@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
-import { graphql, Link, PageProps } from 'gatsby';
-import { Fade } from 'react-awesome-reveal';
-import Footer from '../components/Footer/Footer';
-import Wave from '../components/Wave/wave';
-import Header from '../components/Header/Header';
-import Search from '../components/Search';
+import React, { useState, useCallback } from "react";
+import { graphql, Link, PageProps } from "gatsby";
+import { Fade } from "react-awesome-reveal";
+import Footer from "../components/Footer/Footer";
+import Wave from "../components/Wave/wave";
+import Header from "../components/Header/Header";
+import Search from "../components/Search";
 
 interface BlogPost {
   id: string;
@@ -35,13 +35,11 @@ const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
   const allPosts = data.allMdx.nodes;
 
   const filteredPosts = selectedTag
-    ? allPosts.filter((post) =>
-        post.frontmatter.tags?.includes(selectedTag)
-      )
+    ? allPosts.filter((post) => post.frontmatter.tags?.includes(selectedTag))
     : allPosts;
 
   const allTags = Array.from(
-    new Set(allPosts.flatMap((post) => post.frontmatter.tags || []))
+    new Set(allPosts.flatMap((post) => post.frontmatter.tags || [])),
   ).sort();
 
   return (
@@ -56,9 +54,7 @@ const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
                   Blog
                 </span>
               </h1>
-              <p className="text-gray-400 text-lg md:text-xl">
-                技術記事やプロジェクトの記録
-              </p>
+              <p className="text-gray-400 text-lg md:text-xl">技術記事やプロジェクトの記録</p>
             </div>
           </Fade>
 
@@ -69,85 +65,77 @@ const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
           </Fade>
 
           {!isSearchActive && (
-          <Fade duration={1000} delay={600}>
-            <div className="mb-12">
-              <div className="flex flex-wrap gap-2 justify-center">
-                <button
-                  onClick={() => setSelectedTag(null)}
-                  className={`px-4 py-2 rounded-full text-sm transition-all ${
-                    selectedTag === null
-                      ? 'bg-gradient-to-r from-pink-500 to-violet-500 text-white'
-                      : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                  }`}
-                >
-                  すべて
-                </button>
-                {allTags.map((tag) => (
+            <Fade duration={1000} delay={600}>
+              <div className="mb-12">
+                <div className="flex flex-wrap gap-2 justify-center">
                   <button
-                    key={tag}
-                    onClick={() => setSelectedTag(tag)}
+                    onClick={() => setSelectedTag(null)}
                     className={`px-4 py-2 rounded-full text-sm transition-all ${
-                      selectedTag === tag
-                        ? 'bg-gradient-to-r from-pink-500 to-violet-500 text-white'
-                        : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                      selectedTag === null
+                        ? "bg-gradient-to-r from-pink-500 to-violet-500 text-white"
+                        : "bg-gray-800 text-gray-300 hover:bg-gray-700"
                     }`}
                   >
-                    {tag}
+                    すべて
                   </button>
-                ))}
+                  {allTags.map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => setSelectedTag(tag)}
+                      className={`px-4 py-2 rounded-full text-sm transition-all ${
+                        selectedTag === tag
+                          ? "bg-gradient-to-r from-pink-500 to-violet-500 text-white"
+                          : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
-          </Fade>
+            </Fade>
           )}
 
           {!isSearchActive && (
-          <div className="grid gap-6 max-w-4xl mx-auto">
-            {filteredPosts.length === 0 ? (
-              <Fade duration={1000}>
-                <p className="text-gray-400 text-center py-8">
-                  記事が見つかりませんでした。
-                </p>
-              </Fade>
-            ) : (
-              filteredPosts.map((post, index) => (
-                <Fade key={post.id} duration={1000} delay={100 * index}>
-                  <Link
-                    to={`/blog/${post.frontmatter.slug}`}
-                    className="block bg-gray-800 rounded-lg p-6 hover:bg-gray-750 transition-all border border-gray-700 hover:border-pink-500 hover:shadow-lg hover:shadow-pink-500/20"
-                  >
-                    <div className="mb-3 flex flex-wrap items-center gap-4">
-                      <time className="text-sm text-gray-400">
-                        {new Date(post.frontmatter.date).toLocaleDateString(
-                          'ja-JP',
-                          {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          }
-                        )}
-                      </time>
-                      <div className="flex gap-2 flex-wrap">
-                        {post.frontmatter.tags?.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2 py-1 bg-gray-700 text-xs rounded"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <h2 className="text-2xl font-bold mb-2 text-white">
-                      {post.frontmatter.title}
-                    </h2>
-                    <p className="text-gray-300">
-                      {post.frontmatter.description || post.excerpt}
-                    </p>
-                  </Link>
+            <div className="grid gap-6 max-w-4xl mx-auto">
+              {filteredPosts.length === 0 ? (
+                <Fade duration={1000}>
+                  <p className="text-gray-400 text-center py-8">記事が見つかりませんでした。</p>
                 </Fade>
-              ))
-            )}
-          </div>
+              ) : (
+                filteredPosts.map((post, index) => (
+                  <Fade key={post.id} duration={1000} delay={100 * index}>
+                    <Link
+                      to={`/blog/${post.frontmatter.slug}`}
+                      className="block bg-gray-800 rounded-lg p-6 hover:bg-gray-750 transition-all border border-gray-700 hover:border-pink-500 hover:shadow-lg hover:shadow-pink-500/20"
+                    >
+                      <div className="mb-3 flex flex-wrap items-center gap-4">
+                        <time className="text-sm text-gray-400">
+                          {new Date(post.frontmatter.date).toLocaleDateString("ja-JP", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </time>
+                        <div className="flex gap-2 flex-wrap">
+                          {post.frontmatter.tags?.map((tag) => (
+                            <span key={tag} className="px-2 py-1 bg-gray-700 text-xs rounded">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <h2 className="text-2xl font-bold mb-2 text-white">
+                        {post.frontmatter.title}
+                      </h2>
+                      <p className="text-gray-300">
+                        {post.frontmatter.description || post.excerpt}
+                      </p>
+                    </Link>
+                  </Fade>
+                ))
+              )}
+            </div>
           )}
         </div>
       </section>
