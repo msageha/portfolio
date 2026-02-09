@@ -13,18 +13,13 @@ export function Head() {
       <meta property="og:site_name" content="mizuki msageha mzk Portfolio" />
       <meta
         name="description"
-        content="mizuki's Portfolio | 珊瑚 彩主紀のポートフォリオページ"
-      />
-      <meta
-        property="og:description"
-        content="mizuki's Portfolio | 珊瑚 彩主紀のポートフォリオページ"
+        content={"mizuki's Portfolio\n珊瑚 彩主紀のポートフォリオページ"}
       />
       <meta property="og:type" content="website" />
       <meta
         property="og:image"
         content="https://raw.githubusercontent.com/msageha/portfolio/main/src/images/profile.jpg"
       />
-      <link rel="canonical" href="https://msageha.net/" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       <link

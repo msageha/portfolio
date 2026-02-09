@@ -159,4 +159,17 @@ export const query = graphql`
   }
 `;
 
+export function Head() {
+  return (
+    <>
+      <title>Blog | Mizuki Sango - Portfolio</title>
+      <meta name="description" content="技術記事やプロジェクトの記録" />
+      <meta property="og:title" content="Blog | Mizuki Sango" />
+      <meta property="og:description" content="技術記事やプロジェクトの記録" />
+      <meta property="og:type" content="website" />
+      <link rel="canonical" href="https://msageha.net/blog/" />
+    </>
+  );
+}
+
 export default BlogPage;

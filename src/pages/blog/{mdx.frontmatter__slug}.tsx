@@ -186,10 +186,42 @@ export const query = graphql`
         date
         tags
         description
+        slug
       }
       body
     }
   }
 `;
+
+export function Head({ data }: PageProps<BlogPostData>) {
+  const { frontmatter } = data.mdx;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": frontmatter.title,
+    "datePublished": frontmatter.date,
+    "author": {
+      "@type": "Person",
+      "name": "Mizuki Sango"
+    },
+    "description": frontmatter.description
+  };
+
+  return (
+    <>
+      <title>{frontmatter.title} | Mizuki Sango Blog</title>
+      <meta name="description" content={frontmatter.description} />
+      <meta property="og:title" content={frontmatter.title} />
+      <meta property="og:description" content={frontmatter.description} />
+      <meta property="og:type" content="article" />
+      <meta property="article:published_time" content={frontmatter.date} />
+      <link rel="canonical" href={`https://msageha.net/blog/${frontmatter.slug}/`} />
+      <script type="application/ld+json">
+        {JSON.stringify(jsonLd)}
+      </script>
+    </>
+  );
+}
 
 export default BlogPost;
