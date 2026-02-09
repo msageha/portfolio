@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { graphql, Link, PageProps } from 'gatsby';
 import { Fade } from 'react-awesome-reveal';
 import Footer from '../components/Footer/Footer';
 import Wave from '../components/Wave/wave';
 import Header from '../components/Header/Header';
+import Search from '../components/Search';
 
 interface BlogPost {
   id: string;
@@ -25,6 +26,11 @@ interface BlogPageData {
 
 const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [isSearchActive, setIsSearchActive] = useState(false);
+
+  const handleQueryChange = useCallback((query: string) => {
+    setIsSearchActive(query.trim().length > 0);
+  }, []);
 
   const allPosts = data.allMdx.nodes;
 
@@ -56,6 +62,13 @@ const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
             </div>
           </Fade>
 
+          <Fade duration={1000} delay={450}>
+            <div className="max-w-xl mx-auto mb-8">
+              <Search onQueryChange={handleQueryChange} />
+            </div>
+          </Fade>
+
+          {!isSearchActive && (
           <Fade duration={1000} delay={600}>
             <div className="mb-12">
               <div className="flex flex-wrap gap-2 justify-center">
@@ -85,7 +98,9 @@ const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
               </div>
             </div>
           </Fade>
+          )}
 
+          {!isSearchActive && (
           <div className="grid gap-6 max-w-4xl mx-auto">
             {filteredPosts.length === 0 ? (
               <Fade duration={1000}>
@@ -133,6 +148,7 @@ const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
               ))
             )}
           </div>
+          )}
         </div>
       </section>
       <Wave bgColor="bg-gray-900" waveRGB="17,24,39" />
