@@ -14,7 +14,7 @@ const About: React.FC = () => {
       }
     }
   `);
-  const image = data.file.childImageSharp.gatsbyImageData;
+  const image = data.file?.childImageSharp?.gatsbyImageData;
 
   return (
     <section id="about" className="bg-slate-300">
@@ -22,11 +22,13 @@ const About: React.FC = () => {
       <Fade duration={1000} delay={600} className="mx-8">
         <div className="text-black md:flex md:flex-row md:justify-evenly md:items-center">
           <div className="md:w-1/3">
-            <GatsbyImage
-              image={image}
-              alt="Profile picture of Mizuki Sango in Tokyo, Japan"
-              className="rounded-lg"
-            />
+            {image && (
+              <GatsbyImage
+                image={image}
+                alt="Profile picture of Mizuki Sango in Tokyo, Japan"
+                className="rounded-lg"
+              />
+            )}
 
             <div className="text-sm md:text-base lg:text-xl">※台湾 九份で撮影したもの</div>
           </div>

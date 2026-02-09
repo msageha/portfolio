@@ -11,7 +11,20 @@ module.exports = {
     `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sitemap`,
-    `gatsby-plugin-typescript`,
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.mdx`, `.md`],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1200,
+            },
+          },
+        ],
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -36,6 +49,13 @@ module.exports = {
       options: {
         name: `pages`,
         path: `${__dirname}/src/pages/`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `blog`,
+        path: `${__dirname}/content/blog/`,
       },
     },
     {
