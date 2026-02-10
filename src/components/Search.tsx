@@ -44,7 +44,7 @@ const Search: React.FC<SearchProps> = ({ className = "", onQueryChange }) => {
     const loadPagefind = async () => {
       try {
         // @ts-ignore - Pagefind is loaded dynamically
-        const pagefindModule = await import("/pagefind/pagefind.js");
+        const pagefindModule = await import(/* webpackIgnore: true */ "/pagefind/pagefind.js");
         await pagefindModule.init();
         setPagefind(pagefindModule);
       } catch (err) {

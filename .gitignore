@@ -5,3 +5,10 @@ src/gatsby-types.d.ts
 
 # Maestro multi-agent system
 .maestro/
+
+# Security - sensitive files
+.env
+*.key
+credentials.*
+*.pem
+*.secret
