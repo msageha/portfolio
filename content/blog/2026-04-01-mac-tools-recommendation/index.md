@@ -1,6 +1,6 @@
 ---
 title: "dotfiles で管理している Mac 特有のおすすめツール"
-date: "2026-04-02"
+date: "2026-04-01"
 slug: "mac-tools-recommendation"
 tags: ["Mac", "ツール", "dotfiles", "開発環境"]
 description: "chezmoi で管理している dotfiles の中から、Mac 特有のおすすめツールを厳選して紹介します。"
