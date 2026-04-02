@@ -1,5 +1,5 @@
 ---
-title: "dotfiles で管理している Mac 特有のおすすめツール"
+title: "Mac 特有のおすすめツール"
 date: "2026-04-01"
 slug: "mac-tools-recommendation"
 tags: ["Mac", "ツール", "dotfiles", "開発環境"]
