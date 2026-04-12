@@ -24,15 +24,12 @@
     "browserslist": "^4.28.1",
     "budoux": "^0.7.0",
     "caniuse-lite": "^1.0.30001769",
-    "gatsby": "^5.16.0",
-    "gatsby-link": "^5.13.0",
+    "gatsby": "^5.16.1",
     "gatsby-plugin-image": "^3.16.0",
     "gatsby-plugin-manifest": "^5.16.0",
     "gatsby-plugin-mdx": "^5.16.0",
     "gatsby-plugin-sharp": "^5.16.0",
     "gatsby-plugin-sitemap": "^6.16.0",
-    "gatsby-plugin-typescript": "^5.16.0",
-    "gatsby-react-router-scroll": "^6.13.0",
     "gatsby-remark-images": "^7.16.0",
     "gatsby-source-filesystem": "^5.16.0",
     "gatsby-transformer-sharp": "^5.16.0",
@@ -55,7 +52,11 @@
   },
   "overrides": {
     "graphql": "^16.8.0",
-    "webpack": "~5.105.0",
-    "lodash": "4.18.1"
+    "serialize-javascript": ">=6.0.2",
+    "webpack": ">=5.105.0",
+    "lodash": "^4.17.21",
+    "path-to-regexp": ">=0.1.13",
+    "@ardatan/relay-compiler": ">=13.0.1",
+    "@graphql-tools/relay-operation-optimizer": ">=7.1.3"
   }
 }

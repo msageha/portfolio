@@ -15,7 +15,6 @@ interface BlogPostData {
       tags: string[];
       description: string;
     };
-    body: string;
   };
 }
 
@@ -188,7 +187,6 @@ export const query = graphql`
         description
         slug
       }
-      body
     }
   }
 `;

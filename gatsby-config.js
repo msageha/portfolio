@@ -58,14 +58,6 @@ module.exports = {
         path: `${__dirname}/content/blog/`,
       },
     },
-    {
-      resolve: `gatsby-plugin-typescript`,
-      options: {
-        isTSX: true,
-        jsxPragma: `jsx`,
-        allExtensions: true,
-      },
-    },
   ],
   pathPrefix: "",
 };
