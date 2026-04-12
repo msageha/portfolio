@@ -1,5 +1,11 @@
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import remarkGfm from "remark-gfm";
 
-module.exports = {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export default {
   siteMetadata: {
     title: `Mizuki Sango - Portfolio`,
     description: `珊瑚 彩主紀のポートフォリオページ`,
@@ -15,6 +21,9 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
+        mdxOptions: {
+          remarkPlugins: [remarkGfm],
+        },
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
