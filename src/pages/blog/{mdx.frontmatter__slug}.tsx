@@ -102,7 +102,7 @@ const BlogPost: React.FC<PageProps<BlogPostData>> = ({ data, children }) => {
         .mdx-content h4,
         .mdx-content h5,
         .mdx-content h6 {
-          scroll-margin-top: 5rem;
+          scroll-margin-top: 5rem; /* = HEADER_HEIGHT(64px) + 余白(16px) + 少し余裕 */
         }
 
         .mdx-content h1 {
