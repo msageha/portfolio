@@ -6,6 +6,7 @@ import Footer from "../../components/Footer/Footer";
 import Wave from "../../components/Wave/wave";
 import Header from "../../components/Header/Header";
 import { mdxComponents } from "../../components/BudouX/MDXComponents";
+import TableOfContents from "../../components/TableOfContents/TableOfContents";
 
 interface BlogPostData {
   mdx: {
@@ -14,6 +15,7 @@ interface BlogPostData {
       date: string;
       tags: string[];
       description: string;
+      slug: string;
     };
   };
 }
@@ -25,7 +27,7 @@ const BlogPost: React.FC<PageProps<BlogPostData>> = ({ data, children }) => {
     <>
       <Header />
       <div className="min-h-screen bg-gray-900 text-white pb-24 pt-20">
-        <article className="container mx-auto px-4 py-16 max-w-4xl">
+        <div className="container mx-auto px-4 py-16 max-w-6xl">
           <Fade duration={1000} delay={300}>
             <Link
               to="/blog"
@@ -35,59 +37,74 @@ const BlogPost: React.FC<PageProps<BlogPostData>> = ({ data, children }) => {
             </Link>
           </Fade>
 
-          <Fade duration={1000} delay={500}>
-            <header className="mb-12">
-              <h1 className="text-4xl md:text-5xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
-                {frontmatter.title}
-              </h1>
-              <div className="flex flex-wrap gap-4 items-center text-gray-400">
-                <time>
-                  {new Date(frontmatter.date).toLocaleDateString("ja-JP", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </time>
-                {frontmatter.tags && (
-                  <div className="flex gap-2 flex-wrap">
-                    {frontmatter.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1 bg-gray-800 rounded-full text-sm border border-gray-700"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+          <div className="lg:flex lg:gap-10 lg:items-start">
+            <TableOfContents />
+
+            <article className="flex-1 min-w-0">
+              <Fade duration={1000} delay={500}>
+                <header className="mb-12">
+                  <h1 className="text-4xl md:text-5xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                    {frontmatter.title}
+                  </h1>
+                  <div className="flex flex-wrap gap-4 items-center text-gray-400">
+                    <time>
+                      {new Date(frontmatter.date).toLocaleDateString("ja-JP", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </time>
+                    {frontmatter.tags && (
+                      <div className="flex gap-2 flex-wrap">
+                        {frontmatter.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-3 py-1 bg-gray-800 rounded-full text-sm border border-gray-700"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            </header>
-          </Fade>
+                </header>
+              </Fade>
 
-          <Fade duration={1000} delay={700}>
-            <div className="prose prose-invert prose-lg max-w-none">
-              <MDXProvider components={mdxComponents}>
-                <div className="mdx-content">{children}</div>
-              </MDXProvider>
-            </div>
-          </Fade>
+              <Fade duration={1000} delay={700}>
+                <div className="prose prose-invert prose-lg max-w-none">
+                  <MDXProvider components={mdxComponents}>
+                    <div className="mdx-content">{children}</div>
+                  </MDXProvider>
+                </div>
+              </Fade>
 
-          <Fade duration={1000} delay={900}>
-            <footer className="mt-16 pt-8 border-t border-gray-800">
-              <Link
-                to="/blog"
-                className="inline-block text-pink-400 hover:text-pink-300 transition-colors"
-              >
-                ← ブログ一覧に戻る
-              </Link>
-            </footer>
-          </Fade>
-        </article>
+              <Fade duration={1000} delay={900}>
+                <footer className="mt-16 pt-8 border-t border-gray-800">
+                  <Link
+                    to="/blog"
+                    className="inline-block text-pink-400 hover:text-pink-300 transition-colors"
+                  >
+                    ← ブログ一覧に戻る
+                  </Link>
+                </footer>
+              </Fade>
+            </article>
+          </div>
+        </div>
       </div>
       <Wave bgColor="bg-gray-900" waveRGB="17,24,39" />
       <Footer />
 
       <style>{`
+        .mdx-content h1,
+        .mdx-content h2,
+        .mdx-content h3,
+        .mdx-content h4,
+        .mdx-content h5,
+        .mdx-content h6 {
+          scroll-margin-top: 5rem;
+        }
+
         .mdx-content h1 {
           font-size: 2.25rem;
           font-weight: 700;

@@ -1,9 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { loadDefaultJapaneseParser } from "budoux";
 
-interface BudouXTextProps {
-  children: React.ReactNode;
-  className?: string;
+interface BudouXTextProps extends React.HTMLAttributes<HTMLElement> {
+  children?: React.ReactNode;
   as?: keyof JSX.IntrinsicElements;
 }
 
@@ -11,6 +10,7 @@ const BudouXText: React.FC<BudouXTextProps> = ({
   children,
   className = "",
   as: Component = "span",
+  ...rest
 }) => {
   const elementRef = useRef<HTMLElement>(null);
 
@@ -51,7 +51,7 @@ const BudouXText: React.FC<BudouXTextProps> = ({
     applyBudouX();
   }, [children]);
 
-  return React.createElement(Component, { ref: elementRef, className }, children);
+  return React.createElement(Component, { ref: elementRef, className, ...rest }, children);
 };
 
 export default BudouXText;
