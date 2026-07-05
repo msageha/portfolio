@@ -194,7 +194,7 @@ const Search: React.FC<SearchProps> = ({ className = "", onQueryChange }) => {
             </div>
           ) : results.length > 0 ? (
             <ul className="py-2">
-              {results.map((result, index) => (
+              {results.map((result) => (
                 <li
                   key={result.url}
                   role="option"

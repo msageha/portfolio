@@ -1,4 +1,3 @@
-import React from "react";
 import Hero from "./Hero/Hero";
 import About, { type ProfileImage } from "./About/About";
 import Career from "./Career/Career";

@@ -10,6 +10,10 @@ const profileImage = {
   width: Number(profile.attributes.width),
   height: Number(profile.attributes.height),
 };
+
+// OG 画像はクローラー互換性のため jpeg で自サイトから配信する
+const ogImage = await getImage({ src: profileSource, width: 1200, format: "jpeg" });
+const ogImageUrl = new URL(ogImage.src, Astro.site).href;
 ---
 
 <Base
@@ -19,16 +23,7 @@ const profileImage = {
   canonical="https://msageha.net/"
 >
   <Fragment slot="head">
-    <meta
-      property="og:image"
-      content="https://raw.githubusercontent.com/msageha/portfolio/main/src/images/profile.jpg"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:wght@400;700&display=swap"
-    />
+    <meta property="og:image" content={ogImageUrl} />
   </Fragment>
   <App client:load profileImage={profileImage} />
 </Base>

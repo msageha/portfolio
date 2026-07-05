@@ -1,4 +1,3 @@
-import React from "react";
 import { Fade } from "react-awesome-reveal";
 
 const Title = ({ title }: { title: string }) => (
