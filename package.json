@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^6.0.1",
+    "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "@emotion/react": "^11.14.0",
     "@tailwindcss/vite": "^4.3.2",
@@ -37,20 +38,20 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
-    "@commitlint/cli": "^20.5.0",
-    "@commitlint/config-conventional": "^20.5.0",
+    "@commitlint/cli": "^21.2.0",
+    "@commitlint/config-conventional": "^21.2.0",
     "@types/node": "^26.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.4.0",
+    "lint-staged": "^17.0.8",
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
-    "typescript": "^5.8.2"
+    "typescript": "^6.0.3"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,astro}": "prettier --write",
-    "*.css": "prettier --write"
+    "*.{css,md}": "prettier --write"
   },
   "overrides": {
     "uuid": "^11.1.1"

@@ -1,2 +1,3 @@
-[tools]
-node = "26.4.0"
+# Node のバージョンは .nvmrc を単一の情報源とする (Cloudflare Build も .nvmrc を読む)
+[settings]
+idiomatic_version_file_enable_tools = ["node"]

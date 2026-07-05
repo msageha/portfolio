@@ -14,7 +14,8 @@
 
 ## 開発
 
-Node.js 26 が必要 ([mise](https://mise.jdx.dev/) を使う場合は `.mise.toml` で自動選択)。
+Node.js 26 が必要。バージョンは `.nvmrc` を単一の情報源としており、
+[mise](https://mise.jdx.dev/) 利用時も (`.mise.toml` の設定経由で) `.nvmrc` が読まれる。
 
 ```shell
 npm install
