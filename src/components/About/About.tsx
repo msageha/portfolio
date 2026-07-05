@@ -1,34 +1,33 @@
 import React from "react";
 import { Fade } from "react-awesome-reveal";
 import Title from "../Title/Title";
-import { GatsbyImage } from "gatsby-plugin-image";
-import { graphql, useStaticQuery } from "gatsby";
 
-const About: React.FC = () => {
-  const data = useStaticQuery(graphql`
-    query SiteMetaData {
-      file(relativePath: { eq: "profile.jpg" }) {
-        childImageSharp {
-          gatsbyImageData
-        }
-      }
-    }
-  `);
-  const image = data.file?.childImageSharp?.gatsbyImageData;
+export interface ProfileImage {
+  src: string;
+  width: number;
+  height: number;
+}
 
+interface AboutProps {
+  profileImage: ProfileImage;
+}
+
+const About: React.FC<AboutProps> = ({ profileImage }) => {
   return (
     <section id="about" className="bg-slate-300">
       <Title title="About me" />
       <Fade duration={1000} delay={600} className="mx-8">
         <div className="text-black md:flex md:flex-row md:justify-evenly md:items-center">
           <div className="md:w-1/3">
-            {image && (
-              <GatsbyImage
-                image={image}
-                alt="Profile picture of Mizuki Sango in Tokyo, Japan"
-                className="rounded-lg"
-              />
-            )}
+            <img
+              src={profileImage.src}
+              width={profileImage.width}
+              height={profileImage.height}
+              alt="Profile picture of Mizuki Sango in Tokyo, Japan"
+              className="rounded-lg w-full h-auto"
+              loading="lazy"
+              decoding="async"
+            />
 
             <div className="text-sm md:text-base lg:text-xl">※台湾 九份で撮影したもの</div>
           </div>

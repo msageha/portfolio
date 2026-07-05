@@ -1,0 +1,256 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header/Header";
+import TableOfContents from "../../components/TableOfContents/TableOfContents";
+import Wave from "../../components/Wave/wave";
+import Footer from "../../components/Footer/Footer";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, date, tags, description } = post.data;
+
+const formattedDate = date.toLocaleDateString("ja-JP", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  datePublished: date.toISOString().slice(0, 10),
+  author: {
+    "@type": "Person",
+    name: "Mizuki Sango",
+  },
+  description,
+};
+---
+
+<Base
+  title={`${title} | Mizuki Sango Blog`}
+  ogTitle={title}
+  description={description ?? ""}
+  ogType="article"
+  canonical={`https://msageha.net/blog/${post.data.slug}/`}
+>
+  <Fragment slot="head">
+    <meta property="article:published_time" content={date.toISOString().slice(0, 10)} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <Header client:load />
+  <div class="min-h-screen bg-gray-900 text-white pb-24 pt-20">
+    <div class="container mx-auto px-4 py-16 max-w-6xl">
+      <div class="fade-in" style="animation-delay: 300ms">
+        <a
+          href="/blog"
+          class="inline-block mb-8 text-pink-400 hover:text-pink-300 transition-colors"
+        >
+          ← ブログ一覧に戻る
+        </a>
+      </div>
+
+      <div class="lg:flex lg:gap-10 lg:items-start">
+        <TableOfContents client:load />
+
+        <article class="flex-1 min-w-0">
+          <header class="mb-12 fade-in" style="animation-delay: 500ms">
+            <h1
+              class="text-4xl md:text-5xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500"
+            >
+              {title}
+            </h1>
+            <div class="flex flex-wrap gap-4 items-center text-gray-400">
+              <time>{formattedDate}</time>
+              {
+                tags.length > 0 && (
+                  <div class="flex gap-2 flex-wrap">
+                    {tags.map((tag) => (
+                      <span class="px-3 py-1 bg-gray-800 rounded-full text-sm border border-gray-700">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )
+              }
+            </div>
+          </header>
+
+          <div
+            class="prose prose-invert prose-lg max-w-none fade-in"
+            style="animation-delay: 700ms"
+          >
+            <div class="mdx-content">
+              <Content />
+            </div>
+          </div>
+
+          <footer
+            class="mt-16 pt-8 border-t border-gray-800 fade-in"
+            style="animation-delay: 900ms"
+          >
+            <a
+              href="/blog"
+              class="inline-block text-pink-400 hover:text-pink-300 transition-colors"
+            >
+              ← ブログ一覧に戻る
+            </a>
+          </footer>
+        </article>
+      </div>
+    </div>
+  </div>
+  <Wave bgColor="bg-gray-900" waveRGB="17,24,39" />
+  <Footer />
+</Base>
+
+<script>
+  import { applyBudouX } from "../../lib/budoux-content";
+
+  const content = document.querySelector(".mdx-content");
+  if (content) {
+    applyBudouX(content);
+  }
+</script>
+
+<style is:global>
+  .mdx-content h1,
+  .mdx-content h2,
+  .mdx-content h3,
+  .mdx-content h4,
+  .mdx-content h5,
+  .mdx-content h6 {
+    scroll-margin-top: 5rem; /* = HEADER_HEIGHT(64px) + 余白(16px) + 少し余裕 */
+  }
+
+  .mdx-content h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+
+  .mdx-content h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+
+  .mdx-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #fff;
+  }
+
+  .mdx-content p {
+    margin-bottom: 1rem;
+    line-height: 1.75;
+    color: #d1d5db;
+  }
+
+  .mdx-content ul,
+  .mdx-content ol {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    color: #d1d5db;
+  }
+
+  .mdx-content li {
+    margin-bottom: 0.5rem;
+  }
+
+  .mdx-content strong {
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .mdx-content code {
+    background-color: #1f2937;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    color: #60a5fa;
+  }
+
+  .mdx-content pre {
+    background-color: #1f2937;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+  }
+
+  .mdx-content pre code {
+    background-color: transparent;
+    padding: 0;
+    color: #d1d5db;
+  }
+
+  .mdx-content a {
+    color: #60a5fa;
+    text-decoration: underline;
+  }
+
+  .mdx-content a:hover {
+    color: #93c5fd;
+  }
+
+  .mdx-content blockquote {
+    border-left: 4px solid #60a5fa;
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: #9ca3af;
+    font-style: italic;
+  }
+
+  .mdx-content table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    margin: 1.5rem 0;
+    display: block;
+    overflow-x: auto;
+  }
+
+  .mdx-content thead {
+    border-bottom: 1px solid #374151;
+  }
+
+  .mdx-content tbody tr {
+    border-bottom: 1px solid #1f2937;
+  }
+
+  .mdx-content tbody tr:hover {
+    background-color: rgba(31, 41, 55, 0.5);
+  }
+
+  .mdx-content th {
+    padding: 0.5rem 1rem;
+    text-align: left;
+    color: #d1d5db;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .mdx-content td {
+    padding: 0.5rem 1rem;
+    color: #9ca3af;
+    vertical-align: top;
+  }
+</style>

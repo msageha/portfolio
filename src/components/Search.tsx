@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { navigate } from "gatsby";
 
 // Pagefind type definitions
 interface PagefindSearchResult {
@@ -43,8 +42,10 @@ const Search: React.FC<SearchProps> = ({ className = "", onQueryChange }) => {
   useEffect(() => {
     const loadPagefind = async () => {
       try {
-        // @ts-ignore - Pagefind is loaded dynamically
-        const pagefindModule = await import(/* webpackIgnore: true */ "/pagefind/pagefind.js");
+        // パスを変数経由で渡し、Vite の静的 import 解析を回避する
+        // (esbuild が @vite-ignore コメントを除去するため、リテラルだと dev で解決エラーになる)
+        const pagefindPath = "/pagefind/pagefind.js";
+        const pagefindModule = await import(/* @vite-ignore */ pagefindPath);
         await pagefindModule.init();
         setPagefind(pagefindModule);
       } catch (err) {
@@ -132,7 +133,7 @@ const Search: React.FC<SearchProps> = ({ className = "", onQueryChange }) => {
   const handleResultClick = (url: string) => {
     setShowResults(false);
     setQuery("");
-    navigate(url);
+    window.location.assign(url);
   };
 
   const highlightExcerpt = (excerpt: string) => {

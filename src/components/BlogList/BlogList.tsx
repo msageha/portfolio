@@ -1,30 +1,25 @@
 import React, { useState, useCallback } from "react";
-import { graphql, Link, PageProps } from "gatsby";
 import { Fade } from "react-awesome-reveal";
-import Footer from "../components/Footer/Footer";
-import Wave from "../components/Wave/wave";
-import Header from "../components/Header/Header";
-import Search from "../components/Search";
+import Footer from "../Footer/Footer";
+import Wave from "../Wave/wave";
+import Header from "../Header/Header";
+import Search from "../Search";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
-interface BlogPost {
+export interface BlogPostSummary {
   id: string;
-  frontmatter: {
-    title: string;
-    date: string;
-    slug: string;
-    tags: string[];
-    description: string;
-  };
-  excerpt: string;
+  title: string;
+  date: string;
+  slug: string;
+  tags: string[];
+  description: string;
 }
 
-interface BlogPageData {
-  allMdx: {
-    nodes: BlogPost[];
-  };
+interface BlogListProps {
+  posts: BlogPostSummary[];
 }
 
-const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
+const BlogList: React.FC<BlogListProps> = ({ posts }) => {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [isSearchActive, setIsSearchActive] = useState(false);
 
@@ -32,18 +27,14 @@ const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
     setIsSearchActive(query.trim().length > 0);
   }, []);
 
-  const allPosts = data.allMdx.nodes;
-
   const filteredPosts = selectedTag
-    ? allPosts.filter((post) => post.frontmatter.tags?.includes(selectedTag))
-    : allPosts;
+    ? posts.filter((post) => post.tags.includes(selectedTag))
+    : posts;
 
-  const allTags = Array.from(
-    new Set(allPosts.flatMap((post) => post.frontmatter.tags || [])),
-  ).sort();
+  const allTags = Array.from(new Set(posts.flatMap((post) => post.tags))).sort();
 
   return (
-    <>
+    <ErrorBoundary>
       <Header />
       <section className="bg-gray-900 min-h-screen pt-24 pb-24">
         <div className="container mx-auto px-4 py-16">
@@ -105,33 +96,29 @@ const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
               ) : (
                 filteredPosts.map((post, index) => (
                   <Fade key={post.id} duration={1000} delay={100 * index}>
-                    <Link
-                      to={`/blog/${post.frontmatter.slug}`}
+                    <a
+                      href={`/blog/${post.slug}`}
                       className="block bg-gray-800 rounded-lg p-6 hover:bg-gray-750 transition-all border border-gray-700 hover:border-pink-500 hover:shadow-lg hover:shadow-pink-500/20"
                     >
                       <div className="mb-3 flex flex-wrap items-center gap-4">
                         <time className="text-sm text-gray-400">
-                          {new Date(post.frontmatter.date).toLocaleDateString("ja-JP", {
+                          {new Date(post.date).toLocaleDateString("ja-JP", {
                             year: "numeric",
                             month: "long",
                             day: "numeric",
                           })}
                         </time>
                         <div className="flex gap-2 flex-wrap">
-                          {post.frontmatter.tags?.map((tag) => (
+                          {post.tags.map((tag) => (
                             <span key={tag} className="px-2 py-1 bg-gray-700 text-xs rounded">
                               {tag}
                             </span>
                           ))}
                         </div>
                       </div>
-                      <h2 className="text-2xl font-bold mb-2 text-white">
-                        {post.frontmatter.title}
-                      </h2>
-                      <p className="text-gray-300">
-                        {post.frontmatter.description || post.excerpt}
-                      </p>
-                    </Link>
+                      <h2 className="text-2xl font-bold mb-2 text-white">{post.title}</h2>
+                      <p className="text-gray-300">{post.description}</p>
+                    </a>
                   </Fade>
                 ))
               )}
@@ -141,39 +128,8 @@ const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
       </section>
       <Wave bgColor="bg-gray-900" waveRGB="17,24,39" />
       <Footer />
-    </>
+    </ErrorBoundary>
   );
 };
 
-export const query = graphql`
-  query BlogListQuery {
-    allMdx(sort: { frontmatter: { date: DESC } }) {
-      nodes {
-        id
-        frontmatter {
-          title
-          date
-          slug
-          tags
-          description
-        }
-        excerpt(pruneLength: 200)
-      }
-    }
-  }
-`;
-
-export function Head() {
-  return (
-    <>
-      <title>Blog | Mizuki Sango - Portfolio</title>
-      <meta name="description" content="技術記事やプロジェクトの記録" />
-      <meta property="og:title" content="Blog | Mizuki Sango" />
-      <meta property="og:description" content="技術記事やプロジェクトの記録" />
-      <meta property="og:type" content="website" />
-      <link rel="canonical" href="https://msageha.net/blog/" />
-    </>
-  );
-}
-
-export default BlogPage;
+export default BlogList;

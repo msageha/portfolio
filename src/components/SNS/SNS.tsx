@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Fade } from "react-awesome-reveal";
 import Title from "../Title/Title";
 

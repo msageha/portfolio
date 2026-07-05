@@ -1,18 +1,11 @@
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "target": "ES2020",
-    "lib": ["ES2020", "DOM"],
-    "module": "ESNext",
-    "moduleResolution": "bundler",
     "jsx": "react-jsx",
-    "strict": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "noEmit": true,
-    "resolveJsonModule": true,
+    "jsxImportSource": "react",
     "baseUrl": ".",
     "types": ["node"]
   },
-  "include": ["src/**/*", "gatsby-browser.js", "gatsby-config.js"]
+  "include": [".astro/types.d.ts", "src/**/*"],
+  "exclude": ["dist", "node_modules"]
 }

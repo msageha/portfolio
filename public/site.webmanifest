@@ -1,0 +1,15 @@
+{
+  "name": "Mizuki Sango Portfolio",
+  "short_name": "Portfolio",
+  "start_url": "/",
+  "background_color": "#111827",
+  "theme_color": "#111827",
+  "display": "minimal-ui",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "240x240",
+      "type": "image/png"
+    }
+  ]
+}

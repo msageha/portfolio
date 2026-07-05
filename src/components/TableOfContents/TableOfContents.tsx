@@ -21,16 +21,16 @@ const TableOfContents: React.FC = () => {
     const content = document.querySelector(".mdx-content");
     if (!content) return;
 
-    const headings = Array.from(
-      content.querySelectorAll("h1[id], h2[id], h3[id]")
-    ).filter((h) => h.id.length > 0);
+    const headings = Array.from(content.querySelectorAll("h1[id], h2[id], h3[id]")).filter(
+      (h) => h.id.length > 0,
+    );
 
     setItems(
       headings.map((h) => ({
         id: h.id,
         text: h.textContent?.replace(/\s+/g, " ").trim() ?? "",
         level: parseInt(h.tagName[1]),
-      }))
+      })),
     );
   }, []);
 
@@ -108,9 +108,7 @@ const TableOfContents: React.FC = () => {
                 scrollTo(item.id);
               }}
               className={`block py-1.5 pl-2 text-sm leading-snug transition-colors duration-150 hover:text-pink-300 ${
-                isActive
-                  ? "text-pink-400 font-medium"
-                  : "text-gray-500 hover:text-gray-300"
+                isActive ? "text-pink-400 font-medium" : "text-gray-500 hover:text-gray-300"
               }`}
             >
               {item.text}
@@ -161,9 +159,7 @@ const TableOfContents: React.FC = () => {
           </svg>
         </button>
         {mobileOpen && (
-          <div className="mt-2 p-4 bg-gray-800 border border-gray-700 rounded-lg">
-            {tocList}
-          </div>
+          <div className="mt-2 p-4 bg-gray-800 border border-gray-700 rounded-lg">{tocList}</div>
         )}
       </div>
 

@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 .wave {
   z-index: -1;
@@ -31,6 +29,18 @@
   }
   100% {
     transform: translate3d(85px, 0, 0);
+  }
+}
+
+.fade-in {
+  animation: fade-in 1s both;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

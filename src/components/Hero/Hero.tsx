@@ -1,8 +1,11 @@
 import React from "react";
-import { Link } from "react-scroll";
 import { Fade } from "react-awesome-reveal";
 
 const Hero: React.FC = () => {
+  const scrollToAbout = () => {
+    document.getElementById("about")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <section id="hero" className="bg-gray-900 h-screen">
       <div className="absolute inset-0 flex items-center text-center justify-center flex-col mx-10">
@@ -18,11 +21,12 @@ const Hero: React.FC = () => {
         </Fade>
 
         <Fade duration={1000} delay={1000}>
-          <Link to="about" smooth duration={600}>
-            <button className="text-blue-400 text-xl md:text-3xl lg:text-4xl hover:text-primary-600 focus:text-primary-600 focus:outline-none">
-              {"About me..."}
-            </button>
-          </Link>
+          <button
+            onClick={scrollToAbout}
+            className="text-blue-400 text-xl md:text-3xl lg:text-4xl hover:text-primary-600 focus:text-primary-600 focus:outline-none"
+          >
+            {"About me..."}
+          </button>
         </Fade>
       </div>
     </section>
