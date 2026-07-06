@@ -18,8 +18,7 @@
     "preview": "astro preview",
     "typecheck": "astro check && tsc --noEmit",
     "format": "prettier --check ./src",
-    "format:fix": "prettier --write ./src",
-    "prepare": "husky"
+    "format:fix": "prettier --write ./src"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.1",
@@ -44,15 +43,9 @@
     "@types/node": "^26.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^17.0.8",
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^6.0.3"
-  },
-  "lint-staged": {
-    "*.{ts,tsx,js,jsx,astro}": "prettier --write",
-    "*.{css,md}": "prettier --write"
   },
   "overrides": {
     "uuid": "^11.1.1"

@@ -1,0 +1,42 @@
+default_install_hook_types:
+  - pre-commit
+  - commit-msg
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.12
+    hooks:
+      - id: actionlint-system
+  - repo: local
+    hooks:
+      - id: mise-task-docs
+        name: Sync task docs into README.md
+        language: system
+        entry: mise run docs
+        files: ^mise\.toml$
+        pass_filenames: false
+      - id: prettier
+        name: prettier
+        language: system
+        entry: npx prettier --write
+        files: \.(ts|tsx|js|jsx|astro|css|md)$
+      - id: typecheck
+        name: typecheck (astro check + tsc)
+        language: system
+        entry: npm run typecheck
+        files: \.(ts|tsx|astro)$
+        pass_filenames: false
+      - id: commitlint
+        name: commitlint
+        language: system
+        entry: npx --no -- commitlint --edit
+        stages: [commit-msg]
