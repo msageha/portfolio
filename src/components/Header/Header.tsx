@@ -18,6 +18,12 @@ const Header: React.FC = () => {
             <a href="/blog" className="text-gray-300 hover:text-white transition-colors">
               Blog
             </a>
+            <a
+              href="https://webtools.msageha.net/"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              Tools
+            </a>
           </div>
         </div>
       </nav>
