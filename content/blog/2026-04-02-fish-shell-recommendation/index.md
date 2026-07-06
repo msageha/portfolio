@@ -184,7 +184,6 @@ kubectl completion fish > ~/.config/fish/completions/kubectl.fish
 uv generate-shell-completion fish > ~/.config/fish/completions/uv.fish
 ```
 
-
 ### 補完の動作
 
 fish の補完がすごいのは、単にコマンド名やファイル名を補完するだけではなく、**フラグの説明文まで表示してくれる** 点です。
