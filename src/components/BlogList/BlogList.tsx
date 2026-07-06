@@ -110,7 +110,10 @@ const BlogList: React.FC<BlogListProps> = ({ posts }) => {
                         </time>
                         <div className="flex gap-2 flex-wrap">
                           {post.tags.map((tag) => (
-                            <span key={tag} className="px-2 py-1 bg-gray-700 text-xs rounded">
+                            <span
+                              key={tag}
+                              className="px-2 py-1 bg-gray-700 text-gray-300 text-xs rounded"
+                            >
                               {tag}
                             </span>
                           ))}
