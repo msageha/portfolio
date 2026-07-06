@@ -113,11 +113,10 @@ description: "記事の説明"
 
 ## CI
 
-- `.github/workflows/prek.yml`: push / pull request 時に、`mise.lock` 通りのツールで `.pre-commit-config.yaml` の全フックを `prek run --all-files` で実行する。
+- `.github/workflows/prek.yml`: push / pull request 時に、`.mise.toml` 通りのツールで `.pre-commit-config.yaml` の全フックを `prek run --all-files` で実行する。
 - `.github/workflows/gitleaks.yml`: push / pull request 時に、コミット履歴全体を対象に [gitleaks](https://github.com/gitleaks/gitleaks) でシークレットスキャンを行う。
-- `.github/workflows/mise-up.yml`: 毎週月曜に `mise up` を実行し、`mise.toml` / `mise.lock` に差分があれば `chore/mise-up` ブランチで PR を作成する。
 
-依存関係の更新は [Renovate](https://docs.renovatebot.com/) (`renovate.json`) が担う。
+依存関係の更新は [Renovate](https://docs.renovatebot.com/) (`renovate.json`) が担う。`.mise.toml` の tool バージョン (prek / actionlint) も Renovate の mise manager が bump する。
 
 ## デプロイ
 

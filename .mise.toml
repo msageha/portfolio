@@ -1,7 +1,8 @@
 # Node のバージョンは .nvmrc を単一の情報源とする (Cloudflare Build も .nvmrc を読む)
+# tool のバージョンは Renovate (mise manager) が bump する。latest 指定にしない
 [tools]
-prek = "latest"
-actionlint = "latest"
+prek = "0.4.8"
+actionlint = "1.7.12"
 
 [tasks.dev]
 description = "Start the Astro dev server"
@@ -36,4 +37,3 @@ postinstall = "prek install"
 
 [settings]
 idiomatic_version_file_enable_tools = ["node"]
-lockfile = true
