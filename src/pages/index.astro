@@ -14,6 +14,21 @@ const profileImage = {
 // OG 画像はクローラー互換性のため jpeg で自サイトから配信する
 const ogImage = await getImage({ src: profileSource, width: 1200, format: "jpeg" });
 const ogImageUrl = new URL(ogImage.src, Astro.site).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Mizuki Sango",
+  alternateName: "珊瑚 彩主紀",
+  url: "https://msageha.net/",
+  image: ogImageUrl,
+  sameAs: [
+    "https://github.com/msageha",
+    "https://x.com/mzking622",
+    "https://instagram.com/msageha",
+    "https://www.linkedin.com/in/mizuki-sango",
+  ],
+};
 ---
 
 <Base
@@ -21,9 +36,10 @@ const ogImageUrl = new URL(ogImage.src, Astro.site).href;
   ogTitle="mizuki's Portfolio"
   description="mizuki's Portfolio | 珊瑚 彩主紀のポートフォリオページ"
   canonical="https://msageha.net/"
+  ogImage={ogImageUrl}
 >
   <Fragment slot="head">
-    <meta property="og:image" content={ogImageUrl} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </Fragment>
   <App client:load profileImage={profileImage} />
 </Base>

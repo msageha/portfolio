@@ -7,9 +7,10 @@ interface Props {
   canonical: string;
   ogTitle?: string;
   ogType?: string;
+  ogImage?: string;
 }
 
-const { title, description, canonical, ogTitle = title, ogType = "website" } = Astro.props;
+const { title, description, canonical, ogTitle = title, ogType = "website", ogImage } = Astro.props;
 ---
 
 <!doctype html>
@@ -22,8 +23,14 @@ const { title, description, canonical, ogTitle = title, ogType = "website" } = A
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="ja_JP" />
     <meta property="og:site_name" content="mizuki msageha mzk Portfolio" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/icon-192.png" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

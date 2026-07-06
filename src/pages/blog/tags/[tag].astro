@@ -1,0 +1,76 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import Header from "../../../components/Header/Header";
+import Wave from "../../../components/Wave/wave";
+import Footer from "../../../components/Footer/Footer";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts
+        .filter((post) => post.data.tags.includes(tag))
+        .sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+    },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+const canonical = `https://msageha.net/blog/tags/${encodeURIComponent(tag)}/`;
+const description = `「${tag}」タグの記事一覧（${posts.length} 件）。技術記事やプロジェクトの記録。`;
+---
+
+<Base
+  title={`${tag} の記事一覧 | Mizuki Sango Blog`}
+  ogTitle={`${tag} の記事一覧`}
+  description={description}
+  canonical={canonical}
+  ogImage={new URL("/og/blog.png", Astro.site).href}
+>
+  <Header client:load />
+  <section class="bg-gray-900 min-h-screen pt-24 pb-24 text-white">
+    <div class="container mx-auto px-4 py-16 max-w-4xl">
+      <a href="/blog" class="inline-block mb-8 text-pink-400 hover:text-pink-300 transition-colors">
+        ← ブログ一覧に戻る
+      </a>
+
+      <header class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+            #{tag}
+          </span>
+        </h1>
+        <p class="text-gray-400">{posts.length} 件の記事</p>
+      </header>
+
+      <div class="grid gap-6">
+        {
+          posts.map((post) => (
+            <a
+              href={`/blog/${post.data.slug}/`}
+              class="block bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-pink-500/50 hover:bg-gray-800/80 transition-all"
+            >
+              <h2 class="text-xl font-bold mb-2">{post.data.title}</h2>
+              <time class="text-sm text-gray-400">
+                {post.data.date.toLocaleDateString("ja-JP", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
+              {post.data.description && (
+                <p class="mt-3 text-gray-300 text-sm leading-relaxed">{post.data.description}</p>
+              )}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+  <Wave bgColor="bg-gray-900" waveRGB="17,24,39" />
+  <Footer />
+</Base>
