@@ -1,0 +1,20 @@
+{
+  "json": {
+  },
+  "toml": {
+  },
+  "yaml": {
+  },
+  "excludes": [
+    "**/*-lock.json",
+    "node_modules/",
+    "dist/",
+    ".astro/",
+    ".playwright-mcp/"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/json-0.23.0.wasm",
+    "https://plugins.dprint.dev/toml-0.7.0.wasm",
+    "https://plugins.dprint.dev/g-plane/pretty_yaml-v0.6.0.wasm"
+  ]
+}

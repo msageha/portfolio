@@ -9,6 +9,7 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
+      - id: check-json
       - id: check-added-large-files
       - id: check-merge-conflict
       - id: mixed-line-ending
@@ -29,6 +30,11 @@ repos:
         language: system
         entry: npx prettier --write
         files: \.(ts|tsx|js|jsx|astro|css|md)$
+      - id: dprint-fmt
+        name: Format json/yaml/toml with dprint
+        language: system
+        entry: dprint fmt
+        types_or: [json, yaml, toml]
       - id: typecheck
         name: typecheck (astro check + tsc)
         language: system
