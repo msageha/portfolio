@@ -20,7 +20,7 @@
 
 このリポジトリは [mise](https://mise.jdx.dev/) の利用を前提としている。
 Node.js 26 が必要で、バージョンは `.nvmrc` を単一の情報源としており
-(`.mise.toml` の設定経由で `.nvmrc` が読まれる、Cloudflare Build も同様)、
+(`mise.toml` の設定経由で `.nvmrc` が読まれる、Cloudflare Build も同様)、
 `prek` (pre-commit hook 管理)・`actionlint`・`dprint` (ts/tsx/js/jsx/md/json/yaml/toml フォーマッタ) は mise 管理のツールとしてインストールされる。
 
 ```shell
@@ -118,16 +118,16 @@ description: "記事の説明"
 
 ## CI
 
-- `.github/workflows/prek.yaml`: push / pull request 時に、`.mise.toml` 通りのツールで `.pre-commit-config.yaml` の全フックを `prek run --all-files` で実行する。
+- `.github/workflows/prek.yaml`: push / pull request 時に、`mise.toml` 通りのツールで `.pre-commit-config.yaml` の全フックを `prek run --all-files` で実行する。
 - `.github/workflows/gitleaks.yaml`: push / pull request 時に、コミット履歴全体を対象に [gitleaks](https://github.com/gitleaks/gitleaks) でシークレットスキャンを行う。
-- `.github/workflows/mise-lock.yaml`: `.mise.toml` に pin されたバージョンのまま `mise lock` を実行し、
-  `mise.lock` の checksum/URL を最新化する。`.mise.toml` のバージョン自体の更新は Renovate に任せる。
-  - `pull_request` (`.mise.toml` を変更する PR、主に Renovate が対象): 同じ PR のブランチに直接 commit して追従させる。
+- `.github/workflows/mise-lock.yaml`: `mise.toml` に pin されたバージョンのまま `mise lock` を実行し、
+  `mise.lock` の checksum/URL を最新化する。`mise.toml` のバージョン自体の更新は Renovate に任せる。
+  - `pull_request` (`mise.toml` を変更する PR、主に Renovate が対象): 同じ PR のブランチに直接 commit して追従させる。
   - 毎週月曜 (`schedule`) / `workflow_dispatch`: 差分があれば `chore/mise-lock` ブランチで PR を作成する。
     `GITHUB_TOKEN` で作成した PR の CI は承認待ち状態になるため、write 権限者が Actions タブから
     承認して実行する必要がある。
 
-依存関係の更新は [Renovate](https://docs.renovatebot.com/) (`renovate.json`) が担う。`.mise.toml` の tool バージョン (prek / actionlint / dprint) も Renovate の mise manager が bump する。
+依存関係の更新は [Renovate](https://docs.renovatebot.com/) (`renovate.json`) が担う。`mise.toml` の tool バージョン (prek / actionlint / dprint) も Renovate の mise manager が bump する。
 
 ## デプロイ
 
