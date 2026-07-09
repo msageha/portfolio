@@ -1,13 +1,38 @@
-node_modules/
-dist/
-.astro/
+# ホワイトリスト方式: すべて無視し、`!` で許可したものだけを追跡する
+*
 
-# Maestro multi-agent system
-.maestro/
+!/.github/
+!/.github/**
 
-# Security - sensitive files
+!/content/
+!/content/**
+
+!/public/
+!/public/**
+
+!/src/
+!/src/**
+
+!/.gitignore
+!/.nvmrc
+!/.prettierrc.js
+!/README.md
+!/astro.config.mjs
+!/commitlint.config.js
+!/dprint.json
+!/mise.lock
+!/mise.toml
+!/package-lock.json
+!/package.json
+!/.pre-commit-config.yaml
+!/renovate.json
+!/tsconfig.json
+
+# Security / OS junk - ホワイトリストに誤って含めても追跡しない
 .env
 *.key
 credentials.*
 *.pem
 *.secret
+.DS_Store
+._*
