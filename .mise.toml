@@ -22,11 +22,11 @@ description = "Run astro check and tsc"
 run = "npm run typecheck"
 
 [tasks.format]
-description = "Check formatting with prettier"
+description = "Check formatting with prettier and dprint"
 run = "npm run format"
 
 [tasks."format:fix"]
-description = "Fix formatting with prettier"
+description = "Fix formatting with prettier and dprint"
 run = "npm run format:fix"
 
 [tasks.docs]

@@ -89,42 +89,44 @@ const BlogList: React.FC<BlogListProps> = ({ posts }) => {
 
           {!isSearchActive && (
             <div className="grid gap-6 max-w-4xl mx-auto">
-              {filteredPosts.length === 0 ? (
-                <Fade duration={1000}>
-                  <p className="text-gray-400 text-center py-8">記事が見つかりませんでした。</p>
-                </Fade>
-              ) : (
-                filteredPosts.map((post, index) => (
-                  <Fade key={post.id} duration={1000} delay={100 * index}>
-                    <a
-                      href={`/blog/${post.slug}`}
-                      className="block bg-gray-800 rounded-lg p-6 hover:bg-gray-750 transition-all border border-gray-700 hover:border-pink-500 hover:shadow-lg hover:shadow-pink-500/20"
-                    >
-                      <div className="mb-3 flex flex-wrap items-center gap-4">
-                        <time className="text-sm text-gray-400">
-                          {new Date(post.date).toLocaleDateString("ja-JP", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
-                        </time>
-                        <div className="flex gap-2 flex-wrap">
-                          {post.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="px-2 py-1 bg-gray-700 text-gray-300 text-xs rounded"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      <h2 className="text-2xl font-bold mb-2 text-white">{post.title}</h2>
-                      <p className="text-gray-300">{post.description}</p>
-                    </a>
+              {filteredPosts.length === 0
+                ? (
+                  <Fade duration={1000}>
+                    <p className="text-gray-400 text-center py-8">記事が見つかりませんでした。</p>
                   </Fade>
-                ))
-              )}
+                )
+                : (
+                  filteredPosts.map((post, index) => (
+                    <Fade key={post.id} duration={1000} delay={100 * index}>
+                      <a
+                        href={`/blog/${post.slug}`}
+                        className="block bg-gray-800 rounded-lg p-6 hover:bg-gray-750 transition-all border border-gray-700 hover:border-pink-500 hover:shadow-lg hover:shadow-pink-500/20"
+                      >
+                        <div className="mb-3 flex flex-wrap items-center gap-4">
+                          <time className="text-sm text-gray-400">
+                            {new Date(post.date).toLocaleDateString("ja-JP", {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            })}
+                          </time>
+                          <div className="flex gap-2 flex-wrap">
+                            {post.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="px-2 py-1 bg-gray-700 text-gray-300 text-xs rounded"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        <h2 className="text-2xl font-bold mb-2 text-white">{post.title}</h2>
+                        <p className="text-gray-300">{post.description}</p>
+                      </a>
+                    </Fade>
+                  ))
+                )}
             </div>
           )}
         </div>

@@ -166,11 +166,9 @@ const Search: React.FC<SearchProps> = ({ className = "", onQueryChange }) => {
           className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
         />
         <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-xs">
-          {isLoading ? (
-            <span className="animate-pulse">検索中...</span>
-          ) : (
-            <kbd className="px-2 py-1 bg-gray-700 rounded text-xs">ESC</kbd>
-          )}
+          {isLoading
+            ? <span className="animate-pulse">検索中...</span>
+            : <kbd className="px-2 py-1 bg-gray-700 rounded text-xs">ESC</kbd>}
         </div>
       </div>
 
@@ -188,36 +186,44 @@ const Search: React.FC<SearchProps> = ({ className = "", onQueryChange }) => {
           role="listbox"
           className="absolute z-50 w-full mt-2 bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-lg shadow-lg shadow-pink-500/10 max-h-96 overflow-y-auto"
         >
-          {isLoading ? (
-            <div className="p-4 text-center text-gray-400">
-              <span className="animate-pulse">検索中...</span>
-            </div>
-          ) : results.length > 0 ? (
-            <ul className="py-2">
-              {results.map((result) => (
-                <li
-                  key={result.url}
-                  role="option"
-                  aria-selected="false"
-                  className="border-b border-gray-700 last:border-0"
-                >
-                  <button
-                    onClick={() => handleResultClick(result.url)}
-                    className="w-full text-left px-4 py-3 hover:bg-gray-700 transition-colors focus:outline-none focus:bg-gray-700"
+          {isLoading
+            ? (
+              <div className="p-4 text-center text-gray-400">
+                <span className="animate-pulse">検索中...</span>
+              </div>
+            )
+            : results.length > 0
+            ? (
+              <ul className="py-2">
+                {results.map((result) => (
+                  <li
+                    key={result.url}
+                    role="option"
+                    aria-selected="false"
+                    className="border-b border-gray-700 last:border-0"
                   >
-                    <h3 className="text-white font-semibold mb-1 text-base">{result.meta.title}</h3>
-                    <p className="text-gray-300 text-sm line-clamp-2">
-                      {highlightExcerpt(result.excerpt)}
-                    </p>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : query.trim() ? (
-            <div className="p-4 text-center text-gray-400 text-sm">
-              検索結果が見つかりませんでした
-            </div>
-          ) : null}
+                    <button
+                      onClick={() => handleResultClick(result.url)}
+                      className="w-full text-left px-4 py-3 hover:bg-gray-700 transition-colors focus:outline-none focus:bg-gray-700"
+                    >
+                      <h3 className="text-white font-semibold mb-1 text-base">
+                        {result.meta.title}
+                      </h3>
+                      <p className="text-gray-300 text-sm line-clamp-2">
+                        {highlightExcerpt(result.excerpt)}
+                      </p>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )
+            : query.trim()
+            ? (
+              <div className="p-4 text-center text-gray-400 text-sm">
+                検索結果が見つかりませんでした
+              </div>
+            )
+            : null}
         </div>
       )}
     </div>

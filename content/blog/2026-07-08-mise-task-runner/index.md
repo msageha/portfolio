@@ -58,7 +58,7 @@ run = "cargo clippy"
 run = "cargo test"
 
 [tasks.ci]
-depends = ["lint", "test"]  # lint と test が並列で走ってから ci 本体へ
+depends = ["lint", "test"] # lint と test が並列で走ってから ci 本体へ
 run = "echo 'all green'"
 ```
 
@@ -71,7 +71,7 @@ make の真骨頂だった「変更がなければ再ビルドしない」も再
 ```toml
 [tasks.build]
 run = "cargo build"
-sources = ["Cargo.toml", "src/**/*.rs"]  # これらが変わっていなければスキップ
+sources = ["Cargo.toml", "src/**/*.rs"] # これらが変わっていなければスキップ
 outputs = ["target/debug/mycli"]
 ```
 

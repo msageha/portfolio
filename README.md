@@ -21,7 +21,7 @@
 このリポジトリは [mise](https://mise.jdx.dev/) の利用を前提としている。
 Node.js 26 が必要で、バージョンは `.nvmrc` を単一の情報源としており
 (`.mise.toml` の設定経由で `.nvmrc` が読まれる、Cloudflare Build も同様)、
-`prek` (pre-commit hook 管理)・`actionlint`・`dprint` (json/yaml/toml フォーマッタ) は mise 管理のツールとしてインストールされる。
+`prek` (pre-commit hook 管理)・`actionlint`・`dprint` (ts/tsx/js/jsx/md/json/yaml/toml フォーマッタ) は mise 管理のツールとしてインストールされる。
 
 ```shell
 mise trust    # 初回のみ: このディレクトリの mise.toml を信頼する
@@ -34,7 +34,7 @@ npm run dev        # 開発サーバー (http://localhost:4321)
 npm run build      # 本番ビルド (dist/) + Pagefind インデックス生成
 npm run preview    # ビルド結果のプレビュー
 npm run typecheck  # astro check + tsc
-npm run format     # prettier チェック
+npm run format     # prettier (astro/css) + dprint (ts/tsx/js/jsx/md/json/yaml/toml) チェック
 ```
 
 上記の npm scripts は `mise run <task>` (例: `mise run dev`) でも実行できる。詳細は [タスク](#タスク) を参照。
@@ -47,7 +47,7 @@ npm run format     # prettier チェック
 Git hook は [prek](https://github.com/j178/prek) (`.pre-commit-config.yaml`) で一元管理する。
 `mise install` 実行時に自動で `prek install` が走り、`pre-commit` / `commit-msg` 両方の hook が有効になる。
 
-- pre-commit: 汎用チェック (trailing-whitespace 等)、actionlint、prettier、[dprint](https://dprint.dev/) (json/yaml/toml)、typecheck (`astro check` + `tsc`)
+- pre-commit: 汎用チェック (trailing-whitespace 等)、actionlint、prettier (`.astro` / `.css`)、[dprint](https://dprint.dev/) (`.ts` / `.tsx` / `.js` / `.jsx` / `.md` / `.json` / `.yaml` / `.toml`)、typecheck (`astro check` + `tsc`)
 - commit-msg: [commitlint](https://commitlint.js.org/) ([Conventional Commits](https://www.conventionalcommits.org/) 準拠チェック)
 
 CI (`.github/workflows/prek.yaml`) でも push / pull request 時に `prek run --all-files` を実行し、全ファイルに対して同じチェックを強制する。
@@ -80,13 +80,13 @@ Sync the task list embedded in README.md with mise.toml
 
 - **Usage**: `format`
 
-Check formatting with prettier
+Check formatting with prettier and dprint
 
 ## `format:fix`
 
 - **Usage**: `format:fix`
 
-Fix formatting with prettier
+Fix formatting with prettier and dprint
 
 ## `preview`
 
@@ -99,6 +99,7 @@ Preview the production build
 - **Usage**: `typecheck`
 
 Run astro check and tsc
+
 <!-- /mise-tasks -->
 
 ## ブログ記事の追加

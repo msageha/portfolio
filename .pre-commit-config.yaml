@@ -29,12 +29,12 @@ repos:
         name: prettier
         language: system
         entry: npx prettier --write
-        files: \.(ts|tsx|js|jsx|astro|css|md)$
+        files: \.(astro|css)$
       - id: dprint-fmt
-        name: Format json/yaml/toml with dprint
+        name: Format with dprint (ts/tsx/js/jsx/md/json/yaml/toml)
         language: system
         entry: dprint fmt
-        types_or: [json, yaml, toml]
+        files: \.(ts|tsx|js|jsx|mjs|cjs|md|json|jsonc|ya?ml|toml)$
       - id: typecheck
         name: typecheck (astro check + tsc)
         language: system

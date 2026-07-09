@@ -148,7 +148,9 @@ const TableOfContents: React.FC = () => {
         >
           <span className="font-medium">目次</span>
           <svg
-            className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 ${mobileOpen ? "rotate-180" : ""}`}
+            className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 ${
+              mobileOpen ? "rotate-180" : ""
+            }`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

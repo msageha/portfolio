@@ -239,7 +239,7 @@ uv プロジェクト（`uv.lock` がある場合）では、mise の `python.uv
 ```toml
 # .mise.toml
 [settings]
-python.uv_venv_auto = "source"        # 既存の .venv を自動で有効化
+python.uv_venv_auto = "source" # 既存の .venv を自動で有効化
 # または
 python.uv_venv_auto = "create|source" # なければ作成してから有効化
 ```
@@ -372,22 +372,22 @@ _.file = ".env"
 flutter = "https://github.com/mise-plugins/mise-flutter.git"
 
 [tools]
-awscli    = "latest"
-direnv    = "latest"
-flutter   = "latest"
-fzf       = "latest"
-gcloud    = "latest"
-ghq       = "latest"
-go        = "latest"
-java      = "temurin"
-kubectl   = "latest"
-node      = "latest"
-peco      = "latest"
-ruby      = "latest"
-starship  = "latest"
-stern     = "latest"
+awscli = "latest"
+direnv = "latest"
+flutter = "latest"
+fzf = "latest"
+gcloud = "latest"
+ghq = "latest"
+go = "latest"
+java = "temurin"
+kubectl = "latest"
+node = "latest"
+peco = "latest"
+ruby = "latest"
+starship = "latest"
+stern = "latest"
 terraform = "latest"
-uv        = "latest"
+uv = "latest"
 ```
 
 flutter のように公式ビルトインにないツールは `[plugins]` セクションでサードパーティプラグインを追加して対応しています。flutter は macOS のみインストール対象にしており（Linux では Homebrew 経由でないとビルドが面倒なため）、OS ごとに `.mise.toml` を使い分けて対応しています。

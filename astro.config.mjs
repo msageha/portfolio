@@ -21,7 +21,8 @@ function loadSitemapLastmods() {
       if (!frontmatter) {
         throw new Error(`frontmatter が見つかりません: content/blog/${entry.name}/index.md`);
       }
-      const field = (key) => frontmatter.match(new RegExp(`^${key}:\\s*"?([^"\\n]+)"?\\s*$`, "m"))?.[1];
+      const field = (key) =>
+        frontmatter.match(new RegExp(`^${key}:\\s*"?([^"\\n]+)"?\\s*$`, "m"))?.[1];
       const slug = field("slug");
       const date = field("updated") ?? field("date");
       if (!slug || !date) {
