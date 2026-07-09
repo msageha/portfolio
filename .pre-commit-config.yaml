@@ -23,7 +23,7 @@ repos:
         name: Sync task docs into README.md
         language: system
         entry: mise run docs
-        files: ^mise\.toml$
+        files: ^\.mise\.toml$
         pass_filenames: false
       - id: prettier
         name: prettier

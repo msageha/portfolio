@@ -56,8 +56,8 @@ CI (`.github/workflows/prek.yaml`) でも push / pull request 時に `prek run -
 
 タスクは `mise run <task>` で実行する。
 
+<!-- dprint-ignore-start -->
 <!-- mise-tasks -->
-
 ## `build`
 
 - **Usage**: `build`
@@ -99,8 +99,8 @@ Preview the production build
 - **Usage**: `typecheck`
 
 Run astro check and tsc
-
 <!-- /mise-tasks -->
+<!-- dprint-ignore-end -->
 
 ## ブログ記事の追加
 
