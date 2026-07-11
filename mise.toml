@@ -1,7 +1,7 @@
 # Node のバージョンは .nvmrc を単一の情報源とする (Cloudflare Build も .nvmrc を読む)
 # tool のバージョンは Renovate (mise manager) が bump する。latest 指定にしない
 [tools]
-prek = "0.4.8"
+prek = "0.4.9"
 actionlint = "1.7.12"
 dprint = "0.55.1"
 
