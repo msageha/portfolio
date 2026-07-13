@@ -1,8 +1,8 @@
-import { readFileSync, readdirSync } from "node:fs";
-import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "astro/config";
+import { readdirSync, readFileSync } from "node:fs";
 
 const SITE = "https://msageha.net";
 
@@ -21,8 +21,7 @@ function loadSitemapLastmods() {
       if (!frontmatter) {
         throw new Error(`frontmatter が見つかりません: content/blog/${entry.name}/index.md`);
       }
-      const field = (key) =>
-        frontmatter.match(new RegExp(`^${key}:\\s*"?([^"\\n]+)"?\\s*$`, "m"))?.[1];
+      const field = (key) => frontmatter.match(new RegExp(`^${key}:\\s*"?([^"\\n]+)"?\\s*$`, "m"))?.[1];
       const slug = field("slug");
       const date = field("updated") ?? field("date");
       if (!slug || !date) {
@@ -35,8 +34,7 @@ function loadSitemapLastmods() {
       return { slug, lastmod: new Date(date), tags };
     });
 
-  const newer = (current, candidate) =>
-    !current || candidate.getTime() > current.getTime() ? candidate : current;
+  const newer = (current, candidate) => !current || candidate.getTime() > current.getTime() ? candidate : current;
 
   for (const { slug, lastmod, tags } of entries) {
     lastmods.set(`${SITE}/blog/${slug}/`, lastmod);

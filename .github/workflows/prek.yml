@@ -1,0 +1,48 @@
+name: prek
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # mise-lock.yml が GITHUB_TOKEN で push / 作成する PR には workflow run が自動発火しないため、
+  # PR head ブランチへ明示的に dispatch できるようにする
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      # 注意: Actions の許可設定 (allowed_actions: selected の場合) で
+      # jdx/mise-action@* を patterns_allowed に許可しておく必要がある。
+      - name: Install mise
+        uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d # v4.2.0
+        with:
+          cache: true
+
+      - name: Cache npm
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-
+
+      # eslint / typecheck hook が node_modules を必要とするため npm ci を先に実行する
+      - name: Install dependencies
+        run: mise exec -- npm ci
+
+      - name: Run prek
+        run: mise exec -- prek run --all-files

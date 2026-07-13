@@ -3,8 +3,7 @@ import satori from "satori";
 import sharp from "sharp";
 
 // satori は woff2 非対応のため、単一ファイルで取得できる OTF をビルド時にダウンロードする
-const FONT_URL =
-  "https://cdn.jsdelivr.net/gh/notofonts/noto-cjk@main/Sans/SubsetOTF/JP/NotoSansJP-Bold.otf";
+const FONT_URL = "https://cdn.jsdelivr.net/gh/notofonts/noto-cjk@main/Sans/SubsetOTF/JP/NotoSansJP-Bold.otf";
 
 let fontPromise: Promise<ArrayBuffer> | null = null;
 

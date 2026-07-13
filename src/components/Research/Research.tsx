@@ -1,7 +1,7 @@
 import React from "react";
 import { Fade } from "react-awesome-reveal";
-import Title from "../Title/Title";
 import SubTitle from "../Title/SubTitle";
+import Title from "../Title/Title";
 
 interface PaperProps {
   title: string;
@@ -116,8 +116,7 @@ const Research = () => {
               <h4>プログラム、情報処理方法、及び情報処理装置</h4>
               <div>株式会社メルカリ</div>
               <div>
-                新井 康平, 本間 和尊, 東原 秀亮, 櫻木 善将,{" "}
-                <span className="underline">珊瑚 彩主紀</span>, 紫藤 佑介
+                新井 康平, 本間 和尊, 東原 秀亮, 櫻木 善将, <span className="underline">珊瑚 彩主紀</span>, 紫藤 佑介
               </div>
             </a>
           </div>
