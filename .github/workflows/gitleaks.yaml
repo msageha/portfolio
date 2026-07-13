@@ -7,7 +7,7 @@ on:
   # 検知ルールの更新を新規 push なしでも取り込むため、main の履歴全体を週次で再スキャンする
   schedule:
     - cron: "0 1 * * 1" # 毎週月曜 01:00 UTC
-  # mise-lock.yml が GITHUB_TOKEN で push / 作成する PR には workflow run が自動発火しないため、
+  # mise-lock.yaml が GITHUB_TOKEN で push / 作成する PR には workflow run が自動発火しないため、
   # PR head ブランチへ明示的に dispatch できるようにする
   workflow_dispatch:
 
