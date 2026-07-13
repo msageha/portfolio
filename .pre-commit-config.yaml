@@ -30,7 +30,7 @@ repos:
       - id: dprint
         name: dprint
         # language: node により pre-commit/prek が隔離環境へ dprint を自前インストールするため、
-        # npm ci なしの CI (prek.yml) でも動く。バージョンは package.json の devDependencies と同期すること。
+        # npm ci なしの CI (prek.yaml) でも動く。バージョンは package.json の devDependencies と同期すること。
         # --allow-no-files: 渡されたファイルがすべて dprint.json の excludes 対象のとき
         # exit 14 (No files found) で失敗しないようにする
         language: node

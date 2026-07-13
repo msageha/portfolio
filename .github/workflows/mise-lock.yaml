@@ -103,6 +103,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TARGET_REF: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || 'chore/mise-lock' }}
         run: |
-          for wf in ci.yml prek.yml gitleaks.yml; do
+          for wf in ci.yaml prek.yaml gitleaks.yaml; do
             gh workflow run "$wf" --repo "$GITHUB_REPOSITORY" --ref "$TARGET_REF"
           done

@@ -1,10 +1,10 @@
-name: CI
+name: prek
 
 on:
   push:
     branches: [main]
   pull_request:
-  # mise-lock.yml が GITHUB_TOKEN で push / 作成する PR には workflow run が自動発火しないため、
+  # mise-lock.yaml が GITHUB_TOKEN で push / 作成する PR には workflow run が自動発火しないため、
   # PR head ブランチへ明示的に dispatch できるようにする
   workflow_dispatch:
 
@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  verify:
+  prek:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -40,14 +40,9 @@ jobs:
           restore-keys: |
             npm-${{ runner.os }}-
 
+      # eslint / typecheck hook が node_modules を必要とするため npm ci を先に実行する
       - name: Install dependencies
         run: mise exec -- npm ci
 
-      - name: Audit dependencies
-        run: mise exec -- npm audit --audit-level=high
-
-      # typecheck / lint / format は prek.yml (pre-commit hooks) が検証する。
-      # ここでは prek が扱わない build のみを検証する。
-
-      - name: Build
-        run: mise exec -- npm run build
+      - name: Run prek
+        run: mise exec -- prek run --all-files

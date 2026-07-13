@@ -1,7 +1,7 @@
 # Node のバージョンは .node-version (メジャーのみ指定) が単一ソース (Cloudflare のビルドも参照する)。
 # mise には settings.idiomatic_version_file_enable_tools 経由で読み込ませる。
 # ツールのバージョンは Renovate (mise manager) が bump する。latest 指定にしない。
-# パッチ追従と checksum の再解決は mise-lock.yml (週次) が行う。
+# パッチ追従と checksum の再解決は mise-lock.yaml (週次) が行う。
 [tools]
 prek = "0.4.9"
 actionlint = "1.7.12"
