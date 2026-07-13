@@ -1,33 +1,21 @@
-# Node のバージョンは .nvmrc を単一の情報源とする (Cloudflare Build も .nvmrc を読む)
-# tool のバージョンは Renovate (mise manager) が bump する。latest 指定にしない
+# Node のバージョンは .node-version (メジャーのみ指定) が単一ソース (Cloudflare のビルドも参照する)。
+# mise には settings.idiomatic_version_file_enable_tools 経由で読み込ませる。
+# ツールのバージョンは Renovate (mise manager) が bump する。latest 指定にしない。
+# パッチ追従と checksum の再解決は mise-lock.yml (週次) が行う。
 [tools]
 prek = "0.4.9"
 actionlint = "1.7.12"
-dprint = "0.55.1"
 
-[tasks.dev]
-description = "Start the Astro dev server"
-run = "npm run dev"
+[env]
+# `mise.local.toml` (git 管理外) を併置すると、ローカルだけの値で上書きできる。
 
-[tasks.build]
-description = "Build the site for production"
-run = "npm run build"
+[tasks.install]
+description = "Install npm dependencies"
+run = "npm ci"
 
-[tasks.preview]
-description = "Preview the production build"
-run = "npm run preview"
-
-[tasks.typecheck]
-description = "Run astro check and tsc"
-run = "npm run typecheck"
-
-[tasks.format]
-description = "Check formatting with prettier and dprint"
-run = "npm run format"
-
-[tasks."format:fix"]
-description = "Fix formatting with prettier and dprint"
-run = "npm run format:fix"
+[tasks.clean]
+description = "Remove build artifacts (dist/, .astro/)"
+run = "rm -rf dist .astro"
 
 [tasks.docs]
 description = "Sync the task list embedded in README.md with mise.toml"

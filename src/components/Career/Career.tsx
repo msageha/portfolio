@@ -1,6 +1,6 @@
 import { Fade } from "react-awesome-reveal";
-import Title from "../Title/Title";
 import SubTitle from "../Title/SubTitle";
+import Title from "../Title/Title";
 
 const Career = () => {
   return (

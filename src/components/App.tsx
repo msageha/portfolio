@@ -1,11 +1,11 @@
-import Hero from "./Hero/Hero";
 import About, { type ProfileImage } from "./About/About";
 import Career from "./Career/Career";
-import Research from "./Research/Research";
-import Links from "./Links/Links";
-import Footer from "./Footer/Footer";
-import Wave from "./Wave/wave";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
+import Footer from "./Footer/Footer";
+import Hero from "./Hero/Hero";
+import Links from "./Links/Links";
+import Research from "./Research/Research";
+import Wave from "./Wave/wave";
 
 interface AppProps {
   profileImage: ProfileImage;

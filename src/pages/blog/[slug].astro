@@ -1,10 +1,10 @@
 ---
 import { getCollection, render } from "astro:content";
-import Base from "../../layouts/Base.astro";
+import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import TableOfContents from "../../components/TableOfContents/TableOfContents";
 import Wave from "../../components/Wave/wave";
-import Footer from "../../components/Footer/Footer";
+import Base from "../../layouts/Base.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -29,10 +29,13 @@ const ogImageUrl = new URL(`/og/${post.data.slug}.png`, Astro.site).href;
 
 const shareText = encodeURIComponent(title);
 const shareUrl = encodeURIComponent(canonical);
-const xShareHref = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
+const xShareHref =
+  `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
 const hatenaShareHref = `https://b.hatena.ne.jp/entry/panel/?url=${shareUrl}`;
-const facebookShareHref = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
-const linkedinShareHref = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`;
+const facebookShareHref =
+  `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+const linkedinShareHref =
+  `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`;
 
 const shareButtonClass =
   "inline-flex items-center gap-2 px-4 py-2 bg-gray-800 rounded-full text-sm border border-gray-700 hover:bg-gray-700 hover:border-gray-500 transition-colors";
@@ -64,13 +67,21 @@ const jsonLd = {
   ogImage={ogImageUrl}
 >
   <Fragment slot="head">
-    <meta property="article:published_time" content={date.toISOString().slice(0, 10)} />
-    {
-      updated && (
-        <meta property="article:modified_time" content={updated.toISOString().slice(0, 10)} />
-      )
-    }
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <meta
+      property="article:published_time"
+      content={date.toISOString().slice(0, 10)}
+    />
+    {updated && (
+      <meta
+        property="article:modified_time"
+        content={updated.toISOString().slice(0, 10)}
+      />
+    )}
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd)}
+    />
   </Fragment>
 
   <Header client:load />
@@ -90,27 +101,23 @@ const jsonLd = {
 
         <article class="flex-1 min-w-0" data-pagefind-body>
           <header class="mb-12 fade-in" style="animation-delay: 500ms">
-            <h1
-              class="text-4xl md:text-5xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500"
-            >
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
               {title}
             </h1>
             <div class="flex flex-wrap gap-4 items-center text-gray-400">
               <time>{formattedDate}</time>
-              {
-                tags.length > 0 && (
-                  <div class="flex gap-2 flex-wrap">
-                    {tags.map((tag) => (
-                      <a
-                        href={`/blog/tags/${encodeURIComponent(tag)}/`}
-                        class="px-3 py-1 bg-gray-800 rounded-full text-sm border border-gray-700 hover:bg-gray-700 hover:border-gray-500 transition-colors"
-                      >
-                        {tag}
-                      </a>
-                    ))}
-                  </div>
-                )
-              }
+              {tags.length > 0 && (
+                <div class="flex gap-2 flex-wrap">
+                  {tags.map((tag) => (
+                    <a
+                      href={`/blog/tags/${encodeURIComponent(tag)}/`}
+                      class="px-3 py-1 bg-gray-800 rounded-full text-sm border border-gray-700 hover:bg-gray-700 hover:border-gray-500 transition-colors"
+                    >
+                      {tag}
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           </header>
 
@@ -128,7 +135,8 @@ const jsonLd = {
             style="animation-delay: 900ms"
           >
             <div class="flex flex-wrap items-center gap-3 mb-8">
-              <span class="text-gray-400 text-sm">この記事をシェアする:</span>
+              <span class="text-gray-400 text-sm"
+              >この記事をシェアする:</span>
               <a
                 href={xShareHref}
                 target="_blank"
@@ -143,9 +151,8 @@ const jsonLd = {
                   viewBox="0 0 16 16"
                   aria-hidden="true"
                 >
-                  <path
-                    d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633z"
-                  ></path>
+                  <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633z">
+                  </path>
                 </svg>
                 ポスト
               </a>
@@ -177,9 +184,8 @@ const jsonLd = {
                   viewBox="0 0 16 16"
                   aria-hidden="true"
                 >
-                  <path
-                    d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"
-                  ></path>
+                  <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z">
+                  </path>
                 </svg>
                 Facebook でシェア
               </a>
@@ -197,9 +203,8 @@ const jsonLd = {
                   viewBox="0 0 16 16"
                   aria-hidden="true"
                 >
-                  <path
-                    d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"
-                  ></path>
+                  <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z">
+                  </path>
                 </svg>
                 LinkedIn でシェア
               </a>
@@ -220,141 +225,141 @@ const jsonLd = {
 </Base>
 
 <script>
-  import { applyBudouX } from "../../lib/budoux-content";
+import { applyBudouX } from "../../lib/budoux-content";
 
-  const content = document.querySelector(".mdx-content");
-  if (content) {
-    applyBudouX(content);
-  }
+const content = document.querySelector(".mdx-content");
+if (content) {
+  applyBudouX(content);
+}
 </script>
 
 <style is:global>
-  .mdx-content h1,
-  .mdx-content h2,
-  .mdx-content h3,
-  .mdx-content h4,
-  .mdx-content h5,
-  .mdx-content h6 {
-    scroll-margin-top: 5rem; /* = HEADER_HEIGHT(64px) + 余白(16px) + 少し余裕 */
-  }
+.mdx-content h1,
+.mdx-content h2,
+.mdx-content h3,
+.mdx-content h4,
+.mdx-content h5,
+.mdx-content h6 {
+  scroll-margin-top: 5rem; /* = HEADER_HEIGHT(64px) + 余白(16px) + 少し余裕 */
+}
 
-  .mdx-content h1 {
-    font-size: 2.25rem;
-    font-weight: 700;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    color: #fff;
-  }
+.mdx-content h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
 
-  .mdx-content h2 {
-    font-size: 1.875rem;
-    font-weight: 700;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    color: #fff;
-  }
+.mdx-content h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
 
-  .mdx-content h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
-    color: #fff;
-  }
+.mdx-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #fff;
+}
 
-  .mdx-content p {
-    margin-bottom: 1rem;
-    line-height: 1.75;
-    color: #d1d5db;
-  }
+.mdx-content p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+  color: #d1d5db;
+}
 
-  .mdx-content ul,
-  .mdx-content ol {
-    margin-bottom: 1rem;
-    padding-left: 2rem;
-    color: #d1d5db;
-  }
+.mdx-content ul,
+.mdx-content ol {
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+  color: #d1d5db;
+}
 
-  .mdx-content li {
-    margin-bottom: 0.5rem;
-  }
+.mdx-content li {
+  margin-bottom: 0.5rem;
+}
 
-  .mdx-content strong {
-    font-weight: 700;
-    color: #fff;
-  }
+.mdx-content strong {
+  font-weight: 700;
+  color: #fff;
+}
 
-  .mdx-content code {
-    background-color: #1f2937;
-    padding: 0.2rem 0.4rem;
-    border-radius: 0.25rem;
-    font-size: 0.875em;
-    color: #60a5fa;
-  }
+.mdx-content code {
+  background-color: #1f2937;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  color: #60a5fa;
+}
 
-  .mdx-content pre {
-    background-color: #1f2937;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    overflow-x: auto;
-    margin-bottom: 1rem;
-  }
+.mdx-content pre {
+  background-color: #1f2937;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
 
-  .mdx-content pre code {
-    background-color: transparent;
-    padding: 0;
-    color: #d1d5db;
-  }
+.mdx-content pre code {
+  background-color: transparent;
+  padding: 0;
+  color: #d1d5db;
+}
 
-  .mdx-content a {
-    color: #60a5fa;
-    text-decoration: underline;
-  }
+.mdx-content a {
+  color: #60a5fa;
+  text-decoration: underline;
+}
 
-  .mdx-content a:hover {
-    color: #93c5fd;
-  }
+.mdx-content a:hover {
+  color: #93c5fd;
+}
 
-  .mdx-content blockquote {
-    border-left: 4px solid #60a5fa;
-    padding-left: 1rem;
-    margin: 1rem 0;
-    color: #9ca3af;
-    font-style: italic;
-  }
+.mdx-content blockquote {
+  border-left: 4px solid #60a5fa;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #9ca3af;
+  font-style: italic;
+}
 
-  .mdx-content table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.875rem;
-    margin: 1.5rem 0;
-    display: block;
-    overflow-x: auto;
-  }
+.mdx-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin: 1.5rem 0;
+  display: block;
+  overflow-x: auto;
+}
 
-  .mdx-content thead {
-    border-bottom: 1px solid #374151;
-  }
+.mdx-content thead {
+  border-bottom: 1px solid #374151;
+}
 
-  .mdx-content tbody tr {
-    border-bottom: 1px solid #1f2937;
-  }
+.mdx-content tbody tr {
+  border-bottom: 1px solid #1f2937;
+}
 
-  .mdx-content tbody tr:hover {
-    background-color: rgba(31, 41, 55, 0.5);
-  }
+.mdx-content tbody tr:hover {
+  background-color: rgba(31, 41, 55, 0.5);
+}
 
-  .mdx-content th {
-    padding: 0.5rem 1rem;
-    text-align: left;
-    color: #d1d5db;
-    font-weight: 600;
-    white-space: nowrap;
-  }
+.mdx-content th {
+  padding: 0.5rem 1rem;
+  text-align: left;
+  color: #d1d5db;
+  font-weight: 600;
+  white-space: nowrap;
+}
 
-  .mdx-content td {
-    padding: 0.5rem 1rem;
-    color: #9ca3af;
-    vertical-align: top;
-  }
+.mdx-content td {
+  padding: 0.5rem 1rem;
+  color: #9ca3af;
+  vertical-align: top;
+}
 </style>

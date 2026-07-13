@@ -14,12 +14,12 @@
 !/src/**
 
 !/.gitignore
-!/.nvmrc
-!/.prettierrc.js
+!/.node-version
 !/README.md
 !/astro.config.mjs
 !/commitlint.config.js
 !/dprint.json
+!/eslint.config.mjs
 !/mise.lock
 !/mise.toml
 !/package-lock.json

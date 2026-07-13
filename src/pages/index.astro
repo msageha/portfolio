@@ -1,10 +1,14 @@
 ---
 import { getImage } from "astro:assets";
-import Base from "../layouts/Base.astro";
 import App from "../components/App";
 import profileSource from "../images/profile.jpg";
+import Base from "../layouts/Base.astro";
 
-const profile = await getImage({ src: profileSource, width: 800, format: "webp" });
+const profile = await getImage({
+  src: profileSource,
+  width: 800,
+  format: "webp",
+});
 const profileImage = {
   src: profile.src,
   width: Number(profile.attributes.width),
@@ -12,7 +16,11 @@ const profileImage = {
 };
 
 // OG 画像はクローラー互換性のため jpeg で自サイトから配信する
-const ogImage = await getImage({ src: profileSource, width: 1200, format: "jpeg" });
+const ogImage = await getImage({
+  src: profileSource,
+  width: 1200,
+  format: "jpeg",
+});
 const ogImageUrl = new URL(ogImage.src, Astro.site).href;
 
 const jsonLd = {
@@ -39,7 +47,11 @@ const jsonLd = {
   ogImage={ogImageUrl}
 >
   <Fragment slot="head">
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd)}
+    />
   </Fragment>
   <App client:load profileImage={profileImage} />
 </Base>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // Pagefind type definitions
 interface PagefindSearchResult {
@@ -143,7 +143,7 @@ const Search: React.FC<SearchProps> = ({ className = "", onQueryChange }) => {
         dangerouslySetInnerHTML={{
           __html: excerpt.replace(
             /<mark>/g,
-            '<mark class="bg-pink-500/30 text-pink-200 px-1 rounded">',
+            "<mark class=\"bg-pink-500/30 text-pink-200 px-1 rounded\">",
           ),
         }}
       />

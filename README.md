@@ -58,17 +58,11 @@ CI (`.github/workflows/prek.yaml`) でも push / pull request 時に `prek run -
 
 <!-- dprint-ignore-start -->
 <!-- mise-tasks -->
-## `build`
+## `clean`
 
-- **Usage**: `build`
+- **Usage**: `clean`
 
-Build the site for production
-
-## `dev`
-
-- **Usage**: `dev`
-
-Start the Astro dev server
+Remove build artifacts (dist/, .astro/)
 
 ## `docs`
 
@@ -76,29 +70,11 @@ Start the Astro dev server
 
 Sync the task list embedded in README.md with mise.toml
 
-## `format`
+## `install`
 
-- **Usage**: `format`
+- **Usage**: `install`
 
-Check formatting with prettier and dprint
-
-## `format:fix`
-
-- **Usage**: `format:fix`
-
-Fix formatting with prettier and dprint
-
-## `preview`
-
-- **Usage**: `preview`
-
-Preview the production build
-
-## `typecheck`
-
-- **Usage**: `typecheck`
-
-Run astro check and tsc
+Install npm dependencies
 <!-- /mise-tasks -->
 <!-- dprint-ignore-end -->
 

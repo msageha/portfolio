@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Fade } from "react-awesome-reveal";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import Footer from "../Footer/Footer";
-import Wave from "../Wave/wave";
 import Header from "../Header/Header";
 import Search from "../Search";
-import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
+import Wave from "../Wave/wave";
 
 export interface BlogPostSummary {
   id: string;

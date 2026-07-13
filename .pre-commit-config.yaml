@@ -1,3 +1,4 @@
+# commit-msg stage の commitlint を動かすため、pre-commit に加えて commit-msg hook も導入する
 default_install_hook_types:
   - pre-commit
   - commit-msg
@@ -19,24 +20,25 @@ repos:
       - id: actionlint-system
   - repo: local
     hooks:
-      - id: mise-task-docs
-        name: Sync task docs into README.md
+      - id: eslint
+        name: ESLint
         language: system
-        entry: mise run docs
-        files: ^mise\.toml$
-        pass_filenames: false
-      - id: prettier
-        name: prettier
-        language: system
-        entry: npx prettier --write
-        files: \.(astro|css)$
-      - id: dprint-fmt
-        name: Format with dprint (ts/tsx/js/jsx/md/json/yaml/toml)
-        language: system
-        entry: dprint fmt
-        files: \.(ts|tsx|js|jsx|mjs|cjs|md|json|jsonc|ya?ml|toml)$
+        # npx --no-install は Windows でも動く (./node_modules/.bin/eslint は非対応)。
+        # --max-warnings 0 は package.json の lint スクリプトと判定を揃えるため
+        entry: npx --no-install eslint --max-warnings 0
+        files: \.(ts|tsx|astro)$|^([^/]+|scripts/.+)\.mjs$
+      - id: dprint
+        name: dprint
+        # language: node により pre-commit/prek が隔離環境へ dprint を自前インストールするため、
+        # npm ci なしの CI (prek.yml) でも動く。バージョンは package.json の devDependencies と同期すること。
+        # --allow-no-files: 渡されたファイルがすべて dprint.json の excludes 対象のとき
+        # exit 14 (No files found) で失敗しないようにする
+        language: node
+        entry: dprint fmt --allow-no-files
+        additional_dependencies: ["dprint@0.55.1"]
+        files: \.(ts|tsx|astro|js|mjs|css|json|md|toml|ya?ml|svg)$
       - id: typecheck
-        name: typecheck (astro check + tsc)
+        name: typecheck
         language: system
         entry: npm run typecheck
         files: \.(ts|tsx|astro)$
@@ -46,3 +48,9 @@ repos:
         language: system
         entry: npx --no -- commitlint --edit
         stages: [commit-msg]
+      - id: mise-task-docs
+        name: Sync task docs into README.md
+        language: system
+        entry: mise run docs
+        files: ^mise\.toml$
+        pass_filenames: false

@@ -97,9 +97,7 @@ const TableOfContents: React.FC = () => {
             className="relative"
           >
             {/* アクティブ時の左ボーダーインジケーター */}
-            {isActive && (
-              <span className="absolute left-0 top-0 bottom-0 w-0.5 bg-pink-400 rounded-full" />
-            )}
+            {isActive && <span className="absolute left-0 top-0 bottom-0 w-0.5 bg-pink-400 rounded-full" />}
             <a
               href={`#${item.id}`}
               ref={isActive ? activeRef : null}
@@ -148,9 +146,7 @@ const TableOfContents: React.FC = () => {
         >
           <span className="font-medium">目次</span>
           <svg
-            className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 ${
-              mobileOpen ? "rotate-180" : ""
-            }`}
+            className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 ${mobileOpen ? "rotate-180" : ""}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -160,9 +156,7 @@ const TableOfContents: React.FC = () => {
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
-        {mobileOpen && (
-          <div className="mt-2 p-4 bg-gray-800 border border-gray-700 rounded-lg">{tocList}</div>
-        )}
+        {mobileOpen && <div className="mt-2 p-4 bg-gray-800 border border-gray-700 rounded-lg">{tocList}</div>}
       </div>
 
       {/* ---- 「トップへ戻る」ボタン (全幅) ---- */}
