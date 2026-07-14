@@ -35,7 +35,7 @@ repos:
         # exit 14 (No files found) で失敗しないようにする
         language: node
         entry: dprint fmt --allow-no-files
-        additional_dependencies: ["dprint@0.55.1"]
+        additional_dependencies: ["dprint@0.55.2"]
         files: \.(ts|tsx|astro|js|mjs|css|json|md|toml|ya?ml|svg)$
       - id: typecheck
         name: typecheck
