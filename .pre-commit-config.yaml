@@ -29,13 +29,11 @@ repos:
         files: \.(ts|tsx|astro)$|^([^/]+|scripts/.+)\.mjs$
       - id: dprint
         name: dprint
-        # language: node により pre-commit/prek が隔離環境へ dprint を自前インストールするため、
-        # npm ci なしの CI (prek.yaml) でも動く。バージョンは package.json の devDependencies と同期すること。
+        # dprint は mise 管理 (mise.toml の [tools])。バージョン更新は Renovate の mise manager が担う。
         # --allow-no-files: 渡されたファイルがすべて dprint.json の excludes 対象のとき
         # exit 14 (No files found) で失敗しないようにする
-        language: node
-        entry: dprint fmt --allow-no-files
-        additional_dependencies: ["dprint@0.55.2"]
+        language: system
+        entry: mise exec -- dprint fmt --allow-no-files
         files: \.(ts|tsx|astro|js|mjs|css|json|md|toml|ya?ml|svg)$
       - id: typecheck
         name: typecheck

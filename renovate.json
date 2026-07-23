@@ -63,13 +63,6 @@
       "datasourceTemplate": "github-release-attachments",
       "packageNameTemplate": "g-plane/{{depName}}",
       "versioningTemplate": "semver"
-    },
-    {
-      "customType": "regex",
-      "description": ".pre-commit-config.yaml の additional_dependencies にある dprint の pin を npm datasource で更新する (package.json の devDependencies と同期させる)",
-      "managerFilePatterns": ["/(^|/)\\.pre-commit-config\\.yaml$/"],
-      "matchStrings": ["\"(?<depName>dprint)@(?<currentValue>\\d+\\.\\d+\\.\\d+)\""],
-      "datasourceTemplate": "npm"
     }
   ]
 }
