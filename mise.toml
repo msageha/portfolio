@@ -3,7 +3,7 @@
 # ツールのバージョンは Renovate (mise manager) が bump する。latest 指定にしない。
 # パッチ追従と checksum の再解決は mise-lock.yaml (週次) が行う。
 [tools]
-prek = "0.4.9"
+prek = "0.4.10"
 actionlint = "1.7.12"
 
 [env]
