@@ -1,0 +1,29 @@
+# セキュリティヘッダ (msageha/portfolio#67)。参照実装: dope-corp/web-app の public/_headers。
+# CSP 本体 (script-src 等) は Astro islands の inline script や Satori 生成画像などサイト実態に
+# 合わせた調整が必要なため未導入。meta CSP で表現できない frame-ancestors のみここで配信する。
+#
+# 運用メモ:
+# - /_astro/* は immutable 1 年キャッシュのため、ファイル名 (=内容) が変わらずヘッダだけ変える
+#   デプロイは既存訪問者のキャッシュ済み資産に反映されない。ヘッダ変更はファイル名が変わる
+#   デプロイに載せて確認すること。
+# - 同一パスに複数ルールがマッチすると同名ヘッダは連結される仕様のため、Cache-Control は /* に
+#   置かない。HTML は Pages 既定 (Cache-Control 無し + ETag 再検証) のままとする。
+
+# Strict-Transport-Security: preload は msageha.net 配下全体への影響が未確認のため付けない。
+/*
+  Content-Security-Policy: frame-ancestors 'none'
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: microphone=(), camera=(), geolocation=(), display-capture=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Cross-Origin-Opener-Policy: same-origin
+
+# Astro のハッシュ付きビルド資産は内容が変わればファイル名も変わるため immutable キャッシュにする
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Pagefind は pagefind.js 等のハッシュ無しファイルとハッシュ付き index が相互依存するため、
+# デプロイ跨ぎのバージョン混在を避けて毎回 ETag 再検証させる (未変更時は 304)
+/pagefind/*
+  Cache-Control: public, no-cache
