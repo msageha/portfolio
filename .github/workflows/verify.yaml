@@ -1,4 +1,4 @@
-name: prek
+name: verify
 
 # ci.yaml から reusable workflow として呼び出される。
 # push / pull_request / workflow_dispatch のトリガーは ci.yaml 側が持つ。
@@ -18,7 +18,7 @@ permissions:
   actions: write
 
 jobs:
-  prek:
+  verify:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -42,12 +42,17 @@ jobs:
           restore-keys: |
             npm-${{ runner.os }}-
 
-      # eslint / typecheck hook が node_modules を必要とするため npm ci を先に実行する
       - name: Install dependencies
         run: mise exec -- npm ci
 
-      - name: Run prek
-        run: mise exec -- prek run --all-files
+      - name: Audit dependencies
+        run: mise exec -- npm audit --audit-level=high
+
+      # typecheck / lint / format は prek.yaml (pre-commit hooks) が検証する。
+      # ここでは prek が扱わない build のみを検証する。
+
+      - name: Build
+        run: mise exec -- npm run build
 
       # fail-fast: run 全体をキャンセルして並列で走る他のチェックを止める。
       # run と各 job の conclusion は cancelled になるが、失敗した step は failure として記録に残る。

@@ -1,6 +1,6 @@
 # Portfolio
 
-[![prek](https://github.com/msageha/portfolio/actions/workflows/prek.yaml/badge.svg)](https://github.com/msageha/portfolio/actions/workflows/prek.yaml)
+[![CI](https://github.com/msageha/portfolio/actions/workflows/ci.yaml/badge.svg?event=pull_request)](https://github.com/msageha/portfolio/actions/workflows/ci.yaml)
 [![gitleaks](https://github.com/msageha/portfolio/actions/workflows/gitleaks.yaml/badge.svg)](https://github.com/msageha/portfolio/actions/workflows/gitleaks.yaml)
 [![mise-lock](https://github.com/msageha/portfolio/actions/workflows/mise-lock.yaml/badge.svg)](https://github.com/msageha/portfolio/actions/workflows/mise-lock.yaml)
 
