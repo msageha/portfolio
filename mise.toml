@@ -6,6 +6,7 @@
 prek = "0.4.10"
 actionlint = "1.7.12"
 dprint = "0.55.2"
+wrangler = "4.115.0"
 
 [env]
 # `mise.local.toml` (git 管理外) を併置すると、ローカルだけの値で上書きできる。
@@ -17,6 +18,34 @@ run = "npm ci"
 [tasks.clean]
 description = "Remove build artifacts (dist/, .astro/)"
 run = "rm -rf dist .astro"
+
+# 各ブランチの最新デプロイは Cloudflare の仕様で削除できないため、スキップして続行する。
+# 認証は wrangler のログインセッション (`wrangler whoami` で確認) を使う。
+[tasks.cleanup-previews]
+description = "Delete Cloudflare Pages preview deployments (latest per branch cannot be deleted and is skipped)"
+run = '''
+#!/usr/bin/env bash
+set -euo pipefail
+project="portfolio"
+list=$(wrangler pages deployment list --project-name "$project" --environment preview)
+ids=$(grep -oE '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}' <<<"$list" | sort -u)
+if [[ -z "$ids" ]]; then
+  echo "No preview deployments found."
+  exit 0
+fi
+deleted=0
+skipped=0
+for id in $ids; do
+  if out=$(wrangler pages deployment delete "$id" --project-name "$project" --force 2>&1); then
+    echo "deleted: $id"
+    deleted=$((deleted + 1))
+  else
+    echo "skipped: $id ($(tail -n 1 <<<"$out"))"
+    skipped=$((skipped + 1))
+  fi
+done
+echo "done: deleted=${deleted} skipped=${skipped}"
+'''
 
 [tasks.docs]
 description = "Sync the task list embedded in README.md with mise.toml"
