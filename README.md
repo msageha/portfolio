@@ -64,6 +64,12 @@ CI (`.github/workflows/prek.yaml`) でも push / pull request 時に `prek run -
 
 Remove build artifacts (dist/, .astro/)
 
+## `cleanup-previews`
+
+- **Usage**: `cleanup-previews`
+
+Delete Cloudflare Pages preview deployments (latest per branch cannot be deleted and is skipped)
+
 ## `docs`
 
 - **Usage**: `docs`
