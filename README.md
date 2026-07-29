@@ -52,6 +52,18 @@ Git hook は [prek](https://github.com/j178/prek) (`.pre-commit-config.yaml`) �
 
 CI (`.github/workflows/prek.yaml`) でも push / pull request 時に `prek run --all-files` を実行し、全ファイルに対して同じチェックを強制する。
 
+## 依存パッケージの install script ポリシー
+
+npm の `allowScripts` 機構 ([RFC 868](https://github.com/npm/rfcs/pull/868)、npm >= 11.16) を使い、依存パッケージの install script (preinstall / install / postinstall) は `package.json` の `allowScripts` に列挙したパッケージだけに許可する。さらに `.npmrc` の `strict-allow-scripts=true` により、未承認の install script を持つ依存が入ると install は警告ではなく hard fail する (ローカル・CI・Cloudflare ビルドとも)。
+
+install script が必要な依存を新たに追加して install が `ESTRICTALLOWSCRIPTS` で失敗した場合は、script の内容を確認したうえで次のコマンドで承認する。
+
+```shell
+npm approve-scripts <pkg> --no-allow-scripts-pin
+```
+
+エントリはバージョン pin なし (name-only) で登録する。pin 付きにすると Renovate がエントリを追従できず、依存更新のたびに install が壊れるためである。バージョンの固定と更新猶予は lockfile と Renovate の `minimumReleaseAge` (7 日) が担う。
+
 ## タスク
 
 タスクは `mise run <task>` で実行する。
