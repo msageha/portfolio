@@ -15,6 +15,7 @@
 
 !/.gitignore
 !/.node-version
+!/.npmrc
 !/README.md
 !/astro.config.mjs
 !/commitlint.config.js
