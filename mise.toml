@@ -3,10 +3,10 @@
 # ツールのバージョンは Renovate (mise manager) が bump する。latest 指定にしない。
 # パッチ追従と checksum の再解決は mise-lock.yaml (週次) が行う。
 [tools]
-prek = "0.4.10"
+prek = "0.4.11"
 actionlint = "1.7.12"
 dprint = "0.55.2"
-wrangler = "4.115.0"
+wrangler = "4.118.0"
 
 [env]
 # `mise.local.toml` (git 管理外) を併置すると、ローカルだけの値で上書きできる。
