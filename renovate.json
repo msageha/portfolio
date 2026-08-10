@@ -28,8 +28,8 @@
       "automergeType": "pr"
     },
     {
-      "description": "minimumReleaseAge は npm の lockfile 生成時に --before として渡されるため、lockfile を作り直す lockFileMaintenance では推移的依存が猶予期間前のバージョンへ巻き戻り、公開間もない脆弱性修正版を取り込めず npm audit と衝突する。解決を package manager に委ねる更新種別として、Renovate 公式の security:minimumReleaseAgeNpm preset と同じく猶予期間を無効化する",
-      "matchDatasources": ["npm"],
+      "description": "minimumReleaseAge は npm の lockfile 生成時に --before として渡されるため、lockfile を作り直す lockFileMaintenance では推移的依存が猶予期間前のバージョンへ巻き戻り、公開間もない脆弱性修正版を取り込めず npm audit と衝突する。解決を package manager に委ねる更新種別として猶予期間を無効化する。スコープには matchDatasources を使わないこと: lockFileMaintenance の config は datasource を持たないため matchDatasources を含むルールは決してマッチしない (公式 security:minimumReleaseAgeNpm preset も同じ理由で lockFileMaintenance には効かない)",
+      "matchManagers": ["npm"],
       "matchUpdateTypes": ["lockFileMaintenance"],
       "minimumReleaseAge": null
     }
