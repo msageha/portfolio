@@ -72,25 +72,25 @@ npm approve-scripts <pkg> --no-allow-scripts-pin
 <!-- mise-tasks -->
 ## `clean`
 
-- **Usage**: `clean`
+- **Usage:** `clean`
 
 Remove build artifacts (dist/, .astro/)
 
 ## `cleanup-previews`
 
-- **Usage**: `cleanup-previews`
+- **Usage:** `cleanup-previews`
 
 Delete Cloudflare Pages preview deployments (latest per branch cannot be deleted and is skipped)
 
 ## `docs`
 
-- **Usage**: `docs`
+- **Usage:** `docs`
 
 Sync the task list embedded in README.md with mise.toml
 
 ## `install`
 
-- **Usage**: `install`
+- **Usage:** `install`
 
 Install npm dependencies
 <!-- /mise-tasks -->
