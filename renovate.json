@@ -41,6 +41,18 @@
   "customManagers": [
     {
       "customType": "regex",
+      "description": "mise-action の version 入力 (mise 本体のバージョン) を更新する。mise manager が見る mise.toml の [tools] に mise 自身は書けない (mise のレジストリに mise というツールは存在しない) ため、CI 上の mise 本体は mise-action の version で pin し、ここで追従させる。github-releases のタグは v prefix 付きだが version 入力は prefix なしを取るため extractVersion で剥がす",
+      "managerFilePatterns": ["/^\\.github/workflows/.+\\.ya?ml$/"],
+      "matchStrings": [
+        "#\\s*renovate:\\s*datasource=github-releases\\s+depName=jdx/mise\\s+version:\\s*\"(?<currentValue>\\d+\\.\\d+\\.\\d+)\""
+      ],
+      "depNameTemplate": "jdx/mise",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v(?<version>.+)$",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
       "description": "workflow の container.image (digest pin + バージョンコメント) を docker datasource で更新する",
       "managerFilePatterns": ["/^\\.github/workflows/.+\\.ya?ml$/"],
       "matchStrings": [
