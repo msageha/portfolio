@@ -6,7 +6,7 @@
 prek = "0.4.14"
 actionlint = "1.7.12"
 dprint = "0.56.0"
-wrangler = "4.124.0"
+wrangler = "4.125.0"
 
 [env]
 # `mise.local.toml` (git 管理外) を併置すると、ローカルだけの値で上書きできる。
