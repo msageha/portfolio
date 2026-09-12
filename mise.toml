@@ -5,7 +5,7 @@
 [tools]
 prek = "0.5.2"
 actionlint = "1.7.12"
-dprint = "0.57.1"
+dprint = "0.57.3"
 wrangler = "4.129.0"
 
 [env]
