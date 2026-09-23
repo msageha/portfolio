@@ -3,14 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "description": "portfolio",
-  "author": "Mizuki Sango",
-  "type": "module",
   "keywords": [
     "astro"
   ],
-  "engines": {
-    "node": ">=26"
-  },
+  "author": "Mizuki Sango",
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -20,6 +17,9 @@
     "fmt": "dprint fmt",
     "fmt:check": "dprint check",
     "lint": "eslint src astro.config.mjs eslint.config.mjs --max-warnings 0"
+  },
+  "overrides": {
+    "uuid": "^14.0.0"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.1",
@@ -52,8 +52,8 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.62.1"
   },
-  "overrides": {
-    "uuid": "^14.0.0"
+  "engines": {
+    "node": ">=26"
   },
   "allowScripts": {
     "esbuild": true,
