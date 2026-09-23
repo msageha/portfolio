@@ -171,7 +171,7 @@ url_api = "https://api.github.com/repos/j178/prek/releases/assets/560889220"
 provenance = "github-attestations"
 
 [[tools.wrangler]]
-version = "4.131.2"
+version = "4.132.0"
 backend = "npm:wrangler"
 
 [tools.wrangler.options]
