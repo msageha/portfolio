@@ -6,8 +6,6 @@ tags: ["mise", "タスクランナー", "開発環境", "CLI"]
 description: "mise シリーズ第 3 弾はタスクランナー。depends による依存グラフと並列実行、sources/outputs による実行スキップ、usage 記法の引数、file tasks、mise watch、そして mise generate によるドキュメント・git フックの自動生成まで紹介します。"
 ---
 
-# 【第 3 弾】mise タスクランナーで Makefile と npm scripts を置き換える
-
 mise の機能をテーマ別に紹介するシリーズの第 3 弾です。[第 2 弾](/blog/mise-backends/)では backends、mise.lock、mise exec という「実行系」の機能を紹介しました。
 
 1. [第 1 弾：複数言語のバージョン管理](/blog/mise-version-management/)

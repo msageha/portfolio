@@ -1,0 +1,28 @@
+---
+import { AUTHOR, WEBTOOLS_URL } from "../data/site";
+
+const NAV_LINKS = [
+  { label: "Home", href: "/" },
+  { label: "Blog", href: "/blog/" },
+  { label: "Tools", href: WEBTOOLS_URL },
+];
+---
+
+<header class="fixed top-0 right-0 left-0 z-50 border-b border-gray-800 bg-gray-900/80 backdrop-blur-sm">
+  <nav
+    aria-label="サイト"
+    class="container mx-auto flex h-header items-center justify-between px-4"
+  >
+    <a href="/" class="text-gradient text-xl font-bold">{AUTHOR.name}</a>
+    <div class="flex gap-6">
+      {NAV_LINKS.map((link) => (
+        <a
+          href={link.href}
+          class="text-gray-300 transition-colors hover:text-white"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>

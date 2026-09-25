@@ -1,49 +1,35 @@
 ---
 import { getImage } from "astro:assets";
-import App from "../components/App";
-import profileSource from "../images/profile.jpg";
+import Footer from "../components/Footer.astro";
+import About from "../components/home/About.astro";
+import Career from "../components/home/Career.astro";
+import Hero from "../components/home/Hero.astro";
+import Links from "../components/home/Links.astro";
+import Research from "../components/home/Research.astro";
+import Wave from "../components/Wave.astro";
+import { AUTHOR, SITE_URL, SOCIAL_LINKS } from "../data/site";
+import profile from "../images/profile.jpg";
 import Base from "../layouts/Base.astro";
 
-const profile = await getImage({
-  src: profileSource,
-  width: 800,
-  format: "webp",
-});
-const profileImage = {
-  src: profile.src,
-  width: Number(profile.attributes.width),
-  height: Number(profile.attributes.height),
-};
-
 // OG 画像はクローラー互換性のため jpeg で自サイトから配信する
-const ogImage = await getImage({
-  src: profileSource,
-  width: 1200,
-  format: "jpeg",
-});
-const ogImageUrl = new URL(ogImage.src, Astro.site).href;
+const ogImage = await getImage({ src: profile, width: 1200, format: "jpeg" });
+const ogImageUrl = new URL(ogImage.src, SITE_URL).href;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Mizuki Sango",
-  alternateName: "珊瑚 彩主紀",
-  url: "https://msageha.net/",
+  name: AUTHOR.name,
+  alternateName: AUTHOR.nameJa,
+  url: `${SITE_URL}/`,
   image: ogImageUrl,
-  sameAs: [
-    "https://github.com/msageha",
-    "https://x.com/mzking622",
-    "https://instagram.com/msageha",
-    "https://www.linkedin.com/in/mizuki-sango",
-  ],
+  sameAs: SOCIAL_LINKS.map((link) => link.href),
 };
 ---
 
 <Base
   title="Portfolio"
   ogTitle="mizuki's Portfolio"
-  description="mizuki's Portfolio | 珊瑚 彩主紀のポートフォリオページ"
-  canonical="https://msageha.net/"
+  description={`mizuki's Portfolio | ${AUTHOR.nameJa}のポートフォリオページ`}
   ogImage={ogImageUrl}
 >
   <Fragment slot="head">
@@ -53,5 +39,16 @@ const jsonLd = {
       set:html={JSON.stringify(jsonLd)}
     />
   </Fragment>
-  <App client:load profileImage={profileImage} />
+  <main>
+    <Hero />
+    <Wave from="dark" to="light" />
+    <About />
+    <Wave from="light" to="dark" />
+    <Career />
+    <Wave from="dark" to="light" />
+    <Research />
+    <Wave from="light" to="dark" />
+    <Links />
+  </main>
+  <Footer />
 </Base>

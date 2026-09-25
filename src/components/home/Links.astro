@@ -1,0 +1,30 @@
+---
+import { SOCIAL_LINKS, WEBTOOLS_URL } from "../../data/site";
+import Icon from "../Icon.astro";
+import Reveal from "../Reveal.astro";
+import Section from "../Section.astro";
+
+const links = [
+  ...SOCIAL_LINKS.map((link) => ({ ...link, external: true })),
+  { label: "Blog", href: "/blog/", icon: "blog", external: false },
+  { label: "webtools", href: WEBTOOLS_URL, icon: "gear", external: true },
+] as const;
+---
+
+<Section id="links" title="Links" tone="dark">
+  <Reveal delay={600} class="md:flex md:justify-center">
+    <div class="flex items-start justify-evenly md:w-1/2">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="flex flex-col items-center gap-2"
+          target={link.external ? "_blank" : undefined}
+          rel={link.external ? "noopener noreferrer" : undefined}
+        >
+          <Icon name={link.icon} size={64} />
+          <span class="text-sm md:text-base">{link.label}</span>
+        </a>
+      ))}
+    </div>
+  </Reveal>
+</Section>

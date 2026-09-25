@@ -1,0 +1,3 @@
+# 旧 sitemap URL (@astrojs/sitemap が生成していたもの) を登録済みのクローラー向けに現在の sitemap へ転送する
+/sitemap-index.xml /sitemap.xml 301
+/sitemap-0.xml /sitemap.xml 301

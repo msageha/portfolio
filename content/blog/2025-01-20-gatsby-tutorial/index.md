@@ -6,8 +6,6 @@ tags: ["Gatsby", "MDX", "React", "TypeScript"]
 description: "Gatsby v5とMDXを使ってブログを構築する手順を解説します。検索機能やタグ機能の実装方法も紹介。"
 ---
 
-# GatsbyでブログをMDXで構築する方法
-
 Gatsby v5とMDXを使って、モダンなブログシステムを構築する方法を解説します。
 
 ## なぜMDXを使うのか

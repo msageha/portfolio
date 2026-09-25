@@ -1,0 +1,43 @@
+---
+import { PAPERS, PATENTS } from "../../data/publications";
+import Reveal from "../Reveal.astro";
+import Section from "../Section.astro";
+import SectionSubtitle from "../SectionSubtitle.astro";
+import AuthorList from "./AuthorList.astro";
+---
+
+<Section id="publish" title="成果" tone="light">
+  <Reveal delay={600} class="mx-8">
+    <SectionSubtitle title="特許" />
+    <div class="flex justify-center">
+      <div class="text-sm md:w-1/2 md:text-base lg:text-xl 2xl:w-1/3">
+        {PATENTS.map((patent) => (
+          <div class="mb-12">
+            <a
+              class="text-black no-underline hover:underline"
+              href={patent.href}
+            >
+              <h4>{patent.title}</h4>
+              <div>{patent.assignee}</div>
+              <div><AuthorList names={patent.inventors} /></div>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Reveal>
+  <Reveal delay={600} class="mx-8">
+    <SectionSubtitle title="執筆論文" />
+    <div class="flex justify-center">
+      <div class="text-sm md:w-1/2 md:text-base lg:text-xl 2xl:w-1/3">
+        {PAPERS.map((paper) => (
+          <div class="mb-12">
+            <h4>{paper.title}</h4>
+            <div><AuthorList names={paper.authors} /></div>
+            <div>{paper.venue}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Reveal>
+</Section>

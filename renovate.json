@@ -31,6 +31,12 @@
       "matchManagers": ["npm"],
       "matchUpdateTypes": ["lockFileMaintenance"],
       "minimumReleaseAge": null
+    },
+    {
+      "description": "@astrojs/markdown-satteri と satteri は astro が exact pin する版に揃える必要がある (別々に上がると Markdown processor が二重コピーになる) ため、major を含む場合も astro と同じ PR にまとめる。major を含む PR は automerge の対象外なので人手レビューは維持される",
+      "matchPackageNames": ["astro", "@astrojs/markdown-satteri", "satteri"],
+      "groupName": "astro",
+      "separateMajorMinor": false
     }
   ],
   "nodenv": {

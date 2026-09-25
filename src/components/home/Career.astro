@@ -1,0 +1,47 @@
+---
+import { ACTIVITIES, CAREER } from "../../data/career";
+import Reveal from "../Reveal.astro";
+import Section from "../Section.astro";
+import SectionSubtitle from "../SectionSubtitle.astro";
+
+const groups = [
+  { title: "経歴", entries: CAREER },
+  { title: "インターン / 業務委託 / その他", entries: ACTIVITIES },
+];
+---
+
+<Section
+  id="career"
+  title="Career"
+  tone="dark"
+  class="text-center text-sm md:text-base lg:text-xl"
+>
+  {groups.map((group, index) => (
+    <Reveal delay={600} class={index > 0 ? "mt-12" : undefined}>
+      <SectionSubtitle title={group.title} />
+      <div class="md:flex md:justify-center">
+        <dl class="md:w-1/2 2xl:w-1/3">
+          {group.entries.map((entry) => (
+            <div class="my-2 flex">
+              <dt class="w-2/5 font-semibold">{entry.period}</dt>
+              <dd class="w-3/5">
+                {entry.href
+                  ? (
+                    <a
+                      href={entry.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="no-underline hover:underline"
+                    >
+                      {entry.name}
+                    </a>
+                  )
+                  : entry.name}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </Reveal>
+  ))}
+</Section>

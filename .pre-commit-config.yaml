@@ -2,6 +2,10 @@
 default_install_hook_types:
   - pre-commit
   - commit-msg
+  - pre-push
+# stages を指定しない hook は pre-commit でのみ実行する (pre-push では build hook だけを回す)
+default_stages:
+  - pre-commit
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -26,7 +30,7 @@ repos:
         # npx --no-install は Windows でも動く (./node_modules/.bin/eslint は非対応)。
         # --max-warnings 0 は package.json の lint スクリプトと判定を揃えるため
         entry: npx --no-install eslint --max-warnings 0
-        files: \.(ts|tsx|astro)$|^([^/]+|scripts/.+)\.mjs$
+        files: \.(ts|tsx|astro)$|^[^/]+\.mjs$
       - id: dprint
         name: dprint
         # dprint は mise 管理 (mise.toml の [tools])。バージョン更新は Renovate の mise manager が担う。
@@ -41,6 +45,14 @@ repos:
         entry: npm run typecheck
         files: \.(ts|tsx|astro)$
         pass_filenames: false
+      - id: build
+        name: build
+        # typecheck / lint では捕まらないビルド時の失敗 (Markdown 変換、OG 画像、Pagefind) を push 前に検出する
+        language: system
+        entry: npm run build
+        stages: [pre-push]
+        pass_filenames: false
+        always_run: true
       - id: commitlint
         name: commitlint
         language: system

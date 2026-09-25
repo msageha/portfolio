@@ -6,8 +6,6 @@ tags: ["Astro", "Gatsby", "React", "TypeScript", "移行"]
 description: "メンテナンスが事実上停止した Gatsby から Astro 7 へ、このサイトを実際に移行した手順を解説。Content Collections への移行、React コンポーネントの island 化、Pagefind・BudouX の移植、ハマったポイントまで実体験ベースでまとめます。"
 ---
 
-# Gatsby から Astro へブログを移行した手順と注意点
-
 このサイトはもともと [Gatsby v5 で構築していました](/blog/gatsby-mdx-blog-tutorial/)が、先日 Astro 7 へ全面移行しました。
 
 きっかけは Gatsby の開発が事実上止まっていることです。2023 年の Netlify による買収後、コアチームはほぼ解散し、リリースは散発的な fix のみ。React 19 への対応予定もなく、公式リポジトリには「Is GatsbyJS Officially Dead?」という Discussion が立っている状態です。プラグインエコシステムの崩壊も進んでおり、放置するほど依存関係が壊れやすくなると判断して移行に踏み切りました。

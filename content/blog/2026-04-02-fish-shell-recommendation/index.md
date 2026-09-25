@@ -6,8 +6,6 @@ tags: ["fish", "シェル", "CLI", "dotfiles", "開発環境"]
 description: "zsh と比較した fish shell のメリット、fish 4.0 の Rust 化、Fisher プラグイン、補完設定などをまとめて紹介します。"
 ---
 
-# fish shell を使うべき理由と、おすすめの設定・プラグイン
-
 多くのユーザーは bash や zsh を使っていると思います。
 ですが、私は 10 年以上前から [fish shell](https://fishshell.com/) をメインのシェルとして使っています。
 理由はシンプルで、**「インストールした瞬間から最高のシェル体験が得られる」** からです。

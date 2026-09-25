@@ -1,0 +1,134 @@
+---
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const items = Astro.props.headings.filter((heading) => heading.depth <= 3);
+const minDepth = Math.min(...items.map((heading) => heading.depth));
+---
+
+{items.length > 0 && (
+  <nav
+    aria-labelledby="toc-heading"
+    class="mb-6 lg:sticky lg:top-[calc(var(--spacing-header)+1rem)] lg:mb-0 lg:w-52 lg:shrink-0 lg:self-start"
+    data-toc
+  >
+    <button
+      type="button"
+      class="flex w-full items-center justify-between rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-sm text-gray-300 transition-colors hover:bg-gray-700 lg:hidden"
+      aria-expanded="false"
+      aria-controls="toc-list"
+      data-toc-toggle
+    >
+      <span class="font-medium">目次</span>
+      <svg
+        class="h-4 w-4 shrink-0 transition-transform duration-200"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M19 9l-7 7-7-7"
+        />
+      </svg>
+    </button>
+    <div
+      id="toc-list"
+      class="mt-2 hidden rounded-lg border border-gray-700 bg-gray-800 p-4 lg:mt-0 lg:block lg:max-h-[calc(100vh-var(--spacing-header)-3rem)] lg:overflow-y-auto lg:scroll-smooth lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:pr-1"
+      data-toc-list
+    >
+      <p
+        id="toc-heading"
+        class="mb-3 hidden pl-2 text-xs font-semibold tracking-wider text-gray-500 uppercase lg:block"
+      >
+        目次
+      </p>
+      <ul class="space-y-0.5">
+        {items.map((heading) => (
+          <li
+            class="relative"
+            style={`padding-left: ${(heading.depth - minDepth) * 12}px`}
+          >
+            <a
+              href={`#${heading.slug}`}
+              class="block py-1.5 pl-2 text-sm leading-snug text-gray-500 transition-colors duration-150 hover:text-pink-300 aria-[current]:font-medium aria-[current]:text-pink-400 aria-[current]:before:absolute aria-[current]:before:top-0 aria-[current]:before:bottom-0 aria-[current]:before:left-0 aria-[current]:before:w-0.5 aria-[current]:before:rounded-full aria-[current]:before:bg-pink-400"
+              data-toc-link
+            >
+              {heading.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+)}
+
+<script>
+const toc = document.querySelector<HTMLElement>("[data-toc]");
+if (toc) {
+  const toggle = toc.querySelector<HTMLButtonElement>("[data-toc-toggle]")!;
+  const list = toc.querySelector<HTMLElement>("[data-toc-list]")!;
+  const links = [...toc.querySelectorAll<HTMLAnchorElement>("[data-toc-link]")];
+  const headings = links.map((link) =>
+    document.getElementById(decodeURIComponent(link.hash.slice(1)))
+  );
+
+  const setMobileOpen = (open: boolean) => {
+    list.classList.toggle("hidden", !open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.querySelector("svg")?.classList.toggle("rotate-180", open);
+  };
+  toggle.addEventListener(
+    "click",
+    () => setMobileOpen(toggle.getAttribute("aria-expanded") !== "true"),
+  );
+  for (const link of links) {
+    link.addEventListener("click", () => setMobileOpen(false));
+  }
+
+  // 見出しのアンカー遷移と同じオフセット (scroll-margin-top) を基準に、上端を通過した最後の見出しを active にする
+  const threshold = headings[0]
+    ? parseFloat(getComputedStyle(headings[0]).scrollMarginTop) + 8
+    : 0;
+  let scheduled = false;
+  const updateActive = () => {
+    scheduled = false;
+    let activeIndex = -1;
+    headings.forEach((heading, index) => {
+      if (heading && heading.getBoundingClientRect().top <= threshold) {
+        activeIndex = index;
+      }
+    });
+    links.forEach((link, index) => {
+      if (index !== activeIndex) {
+        link.removeAttribute("aria-current");
+        return;
+      }
+      if (link.hasAttribute("aria-current")) return;
+      link.setAttribute("aria-current", "location");
+      const listRect = list.getBoundingClientRect();
+      const linkRect = link.getBoundingClientRect();
+      if (linkRect.top < listRect.top || linkRect.bottom > listRect.bottom) {
+        link.scrollIntoView({ block: "nearest" });
+      }
+    });
+  };
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!scheduled) {
+        scheduled = true;
+        requestAnimationFrame(updateActive);
+      }
+    },
+    { passive: true },
+  );
+  updateActive();
+}
+</script>

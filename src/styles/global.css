@@ -1,34 +1,31 @@
 @import "tailwindcss";
+@import "./post.css";
 
-.wave {
-  z-index: -1;
+@theme {
+  --spacing-header: 4rem;
 }
 
-.parallax > use {
-  animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+@utility text-gradient {
+  background-image: linear-gradient(
+    to right,
+    var(--color-pink-500),
+    var(--color-violet-500)
+  );
+  background-clip: text;
+  color: transparent;
 }
-.parallax > use:nth-child(1) {
-  animation-delay: -2s;
-  animation-duration: 9s;
+
+html {
+  scroll-behavior: smooth;
 }
-.parallax > use:nth-child(2) {
-  animation-delay: -3s;
-  animation-duration: 12s;
-}
-.parallax > use:nth-child(3) {
-  animation-delay: -4s;
-  animation-duration: 15s;
-}
-.parallax > use:nth-child(4) {
-  animation-delay: -5s;
-  animation-duration: 22s;
-}
-@keyframes move-forever {
-  0% {
-    transform: translate3d(-90px, 0, 0);
+
+/* ビューポートに入るたびにフェードインする (Reveal.astro)。JS 無効時は最初から表示する */
+@media (scripting: enabled) {
+  .reveal {
+    opacity: 0;
   }
-  100% {
-    transform: translate3d(85px, 0, 0);
+  .reveal.is-visible {
+    animation: fade-in 1s ease var(--reveal-delay, 0ms) both;
   }
 }
 
@@ -44,6 +41,19 @@
   }
 }
 
+/* 周期と位相は層ごとに Wave.astro が inline style で指定する */
+.wave-layer {
+  animation: wave-drift cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+@keyframes wave-drift {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -52,5 +62,10 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .reveal,
+  .fade-in {
+    opacity: 1 !important;
+    animation: none !important;
   }
 }

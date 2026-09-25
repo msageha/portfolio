@@ -8,20 +8,7 @@ export default tseslint.config(
   { ignores: ["dist", ".astro"] },
   {
     files: ["**/*.{ts,tsx}"],
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    plugins: {
-      "react-hooks": reactHooks,
-    },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-      // Astro が描画した DOM の読み取り (TableOfContents) や debounce 付き検索の
-      // 入力クリア同期 (Search) など、外部システムとの同期として意図的に effect 内で
-      // setState している箇所に誤検知するため無効化する
-      "react-hooks/set-state-in-effect": "off",
-    },
-    languageOptions: {
-      globals: { ...globals.browser },
-    },
+    extends: [js.configs.recommended, ...tseslint.configs.recommended, reactHooks.configs.flat.recommended],
   },
   // Node で実行されるルートの設定ファイル (astro.config.mjs 等)
   {

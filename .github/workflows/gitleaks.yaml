@@ -2,7 +2,7 @@ name: Secret scan
 
 on:
   # ci.yaml から reusable workflow として呼び出される。
-  # push / pull_request / workflow_dispatch のトリガーは ci.yaml 側が持つ。
+  # pull_request / workflow_dispatch のトリガーは ci.yaml 側が持つ。
   workflow_call:
     inputs:
       fail-fast:
