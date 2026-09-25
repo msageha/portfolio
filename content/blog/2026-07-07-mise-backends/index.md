@@ -6,8 +6,6 @@ tags: ["mise", "backends", "開発環境", "CLI", "セキュリティ"]
 description: "mise シリーズ第 2 弾は実行系。cargo/npm/github などの backends であらゆる CLI ツールを宣言的に管理し、mise.lock でバージョンを固定し、mise exec でワンショット実行する方法を、SLSA によるサプライチェーン検証の話とあわせて紹介します。"
 ---
 
-# 【第 2 弾】mise backends・mise.lock・mise exec でツールを宣言的に扱う
-
 [第 1 弾の記事](/blog/mise-version-management/)では、mise を使って複数言語のランタイムバージョンを一元管理する方法を紹介しました。ただ、mise の本領はバージョン管理だけではありません。公式サイトが掲げるとおり、mise は「dev tools、env vars、task runner」の三本柱を持つツールで、実質的に asdf + direnv + make を一つに統合した存在です。
 
 今回からは、バージョン管理の「その先」にある機能を [公式ドキュメント](https://mise.jdx.dev/)に基づいてテーマ別に紹介していきます。シリーズの構成は次のとおりです。

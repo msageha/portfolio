@@ -12,8 +12,6 @@ tags: [
 description: "依存関係の更新を Renovate で自動化する設定を、実際に運用している renovate.json とともに解説します。config:recommended をベースに、GitHub Actions のダイジェスト固定、独自ファイルへの追従、LLM Coding Agent 時代のサプライチェーン対策としての minimumReleaseAge、mise.toml をそのまま読める mise マネージャーとの相性まで扱います。"
 ---
 
-# Renovate で依存関係の更新を自動化する
-
 つい先日、2026 年 7 月 14 日に、GitHub は Dependabot のバージョン更新へ 3 日間の cooldown（新しいバージョンが公開されてから一定期間、更新 PR を出さずに待つ機能）をデフォルトで導入した。設定不要で全エコシステムに効くようになったというアナウンスで、後追いで知った人も多いはずだ。
 
 この発想自体は目新しいものではない。[Renovate](https://github.com/renovatebot/renovate) はずっと前から `minimumReleaseAge` という名前で同じことをやっている。GitHub がデフォルト機能にまで格上げしたということは、更新のタイミングを遅らせること自体、もう標準的な防御手段になったということでもある。

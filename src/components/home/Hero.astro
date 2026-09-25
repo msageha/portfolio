@@ -1,0 +1,20 @@
+---
+import { AUTHOR } from "../../data/site";
+import Reveal from "../Reveal.astro";
+---
+
+<section id="hero" class="relative h-screen bg-gray-900">
+  <div class="absolute inset-0 mx-10 flex flex-col items-center justify-center text-center">
+    <Reveal delay={300}>
+      <h1 class="mb-8 text-4xl font-extrabold text-white md:text-6xl lg:text-7xl">
+        This is a portfolio about
+        <br />
+        <span class="text-gradient">{AUTHOR.name}</span>
+      </h1>
+    </Reveal>
+    <Reveal delay={1000}>
+      <a href="#about" class="text-xl text-blue-400 md:text-3xl lg:text-4xl"
+      >About me...</a>
+    </Reveal>
+  </div>
+</section>

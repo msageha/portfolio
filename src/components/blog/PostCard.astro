@@ -1,0 +1,31 @@
+---
+import { formatDate, type Post, postPath, toIsoDate } from "../../lib/posts";
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { title, date, tags, description } = post.data;
+---
+
+<a
+  href={postPath(post)}
+  class="block rounded-lg border border-gray-700 bg-gray-800 p-6 transition-all hover:border-pink-500 hover:shadow-lg hover:shadow-pink-500/20"
+>
+  <div class="mb-3 flex flex-wrap items-center gap-4">
+    <time
+      datetime={toIsoDate(date)}
+      class="text-sm text-gray-400"
+    >{formatDate(date)}</time>
+    <div class="flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <span
+          class="rounded bg-gray-700 px-2 py-1 text-xs text-gray-300"
+        >{tag}</span>
+      ))}
+    </div>
+  </div>
+  <h2 class="mb-2 text-2xl font-bold text-white">{title}</h2>
+  <p class="text-gray-300">{description}</p>
+</a>

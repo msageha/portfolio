@@ -1,0 +1,47 @@
+---
+// 隣接するセクション (Section.astro の tone) の境界に置く波形。上の色を背景に、下の色の波を重ねる
+type Tone = "dark" | "light";
+
+interface Props {
+  from: Tone;
+  to: Tone;
+}
+
+const { from, to } = Astro.props;
+
+const PALETTE = {
+  dark: { bg: "bg-gray-900", wave: "text-gray-900" },
+  light: { bg: "bg-slate-300", wave: "text-slate-300" },
+} satisfies Record<Tone, { bg: string; wave: string }>;
+
+const WAVE_PATH =
+  "M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z";
+const LAYERS = [
+  { y: 0, opacity: 0.5, duration: "9s", delay: "-2s" },
+  { y: 3, opacity: 0.3, duration: "12s", delay: "-3s" },
+  { y: 5, opacity: 0.15, duration: "15s", delay: "-4s" },
+  { y: 7, opacity: 1, duration: "22s", delay: "-5s" },
+];
+---
+
+<div class:list={["relative h-[15vh] min-h-[100px] w-full overflow-hidden", PALETTE[from].bg]}>
+  <svg
+    class:list={["h-full w-full", PALETTE[to].wave]}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 24 150 28"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    {LAYERS.map((layer) => (
+      <g transform={`translate(48 ${layer.y})`}>
+        <path
+          class="wave-layer"
+          style={`animation-duration: ${layer.duration}; animation-delay: ${layer.delay}`}
+          d={WAVE_PATH}
+          fill="currentColor"
+          fill-opacity={layer.opacity}
+        />
+      </g>
+    ))}
+  </svg>
+</div>

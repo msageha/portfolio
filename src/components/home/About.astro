@@ -1,0 +1,83 @@
+---
+import { Image } from "astro:assets";
+import { AUTHOR } from "../../data/site";
+import profile from "../../images/profile.jpg";
+import Reveal from "../Reveal.astro";
+import Section from "../Section.astro";
+
+const TECH_STACK = [
+  "言語: Python, Golang, Typescript, Dart(Flutter)",
+  "データベース: MySQL, PostgreSQL, BigQuery, Redis, Elasticsearch",
+  "クラウド: AWS, GCP",
+  "コンテナ: Docker, Kubernetes",
+  "分散処理: Apache Beam, Apache Spark",
+  "その他: Apache Airflow, Terraform, Git, CircleCI",
+];
+---
+
+<Section id="about" title="About me" tone="light">
+  <Reveal delay={600} class="mx-8">
+    <div class="text-black md:flex md:flex-row md:items-center md:justify-evenly">
+      <div class="md:w-1/3">
+        <Image
+          src={profile}
+          width={800}
+          format="webp"
+          alt={`${AUTHOR.nameJa}のプロフィール写真 (台湾 九份で撮影)`}
+          class="h-auto w-full rounded-lg"
+        />
+        <div class="text-sm md:text-base lg:text-xl">
+          ※台湾 九份で撮影したもの
+        </div>
+      </div>
+      <dl class="mt-6 text-sm md:w-1/3 md:text-base lg:text-xl">
+        <div class="my-2 flex">
+          <dt class="w-1/4 font-semibold">氏名</dt>
+          <dd class="w-3/4">{AUTHOR.nameJa} (さんご みずき)</dd>
+        </div>
+        <div class="my-2 flex">
+          <dt class="w-1/4 font-semibold">生年月日</dt>
+          <dd class="w-3/4">1994年 6月 22日</dd>
+        </div>
+        <div class="my-2 flex">
+          <dt class="w-1/4 font-semibold">mail</dt>
+          <dd class="w-3/4">
+            <a
+              class="text-black no-underline hover:underline"
+              href="mailto:msageha+info@gmail.com"
+            >
+              msageha+info -at- gmail.com
+            </a>
+          </dd>
+        </div>
+        <div class="my-2 flex">
+          <dt class="w-1/4 font-semibold">趣味、嗜好</dt>
+          <dd class="w-3/4">
+            オンラインゲーム、旅行。
+            <br />
+            海外は20ヶ国以上。
+            <br />
+            フランス ブルゴーニュ地方のワインが好き。
+          </dd>
+        </div>
+        <div class="mt-2 flex">
+          <dt class="w-1/4 font-semibold">
+            技術スタック
+            <br />
+            (業務経験
+            <br />
+            1年以上)
+          </dt>
+          <dd class="w-3/4">
+            {TECH_STACK.map((line, index) => (
+              <>
+                {index > 0 && <br />}
+                {line}
+              </>
+            ))}
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </Reveal>
+</Section>

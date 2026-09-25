@@ -1,0 +1,18 @@
+---
+import { AUTHOR } from "../../data/site";
+
+interface Props {
+  names: string[];
+}
+
+const { names } = Astro.props;
+const isAuthor = (name: string) =>
+  name === AUTHOR.name || name === AUTHOR.nameJa;
+---
+
+{names.map((name, index) => (
+  <>
+    {index > 0 && ", "}
+    {isAuthor(name) ? <span class="underline">{name}</span> : name}
+  </>
+))}

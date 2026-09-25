@@ -1,0 +1,27 @@
+---
+// ビューポートに入るたびにフェードインする wrapper。スタイルは global.css の .reveal
+interface Props {
+  delay?: number;
+  class?: string;
+}
+
+const { delay = 0, class: className } = Astro.props;
+---
+
+<div
+  class:list={["reveal", className]}
+  style={delay ? `--reveal-delay: ${delay}ms` : undefined}
+>
+  <slot />
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  for (const entry of entries) {
+    entry.target.classList.toggle("is-visible", entry.isIntersecting);
+  }
+});
+for (const element of document.querySelectorAll(".reveal")) {
+  observer.observe(element);
+}
+</script>

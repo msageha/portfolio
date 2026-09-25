@@ -1,0 +1,12 @@
+---
+import { AUTHOR, GITHUB_URL } from "../data/site";
+---
+
+<footer class="bg-gray-900 pt-12 pb-8 text-white md:flex md:justify-center">
+  <div class="mx-4 md:w-1/2">
+    Copyright © {new Date().getFullYear()} - Developed by{" "}
+    <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
+      {AUTHOR.name}
+    </a>
+  </div>
+</footer>
