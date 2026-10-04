@@ -23,11 +23,11 @@
 このリポジトリは [mise](https://mise.jdx.dev/) の利用を前提としている。
 Node.js 26 が必要で、バージョンは `.node-version` (メジャーのみ指定) を単一の情報源としており
 (`mise.toml` の設定経由で `.node-version` が読まれる、Cloudflare Build も同様)、
-`prek` (pre-commit hook 管理)・`actionlint`・`dprint` (ts/tsx/astro/css/js/mjs/md/json/yaml/toml/svg フォーマッタ)・`wrangler` (Cloudflare CLI) は mise 管理のツールとしてインストールされる。
+`prek` (pre-commit hook 管理)・`actionlint`・`shellcheck` (actionlint が workflow の `run:` 検査に使う)・`dprint` (ts/tsx/astro/css/js/mjs/md/json/yaml/toml/svg フォーマッタ)・`wrangler` (Cloudflare CLI) は mise 管理のツールとしてインストールされる。
 
 ```shell
 mise trust    # 初回のみ: このディレクトリの mise.toml を信頼する
-mise install  # tools (node, prek, actionlint, dprint, wrangler) をインストールし、pre-commit hook をセットアップする
+mise install  # tools (node, prek, actionlint, shellcheck, dprint, wrangler) をインストールし、pre-commit hook をセットアップする
 npm ci
 ```
 
@@ -130,7 +130,7 @@ description: "記事の説明"
     `GITHUB_TOKEN` で作成した PR の CI は承認待ち状態になるため、write 権限者が Actions タブから
     承認して実行する必要がある。
 
-依存関係の更新は [Renovate](https://docs.renovatebot.com/) (`renovate.json`) が担う。`mise.toml` の tool バージョン (prek / actionlint / dprint / wrangler) も Renovate の mise manager が bump する。
+依存関係の更新は [Renovate](https://docs.renovatebot.com/) (`renovate.json`) が担う。`mise.toml` の tool バージョン (prek / actionlint / shellcheck / dprint / wrangler) も Renovate の mise manager が bump する。
 
 ## デプロイ
 
