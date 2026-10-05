@@ -3,7 +3,7 @@
 # ツールのバージョンは Renovate (mise manager) が bump する。latest 指定にしない。
 # パッチ追従と checksum の再解決は mise-lock.yaml (週次) が行う。
 [tools]
-prek = "0.5.3"
+prek = "0.5.4"
 actionlint = "1.7.12"
 # actionlint は run: のスクリプト検査に PATH 上の shellcheck を使うため、ここで pin して
 # CI (runner 同梱版) とローカル (未設定の mise shim を拾うと actionlint ごと失敗する) を同じ版に揃える
