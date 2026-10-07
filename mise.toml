@@ -8,8 +8,8 @@ actionlint = "1.7.12"
 # actionlint は run: のスクリプト検査に PATH 上の shellcheck を使うため、ここで pin して
 # CI (runner 同梱版) とローカル (未設定の mise shim を拾うと actionlint ごと失敗する) を同じ版に揃える
 shellcheck = "0.11.0"
-dprint = "0.57.4"
-wrangler = "4.143.1"
+dprint = "0.58.0"
+wrangler = "4.144.0"
 
 [env]
 # `mise.local.toml` (git 管理外) を併置すると、ローカルだけの値で上書きできる。
