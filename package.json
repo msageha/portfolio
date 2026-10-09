@@ -31,7 +31,7 @@
     "pagefind": "^1.5.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "satori": "^0.33.0",
+    "satori": "^0.34.0",
     "satteri": "^0.10.5",
     "sharp": "^0.35.3",
     "tailwindcss": "^4.3.2"
