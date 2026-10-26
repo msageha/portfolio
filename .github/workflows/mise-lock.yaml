@@ -38,10 +38,10 @@ jobs:
       # 失敗しうるため、mise 本体のみ導入して lock の再生成だけを行う。
       # version は全ワークフローで同じ値に pin する (未指定は latest。理由は prek.yaml を参照)。
       - name: Install mise
-        uses: jdx/mise-action@9b200bcecbfd6303e69a4a261b2e09e3757440a7 # v5.2.0
+        uses: jdx/mise-action@fc42bcc7ddbf51124c30f95a877a0c5168a3bfde # v5.2.1
         with:
           # renovate: datasource=github-releases depName=jdx/mise
-          version: "2026.10.14"
+          version: "2026.10.15"
           install: false
           cache: false
 
