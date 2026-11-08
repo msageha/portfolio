@@ -3,13 +3,13 @@
 # ツールのバージョンは Renovate (mise manager) が bump する。latest 指定にしない。
 # パッチ追従と checksum の再解決は mise-lock.yaml (週次) が行う。
 [tools]
-prek = "0.5.7"
+prek = "0.5.9"
 actionlint = "1.7.12"
 # actionlint は run: のスクリプト検査に PATH 上の shellcheck を使うため、ここで pin して
 # CI (runner 同梱版) とローカル (未設定の mise shim を拾うと actionlint ごと失敗する) を同じ版に揃える
 shellcheck = "0.11.0"
 dprint = "0.64.3"
-wrangler = "4.153.0"
+wrangler = "4.156.0"
 
 [env]
 # `mise.local.toml` (git 管理外) を併置すると、ローカルだけの値で上書きできる。
