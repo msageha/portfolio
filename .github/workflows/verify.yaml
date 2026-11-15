@@ -31,10 +31,10 @@ jobs:
       # jdx/mise-action@* を patterns_allowed に許可しておく必要がある。
       # version は全ワークフローで同じ値に pin する (未指定は latest。理由は prek.yaml を参照)。
       - name: Install mise
-        uses: jdx/mise-action@6612f0ef07ed2a736cd1e00a94a065522dd41195 # v5.2.5
+        uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # v5.2.7
         with:
           # renovate: datasource=github-releases depName=jdx/mise
-          version: "2026.10.25"
+          version: "2026.11.4"
           cache: true
 
       - name: Cache npm
