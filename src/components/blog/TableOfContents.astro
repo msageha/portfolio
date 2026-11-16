@@ -45,7 +45,7 @@ const minDepth = Math.min(...items.map((heading) => heading.depth));
     >
       <p
         id="toc-heading"
-        class="mb-3 hidden pl-2 text-xs font-semibold tracking-wider text-gray-500 uppercase lg:block"
+        class="mb-3 hidden pl-2 text-xs font-semibold tracking-wider text-gray-400 uppercase lg:block"
       >
         目次
       </p>
@@ -57,7 +57,7 @@ const minDepth = Math.min(...items.map((heading) => heading.depth));
           >
             <a
               href={`#${heading.slug}`}
-              class="block py-1.5 pl-2 text-sm leading-snug text-gray-500 transition-colors duration-150 hover:text-pink-300 aria-[current]:font-medium aria-[current]:text-pink-400 aria-[current]:before:absolute aria-[current]:before:top-0 aria-[current]:before:bottom-0 aria-[current]:before:left-0 aria-[current]:before:w-0.5 aria-[current]:before:rounded-full aria-[current]:before:bg-pink-400"
+              class="block py-1.5 pl-2 text-sm leading-snug text-gray-400 transition-colors duration-150 hover:text-pink-300 aria-[current]:font-medium aria-[current]:text-pink-400 aria-[current]:before:absolute aria-[current]:before:top-0 aria-[current]:before:bottom-0 aria-[current]:before:left-0 aria-[current]:before:w-0.5 aria-[current]:before:rounded-full aria-[current]:before:bg-pink-400"
               data-toc-link
             >
               {heading.text}
