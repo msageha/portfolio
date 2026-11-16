@@ -1,14 +1,15 @@
 import js from "@eslint/js";
 import astro from "eslint-plugin-astro";
 import reactHooks from "eslint-plugin-react-hooks";
+import { defineConfig } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config(
+export default defineConfig(
   { ignores: ["dist", ".astro"] },
   {
     files: ["**/*.{ts,tsx}"],
-    extends: [js.configs.recommended, ...tseslint.configs.recommended, reactHooks.configs.flat.recommended],
+    extends: [js.configs.recommended, tseslint.configs.recommended, reactHooks.configs.flat.recommended],
   },
   // Node で実行されるルートの設定ファイル (astro.config.mjs 等)
   {
@@ -18,6 +19,5 @@ export default tseslint.config(
       globals: { ...globals.node },
     },
   },
-  // .astro ファイル (frontmatter + テンプレート) の lint
-  ...astro.configs.recommended,
+  astro.configs.recommended,
 );

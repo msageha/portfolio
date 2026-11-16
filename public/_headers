@@ -1,6 +1,5 @@
-# セキュリティヘッダ (msageha/portfolio#67)。参照実装: dope-corp/web-app の public/_headers。
-# CSP 本体 (script-src 等) は Astro islands の inline script や Satori 生成画像などサイト実態に
-# 合わせた調整が必要なため未導入。meta CSP で表現できない frame-ancestors のみここで配信する。
+# CSP は frame-ancestors だけを配信する。script-src 等は Astro islands の inline script などに
+# 合わせた許可が要るため指定していない。frame-ancestors は meta CSP では効かないためヘッダで送る。
 #
 # 運用メモ:
 # - /_astro/* は immutable 1 年キャッシュのため、ファイル名 (=内容) が変わらずヘッダだけ変える

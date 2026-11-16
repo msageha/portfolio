@@ -11,9 +11,6 @@ shellcheck = "0.11.0"
 dprint = "0.64.3"
 wrangler = "4.158.0"
 
-[env]
-# `mise.local.toml` (git 管理外) を併置すると、ローカルだけの値で上書きできる。
-
 [tasks.install]
 description = "Install npm dependencies"
 run = "npm ci"

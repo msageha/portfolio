@@ -1,6 +1,6 @@
 ---
-// 隣接するセクション (Section.astro の tone) の境界に置く波形。上の色を背景に、下の色の波を重ねる
-type Tone = "dark" | "light";
+// 隣接するセクションの境界に置く波形。上の色を背景に、下の色の波を重ねる
+import { type Tone, TONES } from "./tone";
 
 interface Props {
   from: Tone;
@@ -8,11 +8,6 @@ interface Props {
 }
 
 const { from, to } = Astro.props;
-
-const PALETTE = {
-  dark: { bg: "bg-gray-900", wave: "text-gray-900" },
-  light: { bg: "bg-slate-300", wave: "text-slate-300" },
-} satisfies Record<Tone, { bg: string; wave: string }>;
 
 const WAVE_PATH =
   "M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z";
@@ -24,9 +19,9 @@ const LAYERS = [
 ];
 ---
 
-<div class:list={["relative h-[15vh] min-h-[100px] w-full overflow-hidden", PALETTE[from].bg]}>
+<div class:list={["relative h-[15vh] min-h-[100px] w-full overflow-hidden", TONES[from].bg]}>
   <svg
-    class:list={["h-full w-full", PALETTE[to].wave]}
+    class:list={["h-full w-full", TONES[to].wave]}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 24 150 28"
     preserveAspectRatio="none"

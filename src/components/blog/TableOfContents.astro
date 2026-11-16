@@ -99,12 +99,9 @@ if (toc) {
   let scheduled = false;
   const updateActive = () => {
     scheduled = false;
-    let activeIndex = -1;
-    headings.forEach((heading, index) => {
-      if (heading && heading.getBoundingClientRect().top <= threshold) {
-        activeIndex = index;
-      }
-    });
+    const activeIndex = headings.findLastIndex((heading) =>
+      heading !== null && heading.getBoundingClientRect().top <= threshold
+    );
     links.forEach((link, index) => {
       if (index !== activeIndex) {
         link.removeAttribute("aria-current");
