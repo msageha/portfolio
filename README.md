@@ -83,7 +83,7 @@ Remove build artifacts (dist/, .astro/)
 
 - **Usage:** `cleanup-previews`
 
-Delete Cloudflare Pages preview deployments (latest per branch cannot be deleted and is skipped)
+Delete Cloudflare Pages preview deployments (the latest per branch cannot be deleted and is skipped)
 
 ## `docs`
 

@@ -19,32 +19,40 @@ run = "npm ci"
 description = "Remove build artifacts (dist/, .astro/)"
 run = "rm -rf dist .astro"
 
-# 各ブランチの最新デプロイは Cloudflare の仕様で削除できないため、スキップして続行する。
+# 各ブランチの最新デプロイは Cloudflare の仕様で削除できず、API が 8000035 (aliased deployment) を返すので
+# skip する。それ以外の失敗は内容を表示し、最後に非 0 で終わる。
 # 認証は wrangler のログインセッション (`wrangler whoami` で確認) を使う。
 [tasks.cleanup-previews]
-description = "Delete Cloudflare Pages preview deployments (latest per branch cannot be deleted and is skipped)"
+description = "Delete Cloudflare Pages preview deployments (the latest per branch cannot be deleted and is skipped)"
 run = '''
 #!/usr/bin/env bash
 set -euo pipefail
 project="portfolio"
 list=$(wrangler pages deployment list --project-name "$project" --environment preview)
-ids=$(grep -oE '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}' <<<"$list" | sort -u)
+# grep は一致が無いと 1、エラーでは 2 を返すので、1 (0 件) だけを正常な結果として扱う
+ids=$({ grep -oE '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}' <<<"$list" || [[ $? -eq 1 ]]; } | sort -u)
 if [[ -z "$ids" ]]; then
   echo "No preview deployments found."
   exit 0
 fi
 deleted=0
 skipped=0
+failed=0
 for id in $ids; do
   if out=$(wrangler pages deployment delete "$id" --project-name "$project" --force 2>&1); then
     echo "deleted: $id"
     deleted=$((deleted + 1))
-  else
-    echo "skipped: $id ($(tail -n 1 <<<"$out"))"
+  elif grep -q '8000035' <<<"$out"; then
+    echo "skipped (latest deployment of its branch): $id"
     skipped=$((skipped + 1))
+  else
+    echo "failed: $id" >&2
+    echo "$out" >&2
+    failed=$((failed + 1))
   fi
 done
-echo "done: deleted=${deleted} skipped=${skipped}"
+echo "done: deleted=${deleted} skipped=${skipped} failed=${failed}"
+[[ "$failed" -eq 0 ]]
 '''
 
 [tasks.docs]
