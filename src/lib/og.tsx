@@ -3,8 +3,9 @@ import sharp from "sharp";
 import { AUTHOR } from "../data/site";
 
 // satori は woff2 非対応のため、単一ファイルで取得できる OTF をビルド時にダウンロードする。
-// 描画結果が外部の更新で変わらないよう release tag で固定する
-const FONT_URL = "https://cdn.jsdelivr.net/gh/notofonts/noto-cjk@Sans2.004/Sans/SubsetOTF/JP/NotoSansJP-Bold.otf";
+// 描画結果が外部の更新で変わらないよう release tag で固定する。
+// jsDelivr の GitHub 配信は noto-cjk のファイルを 404 で返すため、GitHub から直接取得する
+const FONT_URL = "https://raw.githubusercontent.com/notofonts/noto-cjk/Sans2.004/Sans/SubsetOTF/JP/NotoSansJP-Bold.otf";
 
 let fontPromise: Promise<ArrayBuffer> | undefined;
 
