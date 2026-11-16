@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import { BLOG, SITE_URL } from "../data/site";
+import { AUTHOR, BLOG, SITE_URL } from "../data/site";
 
 interface OgImage {
   url: string;
@@ -42,7 +42,7 @@ const canonical = new URL(Astro.url.pathname, SITE_URL).href;
     <meta property="og:type" content={ogType} />
     {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:locale" content="ja_JP" />
-    <meta property="og:site_name" content="mizuki msageha mzk Portfolio" />
+    <meta property="og:site_name" content={`${AUTHOR.name} Portfolio`} />
     {ogImage && (
       <>
         <meta property="og:image" content={ogImage.url} />
