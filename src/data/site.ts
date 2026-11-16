@@ -5,6 +5,8 @@ export const AUTHOR = {
   nameJa: "珊瑚 彩主紀",
 } as const;
 
+export const PROFILE_PHOTO_ALT = `${AUTHOR.nameJa}のプロフィール写真 (台湾 九份で撮影)`;
+
 export const BLOG = {
   title: "Mizuki Sango Blog",
   description: "技術記事やプロジェクトの記録",

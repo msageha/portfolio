@@ -8,7 +8,8 @@ export const GET: APIRoute = async () => {
   return rss({
     title: BLOG.title,
     description: BLOG.description,
-    site: SITE_URL,
+    // channel の <link> になるため、この feed に対応する HTML であるブログ一覧を指す
+    site: new URL("/blog/", SITE_URL).href,
     items: posts.map((post) => ({
       title: post.data.title,
       pubDate: post.data.date,

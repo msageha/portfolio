@@ -11,7 +11,7 @@ const posts = await getSortedPosts();
   title={`Blog | ${AUTHOR.name} - Portfolio`}
   ogTitle={`Blog | ${AUTHOR.name}`}
   description={BLOG.description}
-  ogImage={new URL("/og/blog.png", SITE_URL).href}
+  ogImage={{ url: new URL("/og/blog.png", SITE_URL).href, alt: BLOG.title }}
 >
   <BlogIndex posts={posts} tags={collectTags(posts)} />
 </Page>

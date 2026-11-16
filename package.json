@@ -18,8 +18,7 @@
     "lint": "eslint src astro.config.mjs eslint.config.mjs --max-warnings 0"
   },
   "overrides": {
-    "fflate@0.7.3": "0.7.5",
-    "uuid": "^14.0.0"
+    "fflate@0.7.3": "0.7.5"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.1",

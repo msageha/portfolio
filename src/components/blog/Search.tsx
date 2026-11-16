@@ -15,8 +15,8 @@ let pagefindPromise: Promise<Pagefind> | undefined;
 
 function loadPagefind(): Promise<Pagefind> {
   pagefindPromise ??= (async () => {
-    // パスを変数経由で渡し、Vite の静的 import 解析を回避する
-    // (esbuild が @vite-ignore コメントを除去するため、リテラルだと dev で解決エラーになる)
+    // pagefind.js は build 後に生成される静的ファイルなので、パスを変数で渡して解決させない。
+    // リテラルにすると @vite-ignore を付けても Vite の dev が解決に失敗し、TypeScript も型エラーにする
     const pagefindPath = "/pagefind/pagefind.js";
     const pagefind: Pagefind = await import(/* @vite-ignore */ pagefindPath);
     await pagefind.init();

@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { AUTHOR } from "../../data/site";
+import { AUTHOR, PROFILE_PHOTO_ALT } from "../../data/site";
 import profile from "../../images/profile.jpg";
 import Reveal from "../Reveal.astro";
 import Section from "../Section.astro";
@@ -23,7 +23,7 @@ const TECH_STACK = [
           src={profile}
           width={800}
           format="webp"
-          alt={`${AUTHOR.nameJa}のプロフィール写真 (台湾 九份で撮影)`}
+          alt={PROFILE_PHOTO_ALT}
           class="h-auto w-full rounded-lg"
         />
         <div class="text-sm md:text-base lg:text-xl">
