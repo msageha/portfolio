@@ -1,6 +1,7 @@
 ---
 title: "【第 1 弾】mise で複数言語のバージョン管理をシンプルにする"
 date: "2026-04-12"
+updated: "2026-11-17"
 slug: "mise-version-management"
 tags: ["mise", "asdf", "uv", "開発環境", "CLI"]
 description: "Go・Node・Python・Ruby など複数の言語ランタイムを mise で一元管理する方法を解説。asdf・uv・pyenv など既存ツールとのメリデメ比較、OS 依存の注意点、チームでの運用方針まで網羅します。"
@@ -201,13 +202,17 @@ uv はあくまで「Python エコシステムのオールインワン」であ�
 
 推奨する回避策は明快です。Python のバージョン管理は mise に統一し、`uv python install` は使わないことです。
 
-mise が管理する Python は PATH に自動的に追加されます。uv はプロジェクト実行時に PATH 上の python を参照するため、`uv python install` を実行しない限り、uv は mise の Python を自動的に使います。
+mise が管理する Python は PATH に自動的に追加され、uv は PATH 上の python も探索します。ただし uv は既定で自分が管理する Python を優先し、条件に合う Python が見つからなければ自動でダウンロードもします。`uv python install` を使わないだけでは uv 管理の Python が入りうるので、uv には PATH 上の Python だけを使わせる設定をしておきます。
 
 ```bash
 # Python バージョンは mise だけで管理
 mise use -g python@3.13
 
-# uv はパッケージ管理・仮想環境のみ担当（python install はしない）
+# uv には uv 管理の Python を使わせず、自動ダウンロードもさせない
+export UV_PYTHON_PREFERENCE=only-system
+export UV_PYTHON_DOWNLOADS=never
+
+# uv はパッケージ管理・仮想環境のみ担当
 cd my-project
 uv venv          # mise が提供する python で仮想環境を作成
 uv pip install fastapi
@@ -245,8 +250,8 @@ uv プロジェクト（`uv.lock` がある場合）では、mise の `python.uv
 # mise.toml
 [settings]
 python.uv_venv_auto = "source" # 既存の .venv を自動で有効化
-# または
-python.uv_venv_auto = "create|source" # なければ作成してから有効化
+# なければ作成してから有効化する場合は、上の行の代わりに次の行を使う
+# python.uv_venv_auto = "create|source"
 ```
 
 「Python バージョン管理も uv に完全統一したい」という場合、uv で Python を管理して mise の python 設定を外すことも可能です。ただし Go や Node が絡む場合は結局 mise を外せないため、Python だけ分離するメリットは薄く、mise に統一してしまう方がシンプルです。

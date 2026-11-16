@@ -1,6 +1,7 @@
 ---
 title: "【第 4 弾】mise 環境変数・hooks・secrets でプロジェクトに入るだけで整う開発環境を作る"
 date: "2026-07-09"
+updated: "2026-11-17"
 slug: "mise-env-management"
 tags: ["mise", "開発環境", "CLI", "direnv", "secrets"]
 description: "mise シリーズ最終回は環境変数編。direnv を置き換える [env] とディレクティブ、Python venv の自動化、6 種類の hooks とシェル統合の仕組み、sops/redactions/fnox による secrets 管理まで扱い、プロジェクトに入るだけで環境が全部整う状態を作ります。"
@@ -154,7 +155,7 @@ _.file = { path = ".env.json", redact = true }
 
 ```toml
 # mise.toml（ファイル先頭のトップレベルに書く）
-redactions = ["API_KEY", "SECRETS_*"]
+redactions = ["SECRET_KEY", "*_TOKEN"]
 
 [env]
 SECRET_KEY = "sensitive_value"
