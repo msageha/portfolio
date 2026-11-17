@@ -35,7 +35,7 @@ const filters = [
 </Reveal>
 
 <div class="mx-auto mb-8 max-w-xl">
-  <Search client:idle />
+  <Search />
 </div>
 
 <Reveal delay={600}>
@@ -67,3 +67,7 @@ const filters = [
     </Reveal>
   ))}
 </div>
+
+<script>
+import "./Search.client";
+</script>
