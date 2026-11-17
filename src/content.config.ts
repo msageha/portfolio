@@ -9,7 +9,8 @@ const blog = defineCollection({
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
     slug: z.string().regex(/^[a-z0-9-]+$/),
-    tags: z.array(z.string().regex(/^[^;,/?:@&=+$#%]+$/)).default([]),
+    // タグは URL の path segment になるため、予約文字と、URL 上で親や自身のディレクトリになる . / .. を拒否する
+    tags: z.array(z.string().regex(/^(?!\.{1,2}$)[^;,/?:@&=+$#%]+$/)).default([]),
     description: z.string(),
   }),
 });

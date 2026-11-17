@@ -1,7 +1,7 @@
 # Node のバージョンは .node-version (メジャーのみ指定) が単一ソース (Cloudflare のビルドも参照する)。
 # mise には settings.idiomatic_version_file_enable_tools 経由で読み込ませる。
 # ツールのバージョンは Renovate (mise manager) が bump する。latest 指定にしない。
-# パッチ追従と checksum の再解決は mise-lock.yaml (週次) が行う。
+# mise.lock も Renovate が更新する (node のパッチ追従は lockFileMaintenance)。
 [tools]
 prek = "0.5.10"
 actionlint = "1.7.12"
@@ -11,9 +11,6 @@ shellcheck = "0.11.0"
 dprint = "0.64.3"
 wrangler = "4.158.0"
 
-[env]
-# `mise.local.toml` (git 管理外) を併置すると、ローカルだけの値で上書きできる。
-
 [tasks.install]
 description = "Install npm dependencies"
 run = "npm ci"
@@ -22,32 +19,28 @@ run = "npm ci"
 description = "Remove build artifacts (dist/, .astro/)"
 run = "rm -rf dist .astro"
 
-# 各ブランチの最新デプロイは Cloudflare の仕様で削除できないため、スキップして続行する。
+# deployment list は 1 回に最新の 1 ページ (25 件) しか返さないため、一覧が空になるまで取得と削除を繰り返す。
+# --force は alias (ブランチの URL) が付いたデプロイも削除する。
 # 認証は wrangler のログインセッション (`wrangler whoami` で確認) を使う。
 [tasks.cleanup-previews]
-description = "Delete Cloudflare Pages preview deployments (latest per branch cannot be deleted and is skipped)"
+description = "Delete all Cloudflare Pages preview deployments"
 run = '''
 #!/usr/bin/env bash
 set -euo pipefail
 project="portfolio"
-list=$(wrangler pages deployment list --project-name "$project" --environment preview)
-ids=$(grep -oE '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}' <<<"$list" | sort -u)
-if [[ -z "$ids" ]]; then
-  echo "No preview deployments found."
-  exit 0
-fi
 deleted=0
-skipped=0
-for id in $ids; do
-  if out=$(wrangler pages deployment delete "$id" --project-name "$project" --force 2>&1); then
+while true; do
+  list=$(wrangler pages deployment list --project-name "$project" --environment preview)
+  # grep は一致が無いと 1、エラーでは 2 を返すので、1 (0 件) だけを正常な結果として扱う
+  ids=$({ grep -oE '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}' <<<"$list" || [[ $? -eq 1 ]]; } | sort -u)
+  [[ -z "$ids" ]] && break
+  for id in $ids; do
+    wrangler pages deployment delete "$id" --project-name "$project" --force >/dev/null
     echo "deleted: $id"
     deleted=$((deleted + 1))
-  else
-    echo "skipped: $id ($(tail -n 1 <<<"$out"))"
-    skipped=$((skipped + 1))
-  fi
+  done
 done
-echo "done: deleted=${deleted} skipped=${skipped}"
+echo "done: deleted=${deleted}"
 '''
 
 [tasks.docs]

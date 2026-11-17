@@ -15,8 +15,8 @@ let pagefindPromise: Promise<Pagefind> | undefined;
 
 function loadPagefind(): Promise<Pagefind> {
   pagefindPromise ??= (async () => {
-    // パスを変数経由で渡し、Vite の静的 import 解析を回避する
-    // (esbuild が @vite-ignore コメントを除去するため、リテラルだと dev で解決エラーになる)
+    // pagefind.js は build 後に生成される静的ファイルなので、パスを変数で渡して解決させない。
+    // リテラルにすると @vite-ignore を付けても Vite の dev が解決に失敗し、TypeScript も型エラーにする
     const pagefindPath = "/pagefind/pagefind.js";
     const pagefind: Pagefind = await import(/* @vite-ignore */ pagefindPath);
     await pagefind.init();
@@ -51,8 +51,6 @@ export default function Search() {
     // debounce 中に query が変わったら、進行中の検索結果は破棄する
     let stale = false;
     const timer = setTimeout(async () => {
-      setStatus("loading");
-      setOpen(true);
       try {
         const pagefind = await loadPagefind();
         const { results } = await pagefind.search(keyword);
@@ -103,21 +101,26 @@ export default function Search() {
           value={query}
           onChange={(event) => {
             setQuery(event.target.value);
-            if (!event.target.value.trim()) reset();
+            if (event.target.value.trim()) {
+              setStatus("loading");
+              setOpen(true);
+            } else {
+              reset();
+            }
           }}
           onFocus={() => query.trim() && setOpen(true)}
           placeholder="記事を検索..."
           aria-label="記事を検索"
           className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-3 text-white transition-all placeholder:text-gray-400 focus:border-transparent focus:ring-2 focus:ring-pink-500 focus:outline-none"
         />
-        <div className="absolute top-1/2 right-3 -translate-y-1/2 text-xs text-gray-500">
+        <div className="absolute top-1/2 right-3 -translate-y-1/2 text-xs text-gray-400">
           {status === "loading"
             ? <span className="animate-pulse">検索中...</span>
-            : <kbd className="rounded bg-gray-700 px-2 py-1 text-xs">ESC</kbd>}
+            : <kbd className="rounded bg-gray-700 px-2 py-1 text-xs text-gray-300">ESC</kbd>}
         </div>
       </div>
 
-      <p className="mt-2 ml-1 text-xs text-gray-500">キーワードをスペースで区切って検索できます</p>
+      <p className="mt-2 ml-1 text-xs text-gray-400">キーワードをスペースで区切って検索できます</p>
       <p role="status" className="sr-only">
         {status === "loading"
           ? "検索中"

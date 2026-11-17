@@ -1,13 +1,19 @@
 ---
 import "../styles/global.css";
-import { BLOG, SITE_URL } from "../data/site";
+import { AUTHOR, BLOG, SITE_URL } from "../data/site";
+
+interface OgImage {
+  url: string;
+  /** 画像に描かれている内容の説明 (og:image:alt) */
+  alt: string;
+}
 
 interface Props {
   title: string;
   description: string;
   ogTitle?: string;
   ogType?: "website" | "article";
-  ogImage?: string;
+  ogImage?: OgImage;
   noindex?: boolean;
 }
 
@@ -36,15 +42,25 @@ const canonical = new URL(Astro.url.pathname, SITE_URL).href;
     <meta property="og:type" content={ogType} />
     {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:locale" content="ja_JP" />
-    <meta property="og:site_name" content="mizuki msageha mzk Portfolio" />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:site_name" content={`${AUTHOR.name} Portfolio`} />
+    {ogImage && (
+      <>
+        <meta property="og:image" content={ogImage.url} />
+        <meta property="og:image:alt" content={ogImage.alt} />
+      </>
+    )}
     <meta
       name="twitter:card"
       content={ogImage ? "summary_large_image" : "summary"}
     />
     <meta name="twitter:title" content={ogTitle} />
     <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    {ogImage && (
+      <>
+        <meta name="twitter:image" content={ogImage.url} />
+        <meta name="twitter:image:alt" content={ogImage.alt} />
+      </>
+    )}
     {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/icon-192.png" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

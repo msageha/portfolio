@@ -1,10 +1,11 @@
 ---
 import Reveal from "./Reveal.astro";
+import { type Tone, TONES } from "./tone";
 
 interface Props {
   id: string;
   title: string;
-  tone: "dark" | "light";
+  tone: Tone;
   class?: string;
 }
 
@@ -14,10 +15,7 @@ const { id, title, tone, class: className } = Astro.props;
 <section
   id={id}
   aria-labelledby={`${id}-title`}
-  class:list={[
-    tone === "dark" ? "bg-gray-900 text-white" : "bg-slate-300 text-black",
-    className,
-  ]}
+  class:list={[TONES[tone].bg, TONES[tone].text, className]}
 >
   <Reveal delay={300}>
     <h2

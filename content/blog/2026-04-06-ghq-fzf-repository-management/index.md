@@ -1,6 +1,7 @@
 ---
 title: "ghq + fzf でリポジトリ管理を快適にする"
 date: "2026-04-06"
+updated: "2026-11-17"
 slug: "ghq-fzf-repository-management"
 tags: ["ghq", "fzf", "CLI", "Git", "開発環境"]
 description: "ghq でリポジトリを一元管理し、fzf と組み合わせて爆速で移動する方法を、fish・zsh・bash それぞれの導入手順とともに紹介します。"
@@ -123,7 +124,7 @@ function ghq-fzf() {
   local selected
   selected=$(ghq list --full-path | fzf --preview "ls -la {}" --query "$LBUFFER")
   if [ -n "$selected" ]; then
-    BUFFER="cd ${selected}"
+    BUFFER="cd -- ${(q)selected}"
     zle accept-line
   fi
   zle clear-screen

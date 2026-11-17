@@ -2,7 +2,6 @@
 
 [![CI](https://github.com/msageha/portfolio/actions/workflows/ci.yaml/badge.svg?event=pull_request)](https://github.com/msageha/portfolio/actions/workflows/ci.yaml)
 [![gitleaks](https://github.com/msageha/portfolio/actions/workflows/gitleaks.yaml/badge.svg)](https://github.com/msageha/portfolio/actions/workflows/gitleaks.yaml)
-[![mise-lock](https://github.com/msageha/portfolio/actions/workflows/mise-lock.yaml/badge.svg)](https://github.com/msageha/portfolio/actions/workflows/mise-lock.yaml)
 
 [https://msageha.net](https://msageha.net) のソースコード。
 [Astro](https://astro.build/) 製のポートフォリオ + ブログサイト。
@@ -84,7 +83,7 @@ Remove build artifacts (dist/, .astro/)
 
 - **Usage:** `cleanup-previews`
 
-Delete Cloudflare Pages preview deployments (latest per branch cannot be deleted and is skipped)
+Delete all Cloudflare Pages preview deployments
 
 ## `docs`
 
@@ -115,7 +114,7 @@ description: "記事の説明"
 ---
 ```
 
-`slug` (英小文字・数字・ハイフン) が公開 URL (`/blog/<slug>/`) になる。`tags` は `/blog/tags/<tag>/` の URL にもなるため `; , / ? : @ & = + $ # %` は使えない。`description` は一覧・OGP・RSS の説明文に使われる。本文にはタイトルの h1 を書かない (ページ側が出力する)。
+`slug` (英小文字・数字・ハイフン) が公開 URL (`/blog/<slug>/`) になる。`tags` は `/blog/tags/<tag>/` の URL にもなるため `; , / ? : @ & = + $ # %` は使えず、`.` / `..` だけのタグも使えない。`description` は一覧・OGP・RSS の説明文に使われる。本文にはタイトルの h1 を書かない (ページ側が出力する)。
 
 ## CI
 
@@ -123,14 +122,8 @@ description: "記事の説明"
   - `verify.yaml`: `npm ci` → `npm audit --audit-level=high` → `npm run build`。
   - `prek.yaml`: `mise.toml` 通りのツールで `.pre-commit-config.yaml` の全フックを `prek run --all-files` で実行する。
   - `gitleaks.yaml`: コミット履歴全体を対象に [gitleaks](https://github.com/gitleaks/gitleaks) でシークレットスキャンを行う (毎週の schedule でも main を再スキャンする)。
-- `.github/workflows/mise-lock.yaml`: `mise.toml` に pin されたバージョンのまま `mise lock` を実行し、
-  `mise.lock` の checksum/URL を最新化する。`mise.toml` のバージョン自体の更新は Renovate に任せる。
-  - `pull_request` (`mise.toml` を変更する PR、主に Renovate が対象): 同じ PR のブランチに直接 commit して追従させる。
-  - 毎週月曜 (`schedule`) / `workflow_dispatch`: 差分があれば `chore/mise-lock` ブランチで PR を作成する。
-    `GITHUB_TOKEN` で作成した PR の CI は承認待ち状態になるため、write 権限者が Actions タブから
-    承認して実行する必要がある。
 
-依存関係の更新は [Renovate](https://docs.renovatebot.com/) (`renovate.json`) が担う。`mise.toml` の tool バージョン (prek / actionlint / shellcheck / dprint / wrangler) も Renovate の mise manager が bump する。
+依存関係の更新は [Renovate](https://docs.renovatebot.com/) (`renovate.json`) が担う。`mise.toml` の tool バージョン (prek / actionlint / shellcheck / dprint / wrangler) も Renovate の mise manager が bump し、同じ PR で `mise.lock` も更新する。`.node-version` (メジャーのみ) に対応する node のパッチ版は、週次の lock file maintenance が `mise.lock` 上で最新にする。
 
 ## デプロイ
 

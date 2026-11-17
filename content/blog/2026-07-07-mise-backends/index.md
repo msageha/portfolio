@@ -1,6 +1,7 @@
 ---
 title: "【第 2 弾】mise backends・mise.lock・mise exec でツールを宣言的に扱う"
 date: "2026-07-07"
+updated: "2026-11-17"
 slug: "mise-backends"
 tags: ["mise", "backends", "開発環境", "CLI", "セキュリティ"]
 description: "mise シリーズ第 2 弾は実行系。cargo/npm/github などの backends であらゆる CLI ツールを宣言的に管理し、mise.lock でバージョンを固定し、mise exec でワンショット実行する方法を、SLSA によるサプライチェーン検証の話とあわせて紹介します。"
@@ -75,7 +76,7 @@ lockfile = true
 
 ## mise exec でワンショット実行
 
-インストールせずに特定バージョンのツールでコマンドを一度だけ実行したいときは `mise exec` が使えます（`mise x` というエイリアスでも実行できます）。
+設定ファイルを書き換えずに、特定バージョンのツールでコマンドを一度だけ実行したいときは `mise exec` が使えます（`mise x` というエイリアスでも実行できます）。指定したバージョンが未インストールなら、実行前に自動でインストールされます。
 
 ```bash
 mise exec node@20 -- node script.js   # node 20 の環境で一時的に実行
@@ -94,6 +95,6 @@ mise x node@20 -- node script.js      # エイリアスの mise x でも同じ
 
 1. **backends**：言語ランタイム以外の CLI ツールも宣言的に管理でき、チームのツールチェーン統一が `mise.toml` 1 ファイルで済む。registry と SLSA 検証により、LLM Agent 時代のサプライチェーンリスクへの防御線にもなる
 2. **mise.lock**：バージョンをチェックサム付きで固定し、CI やチームメンバー間で完全に同一のバイナリを再現できる。再現性が必要なら早めに有効化しておくと後で効いてくる
-3. **mise exec**：インストールせずに任意バージョンでワンショット実行。検証やデバッグでグローバル環境を汚さない
+3. **mise exec**：設定ファイルを書き換えずに任意バージョンでワンショット実行。検証やデバッグでグローバル設定を汚さない
 
 次回の[第 3 弾](/blog/mise-task-runner/)では、mise の中でも特におすすめのタスクランナーを扱います。Makefile と npm scripts を置き換え、`mise generate` でドキュメントや git フックまで自動生成する話です。

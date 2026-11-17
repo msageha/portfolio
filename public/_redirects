@@ -1,3 +1,18 @@
-# 旧 sitemap URL (@astrojs/sitemap が生成していたもの) を登録済みのクローラー向けに現在の sitemap へ転送する
+# 検索エンジンに登録済みの旧 sitemap URL を、現在の sitemap へ転送する
 /sitemap-index.xml /sitemap.xml 301
 /sitemap-0.xml /sitemap.xml 301
+
+# SNS などは共有時に保存した og:image の URL で画像を取り直すため、旧 URL (/og/<slug>.png) で
+# 共有されうる記事の OG 画像を現在の場所へ転送する。それより後に追加した記事は旧 URL を持たないので足さない。
+# リダイレクトは同じパスの静的ファイルより優先されるため、/og/* でまとめると一覧用の /og/blog.png まで転送してしまう
+/og/fish-shell-recommendation.png /og/blog/fish-shell-recommendation.png 301
+/og/gatsby-mdx-blog-tutorial.png /og/blog/gatsby-mdx-blog-tutorial.png 301
+/og/gatsby-to-astro-migration.png /og/blog/gatsby-to-astro-migration.png 301
+/og/getting-started.png /og/blog/getting-started.png 301
+/og/ghq-fzf-repository-management.png /og/blog/ghq-fzf-repository-management.png 301
+/og/mac-tools-recommendation.png /og/blog/mac-tools-recommendation.png 301
+/og/mise-backends.png /og/blog/mise-backends.png 301
+/og/mise-env-management.png /og/blog/mise-env-management.png 301
+/og/mise-task-runner.png /og/blog/mise-task-runner.png 301
+/og/mise-version-management.png /og/blog/mise-version-management.png 301
+/og/renovate-dependency-management.png /og/blog/renovate-dependency-management.png 301

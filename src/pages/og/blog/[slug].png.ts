@@ -1,7 +1,7 @@
 import type { APIRoute, GetStaticPaths } from "astro";
-import { SITE_URL } from "../../data/site";
-import { ogImageResponse } from "../../lib/og";
-import { getSortedPosts } from "../../lib/posts";
+import { SITE_URL } from "../../../data/site";
+import { ogImageResponse } from "../../../lib/og";
+import { getSortedPosts } from "../../../lib/posts";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getSortedPosts();
