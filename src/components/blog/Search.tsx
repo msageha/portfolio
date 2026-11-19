@@ -48,7 +48,8 @@ export function Search() {
         <li className="border-b border-gray-700 last:border-0">
           {/* biome-ignore lint/a11y/useValidAnchor: href は search.client.ts が検索結果の URL を設定する。 */}
           <a
-            className="block px-4 py-3 transition-colors hover:bg-gray-700 focus:bg-gray-700 focus:outline-hidden"
+            // 強制色モードで描く focus の outline は、親の overflow で切れないよう要素の内側に寄せる
+            className="block px-4 py-3 transition-colors hover:bg-gray-700 focus:bg-gray-700 focus:outline-hidden forced-colors:focus:-outline-offset-2"
             data-search-result-link
           >
             <span
