@@ -22,7 +22,8 @@ const LAYERS = [
   { y: 7, opacity: 1, duration: "22s", delay: "-5s" },
 ];
 
-const percent = (value: number, base: number) => `${(value / base) * 100}%`;
+const PERCENT = 100;
+const percent = (value: number, base: number) => `${(value / base) * PERCENT}%`;
 
 // SVG の要素 (<svg> 自体を含む) の transform アニメーションは Chrome では compositor で処理されず、
 // 毎フレーム style の再計算と描画が走る。層ごとに path 全体を覆う <div> を置いてその <div> を動かす。

@@ -2,6 +2,7 @@
 import { SOCIAL_LINKS, WEBTOOLS_URL } from "../../data/site";
 import Icon from "../Icon.astro";
 import Reveal from "../Reveal.astro";
+import { REVEAL_DELAY_MS } from "../revealDelay";
 import Section from "../Section.astro";
 
 const links = [
@@ -12,7 +13,7 @@ const links = [
 ---
 
 <Section id="links" title="Links" tone="dark">
-  <Reveal delay={600}>
+  <Reveal delay={REVEAL_DELAY_MS.content}>
     <div
       class="mx-auto grid max-w-3xl grid-cols-3 justify-items-center gap-y-8 px-4 sm:grid-cols-6"
     >

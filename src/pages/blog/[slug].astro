@@ -15,14 +15,6 @@ import {
   toIsoDate,
 } from "../../lib/posts";
 
-export async function getStaticPaths() {
-  const posts = await getSortedPosts();
-  return posts.map((entry) => ({
-    params: { slug: entry.data.slug },
-    props: { post: entry },
-  }));
-}
-
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
 const { title, date, tags, description } = post.data;
@@ -44,6 +36,14 @@ const jsonLd = {
   author: { "@type": "Person", name: AUTHOR.name, url: `${SITE_URL}/` },
   description,
 };
+
+export async function getStaticPaths() {
+  const posts = await getSortedPosts();
+  return posts.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { post: entry },
+  }));
+}
 ---
 
 <Page

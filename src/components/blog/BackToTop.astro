@@ -18,12 +18,15 @@
 </button>
 
 <script>
+// この量 (px) よりスクロールしたら、先頭へ戻るボタンを出す
+const VISIBLE_AFTER_SCROLL_PX = 300;
+
 const button = document.querySelector<HTMLButtonElement>("[data-back-to-top]");
 if (button === null) {
   throw new Error("Element not found: [data-back-to-top]");
 }
 const update = () => {
-  button.hidden = window.scrollY <= 300;
+  button.hidden = window.scrollY <= VISIBLE_AFTER_SCROLL_PX;
 };
 window.addEventListener("scroll", update, { passive: true });
 update();

@@ -1,5 +1,5 @@
 // マークアップだけを持ち、ビルド時に静的な HTML として出力する (client:* を付けない)。
-// 入力・検索・開閉の処理は Search.client.ts が data-search-* 属性の要素を操作して行う
+// 入力・検索・開閉の処理は search.client.ts が data-search-* 属性の要素を操作して行う
 export function Search() {
   return (
     <div className="relative w-full" data-search>
@@ -46,7 +46,7 @@ export function Search() {
 
       <template data-search-result>
         <li className="border-b border-gray-700 last:border-0">
-          {/* biome-ignore lint/a11y/useValidAnchor: href は Search.client.ts が検索結果の URL を設定する。 */}
+          {/* biome-ignore lint/a11y/useValidAnchor: href は search.client.ts が検索結果の URL を設定する。 */}
           <a
             className="block px-4 py-3 transition-colors hover:bg-gray-700 focus:bg-gray-700 focus:outline-none"
             data-search-result-link

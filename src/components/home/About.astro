@@ -4,7 +4,11 @@ import { Picture } from "astro:assets";
 import { AUTHOR, PROFILE_PHOTO_ALT } from "../../data/site";
 import profile from "../../images/profile.jpg";
 import Reveal from "../Reveal.astro";
+import { REVEAL_DELAY_MS } from "../revealDelay";
 import Section from "../Section.astro";
+
+// プロフィール写真の幅 (px)。高解像度の画面向けの大きさで、狭い画面向けにその半分の幅も作る
+const PROFILE_PHOTO_WIDTH = 800;
 
 const TECH_STACK = [
   "言語: Python, Golang, Typescript, Dart(Flutter)",
@@ -17,13 +21,13 @@ const TECH_STACK = [
 ---
 
 <Section id="about" title="About me" tone="light">
-  <Reveal delay={600} class="mx-8">
+  <Reveal delay={REVEAL_DELAY_MS.content} class="mx-8">
     <div class="text-black md:flex md:flex-row md:items-center md:justify-evenly">
       <div class="md:w-1/3">
         <Picture
           src={profile}
-          width={800}
-          widths={[400, 800]}
+          width={PROFILE_PHOTO_WIDTH}
+          widths={[PROFILE_PHOTO_WIDTH / 2, PROFILE_PHOTO_WIDTH]}
           sizes="(min-width: 768px) calc((100vw - 4rem) / 3), calc(100vw - 4rem)"
           formats={["avif", "webp"]}
           alt={PROFILE_PHOTO_ALT}

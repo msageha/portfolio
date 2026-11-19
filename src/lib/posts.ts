@@ -1,6 +1,14 @@
 // biome-ignore lint/correctness/noUnresolvedImports: astro:content は Astro が build 時に作る仮想モジュールで、Biome は解決できない。
 import { type CollectionEntry, getCollection } from "astro:content";
 
+// frontmatter の date は日付のみ (UTC 0 時) なので、ビルド環境のタイムゾーンで日付がずれないよう UTC で整形する
+const dateFormat = new Intl.DateTimeFormat("ja-JP", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+});
+
 export type Post = CollectionEntry<"blog">;
 
 export async function getSortedPosts(): Promise<Post[]> {
@@ -20,14 +28,6 @@ export const postPath = (post: Post) => `/blog/${post.data.slug}/`;
 export const tagPath = (tag: string) => `/blog/tags/${encodeURIComponent(tag)}/`;
 
 export const lastModified = (post: Post) => post.data.updated ?? post.data.date;
-
-// frontmatter の date は日付のみ (UTC 0 時) なので、ビルド環境のタイムゾーンで日付がずれないよう UTC で整形する
-const dateFormat = new Intl.DateTimeFormat("ja-JP", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-  timeZone: "UTC",
-});
 
 export const formatDate = (date: Date) => dateFormat.format(date);
 

@@ -29,6 +29,7 @@ const {
 const canonical = new URL(Astro.url.pathname, SITE_URL).href;
 
 const SPECULATION_RULES = {
+  // biome-ignore lint/style/useNamingConvention: Speculation Rules の仕様が定めるキー名。
   prefetch: [{ where: { href_matches: "/*" }, eagerness: "moderate" }],
 };
 ---

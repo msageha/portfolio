@@ -66,6 +66,9 @@
         },
         // JSX の条件付きの描画に三項演算子は欠かせない。
         "noTernary": "off",
+        // 部品が props で受ける値 (表示の遅延・波の層ごとの値・目次の字下げ) は、組み合わせごとの class を並べず style 属性 (CSS 変数) で渡す。
+        // OG 画像は satori に渡す要素の style で組み立てる。
+        "noInlineStyles": "off",
         "noNestedTernary": "off",
         // 多言語化のためのルール。画面の文言は翻訳のカタログで管理していない。
         "noJsxLiterals": "off",
@@ -152,6 +155,7 @@
     },
     {
       // Astro と commitlint は設定ファイルに default export を求める。設定ファイルは Node で動く。
+      // commitlint は、PR の題の検査かどうかを CI から環境変数で受ける。
       "includes": ["astro.config.mjs", "commitlint.config.js"],
       "linter": {
         "rules": {
@@ -159,7 +163,8 @@
             "noNodejsModules": "off"
           },
           "style": {
-            "noDefaultExport": "off"
+            "noDefaultExport": "off",
+            "noProcessEnv": "off"
           }
         }
       }

@@ -47,6 +47,8 @@ const errorText =
 let status: Status = "idle";
 let results: PagefindResult[] = [];
 let open = false;
+// 入力が止まってからこの時間 (ms) 待って検索する
+const SEARCH_DEBOUNCE_MS = 300;
 let timer: ReturnType<typeof setTimeout> | undefined;
 // 応答を待つ間に入力が変わったら、古い検索の結果は捨てる
 let latestSearch = 0;
@@ -116,7 +118,7 @@ function search(keyword: string) {
       status = "error";
     }
     render();
-  }, 300);
+  }, SEARCH_DEBOUNCE_MS);
 }
 
 input.addEventListener("input", () => {

@@ -38,7 +38,7 @@ mise run check     # 型検査 (astro check・tsc) と lint・整形の検査 (B
 mise run format    # Biome で整形し、import と CSS のプロパティを並べ替える
 ```
 
-TypeScript・JavaScript・Astro・CSS は [Biome](https://biomejs.dev/) が lint と整形を受け持つ。lint は安定版のルールをグループごとにすべて有効にし、このリポジトリに合わないルールだけを理由付きで `biome.jsonc` から外している。重大度が info の診断 (マジックナンバーなど) は表示するだけで、検査を失敗させない。型検査は `astro/tsconfigs/strictest` に従い、astro check は hint も失敗として扱う。
+TypeScript・JavaScript・Astro・CSS は [Biome](https://biomejs.dev/) が lint と整形を受け持つ。lint は安定版のルールをグループごとにすべて有効にし、このリポジトリに合わないルールだけを理由付きで `biome.jsonc` から外している。重大度が info の診断 (マジックナンバーなど) も検査を失敗させる (Biome は info では失敗しないので、`mise run check` が件数を数える)。型検査は `astro/tsconfigs/strictest` に従い、astro check は hint も失敗として扱う。
 
 リポジトリ固有の補助タスクは `mise run <task>` で実行する。詳細は [タスク](#タスク) を参照。
 

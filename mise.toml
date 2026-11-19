@@ -27,6 +27,14 @@ npx --no-install astro check --minimumFailingSeverity hint || status=1
 # astro check は tsconfig.json 自体の誤り (未知のオプションなど) を報告しない。
 npx --no-install tsc --noEmit || status=1
 npx --no-install biome check --error-on-warnings ${BIOME_REPORTER:+--reporter="$BIOME_REPORTER"} . || status=1
+# Biome は info の診断では失敗しないので、件数を数えて失敗にする (診断の内容は上の biome check が表示する)。
+npx --no-install biome lint --reporter=json . 2>/dev/null | node -e '
+  const { infos } = JSON.parse(require("node:fs").readFileSync(0, "utf8")).summary;
+  if (infos > 0) {
+    console.error(`biome: ${infos} info diagnostic(s)`);
+    process.exit(1);
+  }
+' || status=1
 exit "$status"
 """
 

@@ -9,9 +9,9 @@ const blog = defineCollection({
     title: z.string(),
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
-    slug: z.string().regex(/^[a-z0-9-]+$/),
+    slug: z.string().regex(/^[a-z0-9-]+$/u),
     // タグは URL の path segment になるため、予約文字と、URL 上で親や自身のディレクトリになる . / .. を拒否する
-    tags: z.array(z.string().regex(/^(?!\.{1,2}$)[^;,/?:@&=+$#%]+$/)).default([]),
+    tags: z.array(z.string().regex(/^(?!\.{1,2}$)[^;,/?:@&=+$#%]+$/u)).default([]),
     description: z.string(),
   }),
 });

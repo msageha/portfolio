@@ -4,20 +4,20 @@ import { BLOG, SITE_URL } from "../../../data/site";
 import Page from "../../../layouts/Page.astro";
 import { collectTags, getSortedPosts } from "../../../lib/posts";
 
+const { tag, tags, posts } = Astro.props;
+
 export async function getStaticPaths() {
-  const posts = await getSortedPosts();
-  const tags = collectTags(posts);
-  return tags.map((name) => ({
+  const allPosts = await getSortedPosts();
+  const allTags = collectTags(allPosts);
+  return allTags.map((name) => ({
     params: { tag: name },
     props: {
       tag: name,
-      tags,
-      posts: posts.filter((post) => post.data.tags.includes(name)),
+      tags: allTags,
+      posts: allPosts.filter((post) => post.data.tags.includes(name)),
     },
   }));
 }
-
-const { tag, tags, posts } = Astro.props;
 ---
 
 <Page
