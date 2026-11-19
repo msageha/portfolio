@@ -57,14 +57,15 @@ repos:
         language: system
         # 渡されたファイルがすべて除外対象でも、No files found (exit 14) で失敗させない。
         entry: mise exec -- dprint fmt --allow-no-files
-        types_or: [json, jsonc, yaml, markdown, toml]
+        # dprint.json の includes と揃える (identify の型は .webmanifest を json に分類しない)。
+        files: \.(md|json|jsonc|webmanifest|ya?ml|toml)$
         stages: [pre-commit]
       - id: dprint-check
         name: Check formatting of json/jsonc/yaml/markdown/toml with dprint
         language: system
         # dprint.json だけを変えた push でも、既存のファイルに新しい設定を当てて検査する。
         entry: mise exec -- dprint check --allow-no-files
-        types_or: [json, jsonc, yaml, markdown, toml]
+        files: \.(md|json|jsonc|webmanifest|ya?ml|toml)$
         pass_filenames: false
         stages: [pre-push]
       - id: format

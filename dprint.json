@@ -1,6 +1,6 @@
 {
   "includes": [
-    "**/*.{md,json,jsonc,yaml,yml,toml}"
+    "**/*.{md,json,jsonc,webmanifest,yaml,yml,toml}"
   ],
   "excludes": [
     "**/node_modules",
@@ -11,6 +11,11 @@
     ".playwright-mcp",
     "mise.lock"
   ],
+  "json": {
+    "associations": [
+      "**/*.webmanifest"
+    ]
+  },
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.99.1.wasm@2a35f5af4111af545fdebf29aa09c930554eba2a4b8fb2ad0d4a139ac2985b44",
     "https://plugins.dprint.dev/json-0.26.0.wasm@9abcd6eb43b3d04655649090c2e7ad14948da6acfe0374cb47ccd9eb3c48903d",
