@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
 import { SITE_URL } from "./src/data/site";
-import { budouxHastPlugin } from "./src/lib/budoux-hast-plugin";
+import { budouxHastPlugin } from "./src/lib/budouxHastPlugin";
 
 export default defineConfig({
   site: SITE_URL,
