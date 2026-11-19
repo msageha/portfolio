@@ -7,12 +7,12 @@ import { collectTags, getSortedPosts } from "../../../lib/posts";
 export async function getStaticPaths() {
   const posts = await getSortedPosts();
   const tags = collectTags(posts);
-  return tags.map((tag) => ({
-    params: { tag },
+  return tags.map((name) => ({
+    params: { tag: name },
     props: {
-      tag,
+      tag: name,
       tags,
-      posts: posts.filter((post) => post.data.tags.includes(tag)),
+      posts: posts.filter((post) => post.data.tags.includes(name)),
     },
   }));
 }

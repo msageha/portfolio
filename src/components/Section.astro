@@ -1,6 +1,6 @@
 ---
 import Reveal from "./Reveal.astro";
-import { type Tone, TONES } from "./tone";
+import { TONES, type Tone } from "./tone";
 
 interface Props {
   id: string;
@@ -18,10 +18,7 @@ const { id, title, tone, class: className } = Astro.props;
   class:list={[TONES[tone].bg, TONES[tone].text, className]}
 >
   <Reveal delay={300}>
-    <h2
-      id={`${id}-title`}
-      class="mb-10 text-center text-3xl font-bold md:text-5xl lg:text-6xl"
-    >
+    <h2 id={`${id}-title`} class="mb-10 text-center text-3xl font-bold md:text-5xl lg:text-6xl">
       {title}
     </h2>
   </Reveal>

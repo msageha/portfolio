@@ -1,0 +1,189 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "files": {
+    // 未追跡のディレクトリ (旧サイトのキャッシュ・wrangler の作業ファイルなど) を走査しないよう、対象を列挙する。
+    // Markdown は dprint が整形する。SVG は画像として読み込む素材で、コードとして検査しない。
+    "includes": ["src/**", "public/**", "*.mjs", "*.js", "!**/*.md", "!**/*.svg"]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  // 安定版のルールはグループごとにすべて有効にし、このリポジトリに合わないものだけを理由つきで外す。
+  "linter": {
+    "enabled": true,
+    // `preset: "all"` は、依存に無いフレームワーク用のルールまで有効にする。
+    // domains を書くと、書いていない domain は依存から自動では有効にならない (React の hooks の検査も止まる)。
+    "domains": {
+      "astro": "all",
+      "project": "all",
+      "react": "all",
+      "tailwind": "all",
+      "test": "all",
+      "types": "all",
+      "drizzle": "none",
+      "next": "none",
+      "playwright": "none",
+      "qwik": "none",
+      "reactNative": "none",
+      "solid": "none",
+      "svelte": "none",
+      "turborepo": "none",
+      "vue": "none"
+    },
+    "rules": {
+      "a11y": {
+        "preset": "all"
+      },
+      "complexity": {
+        "preset": "all"
+      },
+      "correctness": {
+        "preset": "all",
+        // import は Vite と TypeScript が拡張子なしで解決する。
+        "useImportExtensions": "off"
+      },
+      "performance": {
+        "preset": "all"
+      },
+      "security": {
+        "preset": "all",
+        // 日本語の文言をエントロピーの高い文字列として誤検知する。シークレットの検出は gitleaks が受け持つ。
+        "noSecrets": "off"
+      },
+      "style": {
+        "preset": "all",
+        // 自動修正は使わずに診断だけ出す。u フラグは . や否定の文字クラスの意味を変え、
+        // 改名は .astro の template の参照を追わない。
+        "useUnicodeRegex": {
+          "level": "on",
+          "fix": "none"
+        },
+        "useNamingConvention": {
+          "level": "on",
+          "fix": "none"
+        },
+        // JSX の条件付きの描画に三項演算子は欠かせない。
+        "noTernary": "off",
+        "noNestedTernary": "off",
+        // 多言語化のためのルール。画面の文言は翻訳のカタログで管理していない。
+        "noJsxLiterals": "off",
+        // 真を表す JSX の属性に `={true}` を求める。値を省く React の慣習と逆になる。
+        "noImplicitBoolean": "off",
+        // `++` / `--` を `+= 1` に書き換えても読みやすくならない。
+        "noIncrementDecrement": "off"
+      },
+      "suspicious": {
+        "preset": "all",
+        // 検索の失敗の原因を、ブラウザの開発者ツールで追えるようにする。
+        "noConsole": {
+          "level": "on",
+          "options": {
+            "allow": ["error"]
+          }
+        },
+        // `background-clip: text` は主要なブラウザがすべて対応している。`scripting` に未対応のブラウザでは
+        // フェードインの指定が無視され、内容が最初から表示されるだけである。
+        "useBaseline": {
+          "level": "on",
+          "options": {
+            "allowMediaConditions": ["scripting"],
+            "allowPropertyValues": {
+              "background-clip": ["text"]
+            }
+          }
+        }
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  },
+  // JSON と YAML の整形は、リポジトリ全体の dprint が受け持つ。
+  "json": {
+    "formatter": {
+      "enabled": false
+    }
+  },
+  "yaml": {
+    "formatter": {
+      "enabled": false
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  // .astro の template も解析させ、frontmatter で宣言して template でだけ使う import を未使用と誤検知させない。
+  "html": {
+    "experimentalFullSupportEnabled": true,
+    "formatter": {
+      "enabled": true
+    }
+  },
+  "overrides": [
+    {
+      // Astro のコンポーネントは default export なので、ファイル名を export 名と照合できない。Astro の慣習の PascalCase を許す。
+      // Biome は .astro の式の中の要素を JSX として検査し、class・class:list・SVG の属性を未知の属性と誤検知する。
+      // useId は React の API で、Astro のコンポーネントでは使えない。
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "useUniqueElementIds": "off"
+          },
+          "suspicious": {
+            "noUnknownAttribute": "off"
+          },
+          "style": {
+            "useFilenamingConvention": {
+              "level": "on",
+              "options": {
+                "filenameCases": ["camelCase", "kebab-case", "snake_case", "PascalCase"]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      // Astro と commitlint は設定ファイルに default export を求める。設定ファイルは Node で動く。
+      "includes": ["astro.config.mjs", "commitlint.config.js"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noNodejsModules": "off"
+          },
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    }
+  ],
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              ":NODE:",
+              ":BLANK_LINE:",
+              [":PACKAGE:", ":PACKAGE_WITH_PROTOCOL:"],
+              ":BLANK_LINE:",
+              ":ALIAS:",
+              ":BLANK_LINE:",
+              ":PATH:"
+            ]
+          }
+        },
+        "useSortedProperties": "on"
+      }
+    }
+  }
+}

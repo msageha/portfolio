@@ -1,0 +1,57 @@
+name: PR title
+
+# 題を編集するたびに ci.yaml の job まで実行し直さないよう、別の workflow にする。
+on:
+  pull_request:
+    # check の結果は head の commit にひも付くので、題が変わらない push (synchronize) でも検査し直す。
+    types: [opened, edited, synchronize, reopened]
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pr-title:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # version は全ワークフローで同じ値に pin する (未指定は latest。理由は prek.yaml を参照)。
+      - name: Install mise
+        uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # v5.2.7
+        with:
+          # renovate: datasource=github-releases depName=jdx/mise
+          version: "2026.11.4"
+          cache: true
+
+      - name: Cache npm
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-
+
+      # package-lock.json で固定した commitlint を使う
+      - name: Install dependencies
+        run: mise exec -- npm ci
+
+      # 題そのものと、複数の commit がある PR を squash merge するときの件名の既定値 (PR の題に ` (#<番号>)` を足したもの。
+      # squash_merge_commit_title=COMMIT_OR_PR_TITLE) の両方を検査する。番号を足すと、空の件名や末尾のピリオドが検出されなくなる。
+      # commit-msg hook (commitlint --edit) は # で始まる行を Git のコメントとして読み飛ばすので、標準入力で渡す。
+      - name: Check the PR title with commitlint
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          COMMITLINT_PR_TITLE: "true"
+        run: |
+          printf '%s\n' "$PR_TITLE" | mise exec -- npx --no-install commitlint
+          printf '%s (#%s)\n' "$PR_TITLE" "$PR_NUMBER" | mise exec -- npx --no-install commitlint

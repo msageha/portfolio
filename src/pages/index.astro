@@ -1,5 +1,6 @@
 ---
 import { getImage } from "astro:assets";
+
 import Footer from "../components/Footer.astro";
 import About from "../components/home/About.astro";
 import Career from "../components/home/Career.astro";
@@ -7,12 +8,7 @@ import Hero from "../components/home/Hero.astro";
 import Links from "../components/home/Links.astro";
 import Research from "../components/home/Research.astro";
 import Wave from "../components/Wave.astro";
-import {
-  AUTHOR,
-  PROFILE_PHOTO_ALT,
-  SITE_URL,
-  SOCIAL_LINKS,
-} from "../data/site";
+import { AUTHOR, PROFILE_PHOTO_ALT, SITE_URL, SOCIAL_LINKS } from "../data/site";
 import profile from "../images/profile.jpg";
 import Base from "../layouts/Base.astro";
 
@@ -38,11 +34,7 @@ const jsonLd = {
   ogImage={{ url: ogImageUrl, alt: PROFILE_PHOTO_ALT }}
 >
   <Fragment slot="head">
-    <script
-      is:inline
-      type="application/ld+json"
-      set:html={JSON.stringify(jsonLd)}
-    />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </Fragment>
   <main>
     <Hero />

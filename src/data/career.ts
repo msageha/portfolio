@@ -21,7 +21,10 @@ export const ACTIVITIES: CareerEntry[] = [
   { period: "2017 / 9", name: "株式会社リクルートホールディングス インターン" },
   { period: "2017 / 8 - 2018 / 3", name: "LINE株式会社 インターン・アルバイト" },
   { period: "2017 / 5 - 2018 / 3", name: "SecHack365 1期生" },
-  { period: "2015 / 8 - 2016 / 3", name: "トロワ工科大学 (Université de technologie de Troyes) 留学" },
+  {
+    period: "2015 / 8 - 2016 / 3",
+    name: "トロワ工科大学 (Université de technologie de Troyes) 留学",
+  },
   { period: "2015 / 7", name: "シンガポール国立大学 (National University of Singapore) 留学" },
   { period: "2014 / 4 - 2019 / 3", name: "Life is Tech! メンター" },
 ];

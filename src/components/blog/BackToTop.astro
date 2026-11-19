@@ -18,7 +18,10 @@
 </button>
 
 <script>
-const button = document.querySelector<HTMLButtonElement>("[data-back-to-top]")!;
+const button = document.querySelector<HTMLButtonElement>("[data-back-to-top]");
+if (button === null) {
+  throw new Error("Element not found: [data-back-to-top]");
+}
 const update = () => {
   button.hidden = window.scrollY <= 300;
 };

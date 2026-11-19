@@ -6,13 +6,13 @@ interface Props {
 }
 
 const { names } = Astro.props;
-const isAuthor = (name: string) =>
-  name === AUTHOR.name || name === AUTHOR.nameJa;
+const isAuthor = (name: string) => name === AUTHOR.name || name === AUTHOR.nameJa;
 ---
 
 {names.map((name, index) => (
   <>
-    {index > 0 && ", "}
+    {index > 0 ? ", " : null}
+    {/* biome-ignore lint/suspicious/noLeakedRender: name は文字列で、空でも何も描画されない。 */}
     {isAuthor(name) ? <span class="underline">{name}</span> : name}
   </>
 ))}

@@ -1,6 +1,7 @@
+// biome-ignore lint/correctness/noUnresolvedImports: astro:content は Astro が build 時に作る仮想モジュールで、Biome は解決できない。
+import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
-import { defineCollection } from "astro:content";
 
 const blog = defineCollection({
   loader: glob({ pattern: "*/index.md", base: "./content/blog" }),

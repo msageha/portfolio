@@ -22,11 +22,11 @@
 このリポジトリは [mise](https://mise.jdx.dev/) の利用を前提としている。
 Node.js 26 が必要で、バージョンは `.node-version` (メジャーのみ指定) を単一の情報源としており
 (`mise.toml` の設定経由で `.node-version` が読まれる、Cloudflare Build も同様)、
-`prek` (pre-commit hook 管理)・`actionlint`・`shellcheck` (actionlint が workflow の `run:` 検査に使う)・`dprint` (ts/tsx/astro/css/js/mjs/md/json/yaml/toml/svg フォーマッタ)・`wrangler` (Cloudflare CLI) は mise 管理のツールとしてインストールされる。
+`prek` (pre-commit hook 管理)・`actionlint`・`shellcheck` (actionlint が workflow の `run:` 検査に使う)・`dprint` (md/json/yaml/toml フォーマッタ)・`typos`・`zizmor`・`gitleaks`・`wrangler` (Cloudflare CLI) は mise 管理のツールとしてインストールされる。
 
 ```shell
 mise trust    # 初回のみ: このディレクトリの mise.toml を信頼する
-mise install  # tools (node, prek, actionlint, shellcheck, dprint, wrangler) をインストールし、pre-commit hook をセットアップする
+mise install  # tools (node, prek, actionlint, shellcheck, dprint, typos, zizmor, gitleaks, wrangler) をインストールし、Git hook をセットアップする
 npm ci
 ```
 
@@ -34,10 +34,11 @@ npm ci
 npm run dev        # 開発サーバー (http://localhost:4321)
 npm run build      # 本番ビルド (dist/) + Pagefind インデックス生成
 npm run preview    # ビルド結果のプレビュー
-npm run typecheck  # astro check + tsc
-npm run lint       # eslint (src/ と設定ファイル)
-npm run fmt:check  # dprint によるフォーマットチェック (npm run fmt で修正)
+mise run check     # 型検査 (astro check・tsc) と lint・整形の検査 (Biome)
+mise run format    # Biome で整形し、import と CSS のプロパティを並べ替える
 ```
+
+TypeScript・JavaScript・Astro・CSS は [Biome](https://biomejs.dev/) が lint と整形を受け持つ。lint は安定版のルールをグループごとにすべて有効にし、このリポジトリに合わないルールだけを理由付きで `biome.jsonc` から外している。重大度が info の診断 (マジックナンバーなど) は表示するだけで、検査を失敗させない。型検査は `astro/tsconfigs/strictest` に従い、astro check は hint も失敗として扱う。
 
 リポジトリ固有の補助タスクは `mise run <task>` で実行する。詳細は [タスク](#タスク) を参照。
 
@@ -49,11 +50,11 @@ npm run fmt:check  # dprint によるフォーマットチェック (npm run fmt
 Git hook は [prek](https://github.com/j178/prek) (`.pre-commit-config.yaml`) で一元管理する。
 `mise install` 実行時に自動で `prek install` が走り、`pre-commit` / `commit-msg` / `pre-push` の hook が有効になる。
 
-- pre-commit: 汎用チェック (trailing-whitespace 等)、actionlint、ESLint、[dprint](https://dprint.dev/) (`.ts` / `.tsx` / `.astro` / `.css` / `.js` / `.mjs` / `.md` / `.json` / `.yaml` / `.toml` / `.svg`)、typecheck (`astro check` + `tsc`)、`mise.toml` 変更時の README タスク一覧の同期
+- pre-commit: 汎用チェック (trailing-whitespace 等・`main` への直接の commit の拒否)、typos (つづり)、actionlint と zizmor (GitHub Actions の workflow)、[dprint](https://dprint.dev/) (`.md` / `.json` / `.yaml` / `.toml`)、`mise run format` と `mise run check`、gitleaks (シークレット)、`mise.toml` 変更時の README タスク一覧の同期
+- pre-push: rebase などで pre-commit を経ない commit も検査できるよう、ファイルを書き換えない pre-commit の hook (typos・actionlint・zizmor・`mise run check` など) をもう一度実行する。加えて `npm run build` を実行し、Markdown 変換・OG 画像・Pagefind を含むビルドが通ることを確かめる
 - commit-msg: [commitlint](https://commitlint.js.org/) ([Conventional Commits](https://www.conventionalcommits.org/) 準拠チェック)
-- pre-push: `npm run build` (Markdown 変換・OG 画像・Pagefind を含むビルドが通ることを push 前に確認する)
 
-CI (`.github/workflows/prek.yaml`) でも pull request 時に `prek run --all-files` を実行し、全ファイルに対して同じチェックを強制する。
+CI (`.github/workflows/prek.yaml`) でも pull request 時に `prek run --all-files` を実行し、pre-commit の hook を全ファイルに対して実行する。gitleaks の hook は staged の変更だけを見るので CI では skip し、履歴は `gitleaks.yaml` が走査する。build は `verify.yaml`、PR の題は `.github/workflows/pr-title.yaml` が commitlint で検査する。
 
 ## 依存パッケージの install script ポリシー
 
@@ -73,6 +74,12 @@ npm approve-scripts <pkg> --no-allow-scripts-pin
 
 <!-- dprint-ignore-start -->
 <!-- mise-tasks -->
+## `check`
+
+- **Usage:** `check`
+
+Type-check, lint and check formatting (astro check / tsc / biome)
+
 ## `clean`
 
 - **Usage:** `clean`
@@ -90,6 +97,12 @@ Delete all Cloudflare Pages preview deployments
 - **Usage:** `docs`
 
 Sync the task list embedded in README.md with mise.toml
+
+## `format`
+
+- **Usage:** `format`
+
+Format sources and sort imports and CSS properties with biome
 
 ## `install`
 
@@ -122,8 +135,9 @@ description: "記事の説明"
   - `verify.yaml`: `npm ci` → `npm audit --audit-level=high` → `npm run build`。
   - `prek.yaml`: `mise.toml` 通りのツールで `.pre-commit-config.yaml` の全フックを `prek run --all-files` で実行する。
   - `gitleaks.yaml`: コミット履歴全体を対象に [gitleaks](https://github.com/gitleaks/gitleaks) でシークレットスキャンを行う (毎週の schedule でも main を再スキャンする)。
+- `.github/workflows/pr-title.yaml`: PR の題を commitlint で検査する (複数の commit がある PR を squash merge するときの件名になるため)。
 
-依存関係の更新は [Renovate](https://docs.renovatebot.com/) (`renovate.json`) が担う。`mise.toml` の tool バージョン (prek / actionlint / shellcheck / dprint / wrangler) も Renovate の mise manager が bump し、同じ PR で `mise.lock` も更新する。`.node-version` (メジャーのみ) に対応する node のパッチ版は、週次の lock file maintenance が `mise.lock` 上で最新にする。
+依存関係の更新は [Renovate](https://docs.renovatebot.com/) (`renovate.json`) が担う。`mise.toml` の tool バージョン (prek / actionlint / shellcheck / dprint / typos / zizmor / gitleaks / wrangler) も Renovate の mise manager が bump し、同じ PR で `mise.lock` も更新する。`.node-version` (メジャーのみ) に対応する node のパッチ版は、週次の lock file maintenance が `mise.lock` 上で最新にする。
 
 ## デプロイ
 

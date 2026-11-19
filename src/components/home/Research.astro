@@ -21,7 +21,9 @@ import AuthorList from "./AuthorList.astro";
             >
               <h4>{patent.title}</h4>
               <div>{patent.assignee}</div>
-              <div><AuthorList names={patent.inventors} /></div>
+              <div>
+                <AuthorList names={patent.inventors} />
+              </div>
             </a>
           </div>
         ))}
@@ -35,7 +37,9 @@ import AuthorList from "./AuthorList.astro";
         {PAPERS.map((paper) => (
           <div class="mb-12">
             <h4>{paper.title}</h4>
-            <div><AuthorList names={paper.authors} /></div>
+            <div>
+              <AuthorList names={paper.authors} />
+            </div>
             <div>{paper.venue}</div>
           </div>
         ))}

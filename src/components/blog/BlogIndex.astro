@@ -3,7 +3,7 @@ import { BLOG } from "../../data/site";
 import { type Post, tagPath } from "../../lib/posts";
 import Reveal from "../Reveal.astro";
 import PostCard from "./PostCard.astro";
-import Search from "./Search";
+import { Search } from "./Search";
 
 interface Props {
   posts: Post[];
@@ -39,10 +39,7 @@ const filters = [
 </div>
 
 <Reveal delay={600}>
-  <nav
-    aria-label="タグで絞り込む"
-    class="mb-12 flex flex-wrap justify-center gap-2"
-  >
+  <nav aria-label="タグで絞り込む" class="mb-12 flex flex-wrap justify-center gap-2">
     {filters.map((filter) => (
       <a
         href={filter.href}

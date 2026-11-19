@@ -31,11 +31,7 @@ const minDepth = Math.min(...items.map((heading) => heading.depth));
         stroke-width="2"
         aria-hidden="true"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M19 9l-7 7-7-7"
-        />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
       </svg>
     </button>
     <div
@@ -51,10 +47,7 @@ const minDepth = Math.min(...items.map((heading) => heading.depth));
       </p>
       <ul class="space-y-0.5">
         {items.map((heading) => (
-          <li
-            class="relative"
-            style={`padding-left: ${(heading.depth - minDepth) * 12}px`}
-          >
+          <li class="relative" style={`padding-left: ${(heading.depth - minDepth) * 12}px`}>
             <a
               href={`#${heading.slug}`}
               class="block py-1.5 pl-2 text-sm leading-snug text-gray-400 transition-colors duration-150 hover:text-pink-300 aria-[current]:font-medium aria-[current]:text-pink-400 aria-[current]:before:absolute aria-[current]:before:top-0 aria-[current]:before:bottom-0 aria-[current]:before:left-0 aria-[current]:before:w-0.5 aria-[current]:before:rounded-full aria-[current]:before:bg-pink-400"
@@ -72,11 +65,14 @@ const minDepth = Math.min(...items.map((heading) => heading.depth));
 <script>
 const toc = document.querySelector<HTMLElement>("[data-toc]");
 if (toc) {
-  const toggle = toc.querySelector<HTMLButtonElement>("[data-toc-toggle]")!;
-  const list = toc.querySelector<HTMLElement>("[data-toc-list]")!;
+  const toggle = toc.querySelector<HTMLButtonElement>("[data-toc-toggle]");
+  const list = toc.querySelector<HTMLElement>("[data-toc-list]");
+  if (toggle === null || list === null) {
+    throw new Error("Element not found: [data-toc-toggle] or [data-toc-list]");
+  }
   const links = [...toc.querySelectorAll<HTMLAnchorElement>("[data-toc-link]")];
   const headings = links.map((link) =>
-    document.getElementById(decodeURIComponent(link.hash.slice(1)))
+    document.getElementById(decodeURIComponent(link.hash.slice(1))),
   );
 
   const setMobileOpen = (open: boolean) => {
@@ -84,9 +80,8 @@ if (toc) {
     toggle.setAttribute("aria-expanded", String(open));
     toggle.querySelector("svg")?.classList.toggle("rotate-180", open);
   };
-  toggle.addEventListener(
-    "click",
-    () => setMobileOpen(toggle.getAttribute("aria-expanded") !== "true"),
+  toggle.addEventListener("click", () =>
+    setMobileOpen(toggle.getAttribute("aria-expanded") !== "true"),
   );
   for (const link of links) {
     link.addEventListener("click", () => setMobileOpen(false));
@@ -94,20 +89,22 @@ if (toc) {
 
   // 見出しのアンカー遷移と同じオフセット (scroll-margin-top) を基準に、上端を通過した最後の見出しを active にする
   const threshold = headings[0]
-    ? parseFloat(getComputedStyle(headings[0]).scrollMarginTop) + 8
+    ? Number.parseFloat(getComputedStyle(headings[0]).scrollMarginTop) + 8
     : 0;
   let scheduled = false;
   const updateActive = () => {
     scheduled = false;
-    const activeIndex = headings.findLastIndex((heading) =>
-      heading !== null && heading.getBoundingClientRect().top <= threshold
+    const activeIndex = headings.findLastIndex(
+      (heading) => heading !== null && heading.getBoundingClientRect().top <= threshold,
     );
     links.forEach((link, index) => {
       if (index !== activeIndex) {
         link.removeAttribute("aria-current");
         return;
       }
-      if (link.hasAttribute("aria-current")) return;
+      if (link.hasAttribute("aria-current")) {
+        return;
+      }
       link.setAttribute("aria-current", "location");
       const listRect = list.getBoundingClientRect();
       const linkRect = link.getBoundingClientRect();

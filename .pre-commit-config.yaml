@@ -1,66 +1,106 @@
-# commit-msg stage の commitlint を動かすため、pre-commit に加えて commit-msg hook も導入する
-default_install_hook_types:
-  - pre-commit
-  - commit-msg
-  - pre-push
-# stages を指定しない hook は pre-commit でのみ実行する (pre-push では build hook だけを回す)
-default_stages:
-  - pre-commit
+# build は push 前、commitlint は commit message の確定時に実行するため、pre-push と commit-msg も install する。
+default_install_hook_types: [pre-commit, pre-push, commit-msg]
+# rebase や cherry-pick で pre-commit を経ずに作った commit も、push の前に検査する。
+# ファイルを書き換える hook は、push の時点では commit に入らない変更を作るだけなので、pre-commit でだけ実行する。
+default_stages: [pre-commit, pre-push]
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
       - id: trailing-whitespace
+        stages: [pre-commit]
       - id: end-of-file-fixer
+        stages: [pre-commit]
       - id: check-yaml
       - id: check-json
+      - id: check-toml
       - id: check-added-large-files
       - id: check-merge-conflict
       - id: mixed-line-ending
-  - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.12
-    hooks:
-      - id: actionlint-system
+        stages: [pre-commit]
+      # push は checkout 中のブランチ名で判定され、main から別の ref への push も止めるので、commit 時だけ検査する。
+      - id: no-commit-to-branch
+        args: [--branch, main]
+        stages: [pre-commit]
+  # include_deleted を付けた hook は、削除だけの変更でも実行し、削除したファイルを参照する箇所を検出する。
   - repo: local
     hooks:
-      - id: eslint
-        name: ESLint
+      - id: mise-task-docs
+        name: Sync task docs into README.md
         language: system
-        # npx --no-install は Windows でも動く (./node_modules/.bin/eslint は非対応)。
-        # --max-warnings 0 は package.json の lint スクリプトと判定を揃えるため
-        entry: npx --no-install eslint --max-warnings 0
-        files: \.(ts|tsx|astro)$|^[^/]+\.mjs$
-      - id: dprint
-        name: dprint
-        # dprint は mise 管理 (mise.toml の [tools])。バージョン更新は Renovate の mise manager が担う。
-        # --allow-no-files: 渡されたファイルがすべて dprint.json の excludes 対象のとき
-        # exit 14 (No files found) で失敗しないようにする
-        language: system
-        entry: mise exec -- dprint fmt --allow-no-files
-        files: \.(ts|tsx|astro|js|mjs|css|json|md|toml|ya?ml|svg)$
-      - id: typecheck
-        name: typecheck
-        language: system
-        entry: npm run typecheck
-        files: \.(ts|tsx|astro)$
+        entry: mise run docs
+        files: ^(mise\.toml|README\.md)$
         pass_filenames: false
+        stages: [pre-commit]
+      - id: typos
+        name: Check spelling with typos
+        language: system
+        # typos はファイル名を明示的に渡されると、_typos.toml の除外を適用しない。
+        entry: mise exec -- typos
+        pass_filenames: false
+      - id: actionlint
+        name: Lint GitHub Actions workflows with actionlint
+        language: system
+        entry: mise exec -- actionlint
+        types: [yaml]
+        files: ^\.github/workflows/
+      - id: zizmor
+        name: Audit GitHub Actions workflows with zizmor
+        language: system
+        # --offline: リリース情報の解決に GitHub API を使わせない。
+        entry: mise exec -- zizmor --offline .github/workflows
+        files: ^\.github/workflows/.*\.ya?ml$
+        pass_filenames: false
+      - id: dprint-fmt
+        name: Format json/jsonc/yaml/markdown/toml with dprint
+        language: system
+        # 渡されたファイルがすべて除外対象でも、No files found (exit 14) で失敗させない。
+        entry: mise exec -- dprint fmt --allow-no-files
+        types_or: [json, jsonc, yaml, markdown, toml]
+        stages: [pre-commit]
+      - id: dprint-check
+        name: Check formatting of json/jsonc/yaml/markdown/toml with dprint
+        language: system
+        # dprint.json だけを変えた push でも、既存のファイルに新しい設定を当てて検査する。
+        entry: mise exec -- dprint check --allow-no-files
+        types_or: [json, jsonc, yaml, markdown, toml]
+        pass_filenames: false
+        stages: [pre-push]
+      - id: format
+        name: Format sources with mise run format
+        language: system
+        entry: mise run format
+        files: \.(ts|tsx|js|mjs|astro|css)$|^(biome\.jsonc|package\.json)$
+        pass_filenames: false
+        stages: [pre-commit]
+      # Biome と TypeScript の設定 (biome.jsonc・tsconfig.json) だけの変更でも実行する。
+      - id: check
+        name: Type-check, lint and check formatting with mise run check
+        language: system
+        entry: mise run check
+        files: \.(ts|tsx|js|mjs|astro|css|json)$|^biome\.jsonc$
+        pass_filenames: false
+        include_deleted: true
       - id: build
-        name: build
-        # typecheck / lint では捕まらないビルド時の失敗 (Markdown 変換、OG 画像、Pagefind) を push 前に検出する
+        name: Build the site with npm run build
+        # 型検査と lint では捕まらないビルド時の失敗 (Markdown の変換・OG 画像・Pagefind) を push 前に検出する
         language: system
         entry: npm run build
         stages: [pre-push]
         pass_filenames: false
         always_run: true
-      - id: commitlint
-        name: commitlint
+      - id: gitleaks
+        name: Scan staged changes for secrets with gitleaks
         language: system
-        entry: npx --no -- commitlint --edit
-        stages: [commit-msg]
-      - id: mise-task-docs
-        name: Sync task docs into README.md
-        language: system
-        entry: mise run docs
-        files: ^mise\.toml$
+        entry: mise exec -- gitleaks git --pre-commit --redact --staged --verbose
         pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
+      # prek の language: node は依存を npm install -g で入れ、.npmrc の strict-allow-scripts が効かない。
+      # package-lock.json で固定した commitlint を使う。
+      - id: commitlint
+        name: Lint commit message with commitlint
+        language: system
+        entry: npx --no-install commitlint --edit
+        stages: [commit-msg]

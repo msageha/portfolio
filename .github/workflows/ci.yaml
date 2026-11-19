@@ -7,10 +7,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
-permissions:
-  contents: read
-  # fail-fast: 失敗した job が run 全体をキャンセルする (他の並列チェックを止める) のに必要
-  actions: write
+permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -20,18 +17,32 @@ concurrency:
 # その時点で run 全体をキャンセルする (fail-fast)。
 # チェックを追加するときはここに job を足し、呼び出される側は
 # workflow_call + fail-fast input を持つ reusable workflow として実装する。
+# 呼び出し先の GITHUB_TOKEN は呼び出し元の権限を超えられないので、
+# fail-fast の run のキャンセルに要る actions: write を呼び出し元の job でも与える。
+#
+# actionlint 1.7.12 は self-repository 構文 (`$/...`) を拒否する (rhysd/actionlint#711) ので、`./...` で書き、
+# zizmor の self-repository の指摘を ignore する。actionlint が対応したら `$/` に置き換えて ignore を外す。
 jobs:
   verify:
-    uses: ./.github/workflows/verify.yaml
+    uses: ./.github/workflows/verify.yaml # zizmor: ignore[self-repository]
     with:
       fail-fast: true
+    permissions:
+      contents: read
+      actions: write
 
   prek:
-    uses: ./.github/workflows/prek.yaml
+    uses: ./.github/workflows/prek.yaml # zizmor: ignore[self-repository]
     with:
       fail-fast: true
+    permissions:
+      contents: read
+      actions: write
 
   gitleaks:
-    uses: ./.github/workflows/gitleaks.yaml
+    uses: ./.github/workflows/gitleaks.yaml # zizmor: ignore[self-repository]
     with:
       fail-fast: true
+    permissions:
+      contents: read
+      actions: write
