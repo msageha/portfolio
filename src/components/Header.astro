@@ -6,19 +6,33 @@ const NAV_LINKS = [
   { label: "Blog", href: "/blog/" },
   { label: "Tools", href: WEBTOOLS_URL },
 ];
+
+const { pathname } = Astro.url;
+// リンク先そのもののページは "page"、ブログの記事・タグのページのように配下にいるときは "true" で現在の場所を示す
+const currentOf = (href: string) => {
+  if (pathname === href) {
+    return "page";
+  }
+  return href !== "/" && pathname.startsWith(href) ? "true" : undefined;
+};
 ---
 
 <header
-  class="fixed top-0 right-0 left-0 z-50 border-b border-gray-800 bg-gray-900/80 backdrop-blur-sm"
+  class="fixed top-0 right-0 left-0 z-50 border-b border-gray-800 bg-gray-900/95 backdrop-blur-sm"
 >
   <nav
     aria-label="サイト"
-    class="container mx-auto flex h-header items-center justify-between px-4"
+    class="container mx-auto flex h-header items-center justify-between gap-4 px-4"
   >
-    <a href="/" class="text-gradient text-xl font-bold">{AUTHOR.name}</a>
-    <div class="flex gap-6">
+    {/* 狭い画面で文字を拡大したときは、ナビゲーションを残してサイト名を省略表示する */}
+    <a href="/" class="text-gradient min-w-0 truncate text-xl font-bold">{AUTHOR.name}</a>
+    <div class="flex shrink-0 gap-4 sm:gap-6">
       {NAV_LINKS.map((link) => (
-        <a href={link.href} class="text-gray-300 transition-colors hover:text-white">
+        <a
+          href={link.href}
+          aria-current={currentOf(link.href)}
+          class="relative py-1 text-gray-300 transition-colors hover:text-white aria-[current]:text-white aria-[current]:after:absolute aria-[current]:after:inset-x-0 aria-[current]:after:-bottom-0.5 aria-[current]:after:h-0.5 aria-[current]:after:rounded-full aria-[current]:after:bg-linear-to-r aria-[current]:after:from-pink-500 aria-[current]:after:to-violet-500 forced-colors:aria-[current]:underline forced-colors:aria-[current]:underline-offset-4"
+        >
           {link.label}
         </a>
       ))}

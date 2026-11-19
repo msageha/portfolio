@@ -54,7 +54,7 @@ const minDepth = Math.min(...items.map((heading) => heading.depth));
           <li class="relative" style={`padding-left: ${(heading.depth - minDepth) * INDENT_PX}px`}>
             <a
               href={`#${heading.slug}`}
-              class="block py-1.5 pl-2 text-sm leading-snug text-gray-400 transition-colors duration-150 hover:text-pink-300 aria-[current]:font-medium aria-[current]:text-pink-400 aria-[current]:before:absolute aria-[current]:before:top-0 aria-[current]:before:bottom-0 aria-[current]:before:left-0 aria-[current]:before:w-0.5 aria-[current]:before:rounded-full aria-[current]:before:bg-pink-400"
+              class="block py-1.5 pl-2 text-sm leading-snug focus-visible:-outline-offset-2 text-gray-400 transition-colors duration-150 hover:text-pink-300 aria-[current]:font-medium aria-[current]:text-pink-400 aria-[current]:before:absolute aria-[current]:before:top-0 aria-[current]:before:bottom-0 aria-[current]:before:left-0 aria-[current]:before:w-0.5 aria-[current]:before:rounded-full aria-[current]:before:bg-pink-400"
               data-toc-link
             >
               {heading.text}
@@ -93,11 +93,14 @@ if (toc) {
     link.addEventListener("click", () => setMobileOpen(false));
   }
 
-  // アンカーで移った見出しが確実に通過済みになるよう、scroll-margin-top に足す余裕 (px)
+  // アンカーで移った見出しが確実に通過済みになるよう、遷移のオフセットに足す余裕 (px)
   const ACTIVE_OFFSET_PX = 8;
-  // 見出しのアンカー遷移と同じオフセット (scroll-margin-top) を基準に、上端を通過した最後の見出しを active にする
+  // 見出しのアンカー遷移と同じオフセット (ページの scroll-padding-top と見出しの scroll-margin-top の和) を基準に、
+  // 上端を通過した最後の見出しを active にする
   const threshold = headings[0]
-    ? Number.parseFloat(getComputedStyle(headings[0]).scrollMarginTop) + ACTIVE_OFFSET_PX
+    ? Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) +
+      Number.parseFloat(getComputedStyle(headings[0]).scrollMarginTop) +
+      ACTIVE_OFFSET_PX
     : 0;
   let scheduled = false;
   const updateActive = () => {
