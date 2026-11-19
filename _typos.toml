@@ -1,0 +1,3 @@
+# checksum を単語と誤検知するので、lock ファイルは除外する。
+[files]
+extend-exclude = ["*.lock", "package-lock.json"]

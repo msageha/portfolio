@@ -1,6 +1,7 @@
 ---
 import Reveal from "./Reveal.astro";
-import { type Tone, TONES } from "./tone";
+import { REVEAL_DELAY_MS } from "./revealDelay";
+import { TONES, type Tone } from "./tone";
 
 interface Props {
   id: string;
@@ -17,11 +18,8 @@ const { id, title, tone, class: className } = Astro.props;
   aria-labelledby={`${id}-title`}
   class:list={[TONES[tone].bg, TONES[tone].text, className]}
 >
-  <Reveal delay={300}>
-    <h2
-      id={`${id}-title`}
-      class="mb-10 text-center text-3xl font-bold md:text-5xl lg:text-6xl"
-    >
+  <Reveal delay={REVEAL_DELAY_MS.heading}>
+    <h2 id={`${id}-title`} class="mb-10 text-center text-3xl font-bold md:text-5xl lg:text-6xl">
       {title}
     </h2>
   </Reveal>

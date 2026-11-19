@@ -1,5 +1,6 @@
 import rss from "@astrojs/rss";
 import type { APIRoute } from "astro";
+
 import { BLOG, SITE_URL } from "../data/site";
 import { getSortedPosts, postPath } from "../lib/posts";
 

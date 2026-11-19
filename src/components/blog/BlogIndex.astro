@@ -2,8 +2,9 @@
 import { BLOG } from "../../data/site";
 import { type Post, tagPath } from "../../lib/posts";
 import Reveal from "../Reveal.astro";
+import { REVEAL_DELAY_MS } from "../revealDelay";
 import PostCard from "./PostCard.astro";
-import Search from "./Search";
+import { Search } from "./Search";
 
 interface Props {
   posts: Post[];
@@ -12,6 +13,10 @@ interface Props {
 }
 
 const { posts, tags, activeTag } = Astro.props;
+
+// 記事の一覧は上から順に少しずつ遅らせて現れ、POST_STAGGER_COUNT 件目より後は同時に現れる
+const POST_STAGGER_MS = 100;
+const POST_STAGGER_COUNT = 5;
 
 const filters = [
   { label: "すべて", href: "/blog/", active: activeTag === undefined },
@@ -23,7 +28,7 @@ const filters = [
 ];
 ---
 
-<Reveal delay={300}>
+<Reveal delay={REVEAL_DELAY_MS.heading}>
   <div class="mb-16 text-center">
     <h1 class="mb-4 text-4xl font-extrabold md:text-6xl lg:text-7xl">
       <span class="text-gradient">{activeTag ? `#${activeTag}` : "Blog"}</span>
@@ -38,11 +43,8 @@ const filters = [
   <Search />
 </div>
 
-<Reveal delay={600}>
-  <nav
-    aria-label="タグで絞り込む"
-    class="mb-12 flex flex-wrap justify-center gap-2"
-  >
+<Reveal delay={REVEAL_DELAY_MS.content}>
+  <nav aria-label="タグで絞り込む" class="mb-12 flex flex-wrap justify-center gap-2">
     {filters.map((filter) => (
       <a
         href={filter.href}
@@ -62,12 +64,12 @@ const filters = [
 
 <div class="mx-auto grid max-w-4xl gap-6">
   {posts.map((post, index) => (
-    <Reveal delay={Math.min(index, 5) * 100}>
+    <Reveal delay={Math.min(index, POST_STAGGER_COUNT) * POST_STAGGER_MS}>
       <PostCard post={post} />
     </Reveal>
   ))}
 </div>
 
 <script>
-import "./Search.client";
+import "./search.client";
 </script>

@@ -1,6 +1,6 @@
 ---
 // 隣接するセクションの境界に置く波形。上の色を背景に、下の色の波を重ねる
-import { type Tone, TONES } from "./tone";
+import { TONES, type Tone } from "./tone";
 
 interface Props {
   from: Tone;
@@ -14,8 +14,7 @@ const { from, to } = Astro.props;
 const VIEW = { x: 0, y: 24, width: 150, height: 28 };
 const PATH = { x: -160, width: 352, offsetX: 48 };
 const DRIFT = { from: -90, to: 85 };
-const WAVE_PATH =
-  "M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z";
+const WAVE_PATH = "M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z";
 const LAYERS = [
   { y: 0, opacity: 0.5, duration: "9s", delay: "-2s" },
   { y: 3, opacity: 0.3, duration: "12s", delay: "-3s" },
@@ -23,7 +22,8 @@ const LAYERS = [
   { y: 7, opacity: 1, duration: "22s", delay: "-5s" },
 ];
 
-const percent = (value: number, base: number) => `${(value / base) * 100}%`;
+const PERCENT = 100;
+const percent = (value: number, base: number) => `${(value / base) * PERCENT}%`;
 
 // SVG の要素 (<svg> 自体を含む) の transform アニメーションは Chrome では compositor で処理されず、
 // 毎フレーム style の再計算と描画が走る。層ごとに path 全体を覆う <div> を置いてその <div> を動かす。

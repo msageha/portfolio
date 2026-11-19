@@ -1,11 +1,16 @@
 import satori from "satori";
 import sharp from "sharp";
+
 import { AUTHOR } from "../data/site";
+
+// これより長い題は、1 行に収まる文字を増やすため小さい文字で描く
+const LONG_TITLE_LENGTH = 40;
 
 // satori は woff2 非対応のため、単一ファイルで取得できる OTF をビルド時にダウンロードする。
 // 描画結果が外部の更新で変わらないよう release tag で固定する。
 // jsDelivr の GitHub 配信は noto-cjk のファイルを 404 で返すため、GitHub から直接取得する
-const FONT_URL = "https://raw.githubusercontent.com/notofonts/noto-cjk/Sans2.004/Sans/SubsetOTF/JP/NotoSansJP-Bold.otf";
+const FONT_URL =
+  "https://raw.githubusercontent.com/notofonts/noto-cjk/Sans2.004/Sans/SubsetOTF/JP/NotoSansJP-Bold.otf";
 
 let fontPromise: Promise<ArrayBuffer> | undefined;
 
@@ -47,7 +52,7 @@ export async function ogImageResponse(title: string, subtitle: string): Promise<
       <div
         style={{
           display: "flex",
-          fontSize: title.length > 40 ? "48px" : "56px",
+          fontSize: title.length > LONG_TITLE_LENGTH ? "48px" : "56px",
           fontWeight: 700,
           lineHeight: 1.45,
           letterSpacing: "-0.02em",
@@ -58,7 +63,9 @@ export async function ogImageResponse(title: string, subtitle: string): Promise<
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div style={{ display: "flex", fontSize: "30px" }}>{subtitle}</div>
-        <div style={{ display: "flex", fontSize: "30px", fontWeight: 700, ...gradientText }}>{AUTHOR.name}</div>
+        <div style={{ display: "flex", fontSize: "30px", fontWeight: 700, ...gradientText }}>
+          {AUTHOR.name}
+        </div>
       </div>
     </div>,
     {

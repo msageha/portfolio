@@ -13,22 +13,32 @@ const wbr: HastContent = { type: "element", tagName: "wbr", properties: {}, chil
 export const budouxHastPlugin = defineHastPlugin({
   name: "budoux",
   text(node, ctx) {
-    if (!node.value.trim()) return;
+    if (!node.value.trim()) {
+      return;
+    }
 
     let inTarget = false;
     for (let parent = ctx.parent(node); parent?.type === "element"; parent = ctx.parent(parent)) {
-      if (SKIP_TAGS.has(parent.tagName)) return;
-      if (TARGET_TAGS.has(parent.tagName)) inTarget = true;
+      if (SKIP_TAGS.has(parent.tagName)) {
+        return;
+      }
+      if (TARGET_TAGS.has(parent.tagName)) {
+        inTarget = true;
+      }
     }
-    if (!inTarget) return;
+    if (!inTarget) {
+      return;
+    }
 
     const chunks = parser.parse(node.value);
-    if (chunks.length <= 1) return;
+    if (chunks.length <= 1) {
+      return;
+    }
 
     ctx.replaceNode(
       node,
       chunks.flatMap((chunk, index): HastContent[] =>
-        index === 0 ? [{ type: "text", value: chunk }] : [wbr, { type: "text", value: chunk }]
+        index === 0 ? [{ type: "text", value: chunk }] : [wbr, { type: "text", value: chunk }],
       ),
     );
   },

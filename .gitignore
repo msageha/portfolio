@@ -13,14 +13,17 @@
 !/src/
 !/src/**
 
+!/.editorconfig
+!/.gitattributes
 !/.gitignore
 !/.node-version
 !/.npmrc
 !/README.md
+!/_typos.toml
 !/astro.config.mjs
+!/biome.jsonc
 !/commitlint.config.js
 !/dprint.json
-!/eslint.config.mjs
 !/mise.lock
 !/mise.toml
 !/package-lock.json

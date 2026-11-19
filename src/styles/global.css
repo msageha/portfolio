@@ -6,13 +6,9 @@
 }
 
 @utility text-gradient {
-  background-image: linear-gradient(
-    to right,
-    var(--color-pink-500),
-    var(--color-violet-500)
-  );
-  background-clip: text;
   color: transparent;
+  background-image: linear-gradient(to right, var(--color-pink-500), var(--color-violet-500));
+  background-clip: text;
 }
 
 html {
@@ -54,14 +50,15 @@ html {
   }
 }
 
+/* biome-ignore-start lint/complexity/noImportantStyles: 視差効果を減らす設定では、詳細度や inline の指定によらずアニメーションを止める。 */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
   .reveal,
   .fade-in {
@@ -69,3 +66,4 @@ html {
     animation: none !important;
   }
 }
+/* biome-ignore-end lint/complexity/noImportantStyles: 範囲の終わり。 */

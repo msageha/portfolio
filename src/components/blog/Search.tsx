@@ -1,6 +1,6 @@
 // マークアップだけを持ち、ビルド時に静的な HTML として出力する (client:* を付けない)。
-// 入力・検索・開閉の処理は Search.client.ts が data-search-* 属性の要素を操作して行う
-export default function Search() {
+// 入力・検索・開閉の処理は search.client.ts が data-search-* 属性の要素を操作して行う
+export function Search() {
   return (
     <div className="relative w-full" data-search>
       <div className="relative">
@@ -12,8 +12,15 @@ export default function Search() {
           data-search-input
         />
         <div className="absolute top-1/2 right-3 -translate-y-1/2 text-xs text-gray-400">
-          <span className="animate-pulse" hidden data-search-indicator="loading">検索中...</span>
-          <kbd className="rounded bg-gray-700 px-2 py-1 text-xs text-gray-300" data-search-indicator="idle">ESC</kbd>
+          <span className="animate-pulse" hidden data-search-indicator="loading">
+            検索中...
+          </span>
+          <kbd
+            className="rounded bg-gray-700 px-2 py-1 text-xs text-gray-300"
+            data-search-indicator="idle"
+          >
+            ESC
+          </kbd>
         </div>
       </div>
 
@@ -39,11 +46,15 @@ export default function Search() {
 
       <template data-search-result>
         <li className="border-b border-gray-700 last:border-0">
+          {/* biome-ignore lint/a11y/useValidAnchor: href は search.client.ts が検索結果の URL を設定する。 */}
           <a
             className="block px-4 py-3 transition-colors hover:bg-gray-700 focus:bg-gray-700 focus:outline-none"
             data-search-result-link
           >
-            <span className="mb-1 block text-base font-semibold text-white" data-search-result-title />
+            <span
+              className="mb-1 block text-base font-semibold text-white"
+              data-search-result-title
+            />
             <p
               className="line-clamp-2 text-sm text-gray-300 [&_mark]:rounded [&_mark]:bg-pink-500/30 [&_mark]:px-1 [&_mark]:text-pink-200"
               data-search-result-excerpt

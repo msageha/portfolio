@@ -40,7 +40,8 @@ export const PAPERS: Paper[] = [
   {
     title: "Monitoring Geographical Entities with Temporal Awareness in Tweets",
     authors: ["Koji Matsuda", "Mizuki Sango", "Naoaki Okazaki", "Kentaro Inui"],
-    venue: "International Conference on Computational Linguistics and Intelligent Text Processing (CICLing 2017)",
+    venue:
+      "International Conference on Computational Linguistics and Intelligent Text Processing (CICLing 2017)",
   },
   {
     title: "ツイート中の地理情報に対する時間的極性の自動推定",

@@ -9,11 +9,38 @@ actionlint = "1.7.12"
 # CI (runner 同梱版) とローカル (未設定の mise shim を拾うと actionlint ごと失敗する) を同じ版に揃える
 shellcheck = "0.11.0"
 dprint = "0.64.3"
+typos = "1.52.2"
+zizmor = "1.32.0"
+gitleaks = "8.30.1"
 wrangler = "4.158.0"
 
 [tasks.install]
 description = "Install npm dependencies"
 run = "npm ci"
+
+[tasks.check]
+description = "Type-check, lint and check formatting (astro check / tsc / biome)"
+run = """
+#!/usr/bin/env bash
+status=0
+npx --no-install astro check --minimumFailingSeverity hint || status=1
+# astro check は tsconfig.json 自体の誤り (未知のオプションなど) を報告しない。
+npx --no-install tsc --noEmit || status=1
+npx --no-install biome check --error-on-warnings ${BIOME_REPORTER:+--reporter="$BIOME_REPORTER"} . || status=1
+# Biome は info の診断では失敗しないので、件数を数えて失敗にする (診断の内容は上の biome check が表示する)。
+npx --no-install biome lint --reporter=json . 2>/dev/null | node -e '
+  const { infos } = JSON.parse(require("node:fs").readFileSync(0, "utf8")).summary;
+  if (infos > 0) {
+    console.error(`biome: ${infos} info diagnostic(s)`);
+    process.exit(1);
+  }
+' || status=1
+exit "$status"
+"""
+
+[tasks.format]
+description = "Format sources and sort imports and CSS properties with biome"
+run = "npx --no-install biome check --write --linter-enabled=false ."
 
 [tasks.clean]
 description = "Remove build artifacts (dist/, .astro/)"

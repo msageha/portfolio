@@ -21,6 +21,9 @@ jobs:
   prek:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    # check hook の astro check は、CI の中でも、例外で止まるとエラーの内容を telemetry.astro.build へ送る。
+    env:
+      ASTRO_TELEMETRY_DISABLED: "1"
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -49,11 +52,16 @@ jobs:
           restore-keys: |
             npm-${{ runner.os }}-
 
-      # eslint / typecheck hook が node_modules を必要とするため npm ci を先に実行する
+      # format / check hook が node_modules の biome と astro を使うため npm ci を先に実行する
       - name: Install dependencies
         run: mise exec -- npm ci
 
       - name: Run prek
+        env:
+          # biome には reporter を指定する環境変数が無いので、mise の check タスクが読んで --reporter に渡す。
+          BIOME_REPORTER: github
+          # gitleaks hook は index の staged の変更だけを走査し、checkout しただけの CI では何も検査しない。履歴は gitleaks.yaml が走査する。
+          SKIP: gitleaks
         run: mise exec -- prek run --all-files
 
       # fail-fast: run 全体をキャンセルして並列で走る他のチェックを止める。
