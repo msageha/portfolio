@@ -12,7 +12,7 @@
 - **UI**: Astro + React 19 (TSX はビルド時に静的な HTML として出力し、ブラウザでの処理は素の TypeScript で書く) + Tailwind CSS 4
 - **コンテンツ**: Markdown (Astro Content Collections, `content/blog/`)
 - **検索**: [Pagefind](https://pagefind.app/) (ビルド時に静的インデックスを生成)
-- **日本語改行**: [BudouX](https://github.com/google/budoux) (ビルド時に Markdown の文節境界へ `<wbr>` を挿入する Sätteri plugin。`src/lib/budoux-hast-plugin.ts`)
+- **日本語改行**: [BudouX](https://github.com/google/budoux) (ビルド時に Markdown の文節境界へ `<wbr>` を挿入する Sätteri plugin。`src/lib/budouxHastPlugin.ts`)
 - **OG 画像**: [satori](https://github.com/vercel/satori) + [sharp](https://sharp.pixelplumbing.com/) でビルド時に生成 (`src/pages/og/`)
 - **RSS / sitemap**: `@astrojs/rss` と自前の `src/pages/sitemap.xml.ts` (記事の `updated` / `date` を lastmod に使う)
 - **デプロイ**: Cloudflare (Git 連携ビルド、custom domain: msageha.net)

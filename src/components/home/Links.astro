@@ -3,7 +3,7 @@ import { SOCIAL_LINKS, WEBTOOLS_URL } from "../../data/site";
 import Icon from "../Icon.astro";
 import Reveal from "../Reveal.astro";
 import { REVEAL_DELAY_MS } from "../revealDelay";
-import Section from "../Section.astro";
+import Section from "./Section.astro";
 
 const links = [
   ...SOCIAL_LINKS.map((link) => ({ ...link, external: true })),
