@@ -11,8 +11,21 @@
   background-clip: text;
 }
 
+/* 固定ヘッダーの裏に、アンカーで移った先やキーボードで focus した要素が隠れないようにする */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--spacing-header);
+}
+
+/*
+ * キーボード操作の focus の位置を、明暗どちらのセクションでも 3:1 以上のコントラストを保つ pink の線で示す。
+ * 独自の focus 表示を持つ部品が outline-hidden で打ち消せるよう、utilities より弱い base 層に置く
+ */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-pink-600);
+    outline-offset: 3px;
+  }
 }
 
 /* ビューポートに入るたびにフェードインする (Reveal.astro)。JS 無効時は最初から表示する */

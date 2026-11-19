@@ -20,11 +20,13 @@ const links = [
       {links.map((link) => (
         <a
           href={link.href}
-          class="flex flex-col items-center gap-2"
+          class="group flex flex-col items-center gap-2 text-gray-200 transition-colors hover:text-pink-300"
           target={link.external ? "_blank" : undefined}
           rel={link.external ? "noopener noreferrer" : undefined}
         >
-          <Icon name={link.icon} size={64} />
+          <span class="transition-transform duration-200 group-hover:-translate-y-1">
+            <Icon name={link.icon} size={56} />
+          </span>
           <span class="text-sm md:text-base">{link.label}</span>
         </a>
       ))}

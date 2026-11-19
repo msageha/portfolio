@@ -2,6 +2,7 @@
 import { getImage } from "astro:assets";
 
 import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
 import About from "../components/home/About.astro";
 import Career from "../components/home/Career.astro";
 import Hero from "../components/home/Hero.astro";
@@ -36,6 +37,7 @@ const jsonLd = {
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </Fragment>
+  <Header />
   <main>
     <Hero />
     <Wave from="dark" to="light" />

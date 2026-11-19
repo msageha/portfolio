@@ -1,7 +1,7 @@
 /* ブログ記事本文 (Markdown から生成した HTML) のスタイル */
 
 .post-body :is(h1, h2, h3, h4, h5, h6) {
-  scroll-margin-top: calc(var(--spacing-header) + 1rem);
+  scroll-margin-top: 1rem;
 }
 
 /* 日本語はビルド時に BudouX が挿入した <wbr> (文節境界) で折り返し、行に収まらない長い語だけ任意位置で折る */
