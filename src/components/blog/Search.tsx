@@ -8,7 +8,7 @@ export function Search() {
           type="text"
           placeholder="記事を検索..."
           aria-label="記事を検索"
-          className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-3 text-white transition-all placeholder:text-gray-400 focus:border-transparent focus:ring-2 focus:ring-pink-500 focus:outline-none"
+          className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-3 text-white transition-all placeholder:text-gray-400 focus:border-transparent focus:ring-2 focus:ring-pink-500 focus:outline-hidden"
           data-search-input
         />
         <div className="absolute top-1/2 right-3 -translate-y-1/2 text-xs text-gray-400">
@@ -48,7 +48,7 @@ export function Search() {
         <li className="border-b border-gray-700 last:border-0">
           {/* biome-ignore lint/a11y/useValidAnchor: href は search.client.ts が検索結果の URL を設定する。 */}
           <a
-            className="block px-4 py-3 transition-colors hover:bg-gray-700 focus:bg-gray-700 focus:outline-none"
+            className="block px-4 py-3 transition-colors hover:bg-gray-700 focus:bg-gray-700 focus:outline-hidden"
             data-search-result-link
           >
             <span
