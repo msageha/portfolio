@@ -302,7 +302,7 @@ url = "https://github.com/crate-ci/typos/releases/download/v1.52.2/typos-v1.52.2
 url_api = "https://api.github.com/repos/crate-ci/typos/releases/assets/733790297"
 
 [[tools.wrangler]]
-version = "4.158.0"
+version = "4.162.0"
 backend = "npm:wrangler"
 
 [tools.wrangler.options]
